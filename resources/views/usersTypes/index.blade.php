@@ -22,7 +22,7 @@
                 <div class="card-body">           
 
                     <div class="text-right mb-3">
-                        <a href="{{route('usersTypes.form')}}" class="btn btn-dark width-lg">adicionar</a>
+                        <a href="{{route('usersTypes.form')}}" class="btn btn-dark width-lg">novo</a>
                     </div>
 
                     <x-table-list :list="$list"/>
