@@ -6,6 +6,8 @@ use App\Http\Requests\UsersTypesStore;
 use App\Http\Requests\UsersTypesUpdate;
 use App\Models\UsersTypes as Model;
 use App\Services\Metadata\Metadata;
+use App\Services\QueryService;
+use Illuminate\Http\Request;
 
 class UsersTypesController extends Controller
 {
@@ -15,11 +17,23 @@ class UsersTypesController extends Controller
         $this->Route = 'usersTypes';
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = [];
+        $data           = [];
+        $data['search'] = isset($request->search) ? $request->search : '';
 
-        $data['list'] = Model::where('active', '<>', 2)
+        $list = Model::query();
+
+        if (isset($request->search)) {
+            $fields = QueryService::fieldsLike('users_types');
+            $list->where(function ($q) use ($fields, $request) {
+                foreach ($fields as $column) {
+                    $q->orWhere($column, 'LIKE', "%{$request->search}%");
+                }
+            });
+        }
+
+        $data['list'] = $list->where('active', '<>', 2)
             ->orderBy('id', 'desc')
             ->get()
             ->toArray();
@@ -28,23 +42,6 @@ class UsersTypesController extends Controller
         $data['route']       = $this->Route;
 
         return view("{$this->Route}.index", $data);
-    }
-
-    public function form(int $id = null)
-    {
-        $data = ['id' => $id];
-
-        $formValues = Model::find($id);
-        if ($formValues) {
-            $formValues = $formValues->toArray();
-        } else {
-            $formValues = [];
-        }
-
-        $data['formFields'] = Metadata::formFields($this->Model->getTable(), $formValues);
-        $data['route']      = $this->Route;
-
-        return view("{$this->Route}.form", $data);
     }
 
     public function store(UsersTypesStore $request)

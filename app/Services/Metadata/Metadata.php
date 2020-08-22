@@ -10,7 +10,7 @@ class Metadata
     public static function tableFields(string $tableName): array
     {
         $className = static::createNameClass($tableName);
-        $columns   = static::describe($tableName);
+        $columns   = static::tableMetadata($tableName);
 
         $pathClass = "\App\Services\Metadata\\{$className}";
         $fields    = $pathClass::tableRules($columns);
@@ -21,7 +21,7 @@ class Metadata
     public static function formFields(string $tableName, array $formValues = []): array
     {
         $className = static::createNameClass($tableName);
-        $columns   = static::describe($tableName);
+        $columns   = static::tableMetadata($tableName);
 
         $pathClass = "\App\Services\Metadata\\{$className}";
         $fields    = $pathClass::formRules($columns, $formValues);
@@ -64,12 +64,14 @@ class Metadata
         return $fields;
     }
 
-    private static function describe(string $table): array
+    private static function tableMetadata(string $table): array
     {
-        $response = DB::select("DESCRIBE {$table};");
-        $response = static::fields($response);
+        return static::fields(static::describe($table));
+    }
 
-        return $response;
+    public static function describe(string $table): array
+    {
+        return DB::select("DESCRIBE {$table};");
     }
 
     private static function fields(array $fields): array

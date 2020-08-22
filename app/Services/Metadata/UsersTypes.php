@@ -4,7 +4,7 @@ namespace App\Services\Metadata;
 
 use App\Services\Metadata\Interfaces\RulesInterface;
 
-class UsersTypes implements RulesInterface
+abstract class UsersTypes implements RulesInterface
 {
 
     public static function tableRules(array $columns): array

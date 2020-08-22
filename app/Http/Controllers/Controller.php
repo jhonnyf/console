@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Metadata\Metadata;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -19,6 +20,23 @@ abstract class Controller extends BaseController
         if (is_null($Model) === false) {
             $this->Model = new $Model;
         }
+    }
+
+    public function form(int $id = null)
+    {
+        $data = ['id' => $id];
+
+        $formValues = $this->Model->find($id);
+        if ($formValues) {
+            $formValues = $formValues->toArray();
+        } else {
+            $formValues = [];
+        }
+
+        $data['formFields'] = Metadata::formFields($this->Model->getTable(), $formValues);
+        $data['route']      = $this->Route;
+
+        return view("{$this->Route}.form", $data);
     }
 
     public function active(int $id)
