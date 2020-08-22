@@ -28,7 +28,7 @@
                                     <i data-feather="circle" class="icon-sm"></i>    
                                 </a>
                             @endif
-                            <a href="{{route('usersTypes.delete',['id' => $row['id']])}}">
+                            <a href="{{route('usersTypes.destroy',['id' => $row['id']])}}">
                                 <i data-feather="trash-2" class="icon-sm"></i>
                             </a>
                         </td>                                            

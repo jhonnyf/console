@@ -6,10 +6,6 @@ use App\Services\Metadata\Interfaces\RulesInterface;
 
 class UsersTypes implements RulesInterface
 {
-    /**
-     * @param array $columns
-     * @return array
-     */
 
     public static function tableRules(array $columns): array
     {
@@ -23,16 +19,9 @@ class UsersTypes implements RulesInterface
         return $fields;
     }
 
-    /**
-     * @param array $columns
-     * @return array
-     */
-
-    public static function formRules(array $columns): array
+    public static function formRules(array $columns, array $formValues = []): array
     {
-        $fields = Metadata::formRulesMain($columns);
-
-        return $fields;
+        return Metadata::formRulesMain($columns, $formValues);
     }
 
 }

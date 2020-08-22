@@ -7,7 +7,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Console</a></li>
                     <li class="breadcrumb-item"><a href="{{route('usersTypes.index')}}">Tipo de usuário</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Form</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ is_null($id) ? "Novo" : "Editar" }}</li>
                 </ol>
             </nav>
             <h4 class="mb-1 mt-0">Tipo de usuário</h4>
@@ -22,7 +22,7 @@
             <div class="card">
                 <div class="card-body">           
                     
-                    <x-form-fields :formFields="$formFields" :formValues="$formValues" />
+                    <x-form-fields :formFields="$formFields" :id="$id" />
 
                 </div>
             </div>

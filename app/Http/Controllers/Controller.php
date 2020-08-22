@@ -30,7 +30,7 @@ abstract class Controller extends BaseController
         return redirect()->back();
     }
 
-    public function delete(int $id)
+    public function destroy(int $id)
     {
         $Object = $this->Model->find($id);
 

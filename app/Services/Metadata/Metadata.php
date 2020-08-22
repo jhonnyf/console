@@ -13,40 +13,42 @@ class Metadata
         $columns   = static::describe($tableName);
 
         $pathClass = "\App\Services\Metadata\\{$className}";
-        $fields    = $pathClass::formRules($columns);
+        $fields    = $pathClass::tableRules($columns);
 
         return $fields;
     }
 
-    public static function formFields(string $tableName): array
+    public static function formFields(string $tableName, array $formValues = []): array
     {
         $className = static::createNameClass($tableName);
         $columns   = static::describe($tableName);
 
         $pathClass = "\App\Services\Metadata\\{$className}";
-        $fields    = $pathClass::formRules($columns);
+        $fields    = $pathClass::formRules($columns, $formValues);
 
         return $fields;
     }
 
-    public static function formRulesMain(array $columns): array
+    public static function formRulesMain(array $columns, array $formValues = []): array
     {
         unset($columns['active']);
         unset($columns['created_at']);
         unset($columns['updated_at']);
 
-        $columns = static::formatFields($columns);
+        $columns = static::formatFields($columns, $formValues);
 
         return $columns;
     }
 
-    public static function formatFields(array $columns): array
+    public static function formatFields(array $columns, array $formValues = []): array
     {
         $fields = [];
 
         $text = ['varchar', 'char'];
 
         foreach ($columns as $column) {
+
+            $value = isset($formValues[$column['name']]) ? $formValues[$column['name']] : '';
 
             if ($column['key'] === 'pri') {
                 $type = 'hidden';
@@ -56,7 +58,7 @@ class Metadata
                 exit('Tipo não definido');
             }
 
-            $fields[] = ['name' => $column['name'], 'type' => $type, 'max_length' => $column['max_length']];
+            $fields[] = ['name' => $column['name'], 'type' => $type, 'max_length' => $column['max_length'], 'value' => $value];
         }
 
         return $fields;

@@ -7,12 +7,12 @@ use Illuminate\View\Component;
 class FormFields extends Component
 {
     public $formFields;
-    public $formValues;
+    public $id;
 
-    public function __construct($formFields, $formValues)
+    public function __construct($formFields, $id)
     {
         $this->formFields = $formFields;
-        $this->formValues = $formValues;
+        $this->id         = $id;
     }
 
     public function render()

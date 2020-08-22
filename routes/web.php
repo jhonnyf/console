@@ -17,9 +17,11 @@ Route::group([], function () {
     Route::get('', 'DashboardController@index')->name('dashboard');
 
     Route::group(['prefix' => 'user-type'], function () {
-        Route::get('', 'UsersTypesController@index')->name('usersTypes.index');
         Route::get('form/{id?}', 'UsersTypesController@form')->name('usersTypes.form');
         Route::get('active/{id}', 'UsersTypesController@active')->name('usersTypes.active');
-        Route::get('delete/{id}', 'UsersTypesController@delete')->name('usersTypes.delete');
+        Route::get('destroy/{id}', 'UsersTypesController@destroy')->name('usersTypes.destroy');
+        Route::get('', 'UsersTypesController@index')->name('usersTypes.index');
+        Route::post('', 'UsersTypesController@store')->name('usersTypes.store');
+        Route::put('{id}', 'UsersTypesController@update')->name('usersTypes.update');
     });
 });
