@@ -25,7 +25,7 @@
                         <a href="{{route('usersTypes.form')}}" class="btn btn-dark width-lg">novo</a>
                     </div>
 
-                    <x-table-list :list="$list"/>
+                    <x-table-list :tableFields="$tableFields" :list="$list"/>
                     
                 </div>
             </div>

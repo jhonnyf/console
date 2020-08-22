@@ -11,4 +11,30 @@ abstract class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    protected $Model;
+
+    public function __construct($Model)
+    {
+        $this->Model = new $Model;
+    }
+
+    public function active(int $id)
+    {
+        $Object = $this->Model->find($id);
+
+        $Object->active = $Object->active === 1 ? 0 : 1;
+        $Object->save();
+
+        return redirect()->back();
+    }
+
+    public function delete(int $id)
+    {
+        $Object = $this->Model->find($id);
+
+        $Object->active = 2;
+        $Object->save();
+
+        return redirect()->back();
+    }
 }

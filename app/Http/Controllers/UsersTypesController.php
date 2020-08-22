@@ -3,17 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\UsersTypes as Model;
-use App\Services\DbMetadataService;
-use App\Services\TableListService;
-use Illuminate\Support\Facades\DB;
+use App\Services\Metadata\Metadata;
 
 class UsersTypesController extends Controller
 {
-    private $Model;
-
     public function __construct()
     {
-        $this->Model = new Model;
+        parent::__construct(Model::class);
     }
 
     public function index()
@@ -22,9 +18,9 @@ class UsersTypesController extends Controller
 
         $data['list'] = Model::where('active', '<>', 2)
             ->orderBy('id', 'desc')
-            ->get();
+            ->get()->toArray();
 
-        $data['tableColumns'] = TableListService::getTableFields($this->Model->getTable());
+        $data['tableFields'] = Metadata::tableFields($this->Model->getTable());
 
         return view('usersTypes.index', $data);
     }
@@ -33,15 +29,8 @@ class UsersTypesController extends Controller
     {
         $data = [];
 
-        $data['tableMetaData'] = $this->getTableMetadata();
+        $data['formFields'] = Metadata::formFields($this->Model->getTable());
 
         return view('usersTypes.form', $data);
-    }
-
-    private function getTableMetadata()
-    {
-        $fields = DB::select('DESCRIBE ' . $this->Model->getTable());
-
-        return DbMetadataService::fields($fields);
     }
 }
