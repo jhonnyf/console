@@ -22,6 +22,8 @@
             <div class="card">
                 <div class="card-body">           
                     
+                    <x-form-fields :formFields="$formFields" :formValues="$formValues" />
+
                 </div>
             </div>
 

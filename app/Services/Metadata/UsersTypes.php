@@ -30,12 +30,7 @@ class UsersTypes implements RulesInterface
 
     public static function formRules(array $columns): array
     {
-        $fields = [];
-
-        foreach ($columns as $column) {
-
-            $fields[] = $column;
-        }
+        $fields = Metadata::formRulesMain($columns);
 
         return $fields;
     }

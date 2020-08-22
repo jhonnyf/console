@@ -18,17 +18,19 @@ class UsersTypesController extends Controller
 
         $data['list'] = Model::where('active', '<>', 2)
             ->orderBy('id', 'desc')
-            ->get()->toArray();
+            ->get()
+            ->toArray();
 
         $data['tableFields'] = Metadata::tableFields($this->Model->getTable());
 
         return view('usersTypes.index', $data);
     }
 
-    public function form()
+    public function form(int $id = null)
     {
         $data = [];
 
+        $data['formValues'] = Model::find($id)->toArray();
         $data['formFields'] = Metadata::formFields($this->Model->getTable());
 
         return view('usersTypes.form', $data);

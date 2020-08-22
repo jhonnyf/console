@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class TableList extends Component
+class TableFields extends Component
 {
     public $list;
     public $tableFields;
@@ -17,6 +17,6 @@ class TableList extends Component
 
     public function render()
     {
-        return view('components.table-list');
+        return view('components.table-fields');
     }
 }

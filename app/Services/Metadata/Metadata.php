@@ -6,11 +6,6 @@ use Illuminate\Support\Facades\DB;
 
 class Metadata
 {
-    /**
-     *
-     * @param string $tableName
-     * @return array
-     */
 
     public static function tableFields(string $tableName): array
     {
@@ -23,12 +18,6 @@ class Metadata
         return $fields;
     }
 
-    /**
-     *
-     * @param string $tableName
-     * @return array
-     */
-
     public static function formFields(string $tableName): array
     {
         $className = static::createNameClass($tableName);
@@ -40,11 +29,38 @@ class Metadata
         return $fields;
     }
 
-    /**
-     *
-     * @param string $table
-     * @return array
-     */
+    public static function formRulesMain(array $columns): array
+    {
+        unset($columns['active']);
+        unset($columns['created_at']);
+        unset($columns['updated_at']);
+
+        $columns = static::formatFields($columns);
+
+        return $columns;
+    }
+
+    public static function formatFields(array $columns): array
+    {
+        $fields = [];
+
+        $text = ['varchar', 'char'];
+
+        foreach ($columns as $column) {
+
+            if ($column['key'] === 'pri') {
+                $type = 'hidden';
+            } elseif (in_array($column['type'], $text)) {
+                $type = 'text';
+            } else {
+                exit('Tipo não definido');
+            }
+
+            $fields[] = ['name' => $column['name'], 'type' => $type, 'max_length' => $column['max_length']];
+        }
+
+        return $fields;
+    }
 
     private static function describe(string $table): array
     {
@@ -54,15 +70,9 @@ class Metadata
         return $response;
     }
 
-    /**
-     *
-     * @param array $fields
-     * @return array
-     */
-
     private static function fields(array $fields): array
     {
-        foreach ($fields as $key => $field) {
+        foreach ($fields as $field) {
 
             $max_length   = null;
             $position_int = strpos($field->Type, "(");
@@ -74,20 +84,14 @@ class Metadata
                 $max_length = str_replace(')', '', $max_length);
             }
 
-            $metadata[$key]['name']       = $field->Field;
-            $metadata[$key]['type']       = $position_int === false ? $field->Type : substr($field->Type, 0, $position_int);
-            $metadata[$key]['max_length'] = trim($max_length);
-            $metadata[$key]['key']        = strtolower($field->Key);
+            $metadata[$field->Field]['name']       = $field->Field;
+            $metadata[$field->Field]['type']       = $position_int === false ? $field->Type : substr($field->Type, 0, $position_int);
+            $metadata[$field->Field]['max_length'] = trim($max_length);
+            $metadata[$field->Field]['key']        = strtolower($field->Key);
         }
 
         return $metadata;
     }
-
-    /**
-     *
-     * @param string $tableName
-     * @return string
-     */
 
     private static function createNameClass(string $tableName): string
     {
@@ -97,4 +101,5 @@ class Metadata
 
         return $className;
     }
+
 }

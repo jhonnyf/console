@@ -13,9 +13,11 @@ abstract class Controller extends BaseController
 
     protected $Model;
 
-    public function __construct($Model)
+    public function __construct($Model = null)
     {
-        $this->Model = new $Model;
+        if (is_null($Model) === false) {
+            $this->Model = new $Model;
+        }
     }
 
     public function active(int $id)
