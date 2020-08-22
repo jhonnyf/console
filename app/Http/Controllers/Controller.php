@@ -12,6 +12,7 @@ abstract class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     protected $Model;
+    protected $Route;
 
     public function __construct($Model = null)
     {

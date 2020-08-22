@@ -1,7 +1,7 @@
 @php
-    $action = route('usersTypes.store');
+    $action = route("{$route}.store");
     if(is_null($id) === false){
-        $action = route('usersTypes.update', ['id' => $id]);    
+        $action = route("{$route}.update", ['id' => $id]);    
     }
 @endphp
 
@@ -40,7 +40,7 @@
             @endforeach   
             
             <div class="text-right">
-                <a href="{{route('usersTypes.index')}}" class="btn btn-primary">Voltar</a>
+                <a href="{{route("{$route}.index")}}" class="btn btn-primary">Voltar</a>
                 <button type="submit" class="btn btn-primary">Salvar</button>
             </div>
         </div>

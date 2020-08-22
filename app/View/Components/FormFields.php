@@ -8,11 +8,13 @@ class FormFields extends Component
 {
     public $formFields;
     public $id;
+    public $route;
 
-    public function __construct($formFields, $id)
+    public function __construct($formFields, $id, $route)
     {
         $this->formFields = $formFields;
         $this->id         = $id;
+        $this->route      = $route;
     }
 
     public function render()
