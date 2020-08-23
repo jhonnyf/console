@@ -21,10 +21,10 @@ class CreateUsers extends Migration
             $table->unsignedBigInteger('user_type_id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('password');            
+            $table->string('password')->nullable();
             $table->string('document')->unique();
-            $table->string('phone');
-            $table->string('cellphone');
+            $table->string('phone', 15)->nullable();
+            $table->string('cellphone', 15)->nullable();
             $table->timestamps();
 
             $table->foreign('user_type_id')->references('id')->on('users_types');

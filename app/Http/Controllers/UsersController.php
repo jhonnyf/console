@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UsersTypesStore;
-use App\Http\Requests\UsersTypesUpdate;
+use App\Http\Requests\UsersStore;
+use App\Http\Requests\UsersUpdate;
 use App\Models\Users as Model;
 use App\Services\Metadata\Metadata;
 use App\Services\QueryService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
     public function __construct()
     {
         parent::__construct(Model::class);
-        $this->Route = 'usersTypes';
+        $this->Route = 'users';
     }
 
     public function index(Request $request)
@@ -25,7 +26,7 @@ class UsersController extends Controller
         $list = Model::query();
 
         if (isset($request->search)) {
-            $fields = QueryService::fieldsLike('users_types');
+            $fields = QueryService::fieldsLike('users');
             $list->where(function ($q) use ($fields, $request) {
                 foreach ($fields as $column) {
                     $q->orWhere($column, 'LIKE', "%{$request->search}%");
@@ -44,16 +45,32 @@ class UsersController extends Controller
         return view("{$this->Route}.index", $data);
     }
 
-    public function store(UsersTypesStore $request)
+    public function store(UsersStore $request)
     {
-        $response = Model::create($request->all());
+        $create = $request->all();
+
+        if (empty($create['password']) === false) {
+            $create['password'] = Hash::make($create['password']);
+        } else {
+            unset($create['password']);
+        }
+
+        $response = Model::create($create);
 
         return redirect()->route("{$this->Route}.form", ['id' => $response->id]);
     }
 
-    public function update(int $id, UsersTypesUpdate $request)
+    public function update(int $id, UsersUpdate $request)
     {
-        Model::find($id)->fill($request->all())->save();
+        $fill = $request->all();
+
+        if (empty($fill['password']) === false) {
+            $fill['password'] = Hash::make($fill['password']);
+        } else {
+            unset($fill['password']);
+        }
+
+        Model::find($id)->fill($fill)->save();
 
         return redirect()->route("{$this->Route}.form", ['id' => $id]);
     }

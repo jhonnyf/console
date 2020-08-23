@@ -13,7 +13,7 @@ class UsersSeeder extends Seeder
             'name'         => 'Root',
             'email'        => 'root@seven.com',
             'password'     => Hash::make('123123'),
-            'document'     => 'root@seven.com',
+            'document'     => '',
             'phone'        => '',
             'cellphone'    => '',
             'created_at'   => date('Y-m-d H:i:s'),
