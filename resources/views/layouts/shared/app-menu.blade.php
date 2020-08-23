@@ -18,6 +18,7 @@
 
         <ul class="nav-second-level" aria-expanded="false">
             <li>
+                <a href="<?=route('users.index')?>">Usuário</a>
                 <a href="<?=route('usersTypes.index')?>">Tipo de usuário</a>
             </li>
         </ul>

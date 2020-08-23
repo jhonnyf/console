@@ -9,10 +9,10 @@ class Metadata
 
     public static function tableFields(string $tableName): array
     {
-        $className = static::createNameClass($tableName);
         $columns   = static::tableMetadata($tableName);
+        $className = static::createNameClass($tableName);
 
-        $pathClass = "\App\Services\Metadata\\{$className}";
+        $pathClass = static::checkClass($className);
         $fields    = $pathClass::tableRules($columns);
 
         return $fields;
@@ -20,13 +20,23 @@ class Metadata
 
     public static function formFields(string $tableName, array $formValues = []): array
     {
-        $className = static::createNameClass($tableName);
         $columns   = static::tableMetadata($tableName);
+        $className = static::createNameClass($tableName);
 
-        $pathClass = "\App\Services\Metadata\\{$className}";
+        $pathClass = static::checkClass($className);
         $fields    = $pathClass::formRules($columns, $formValues);
 
         return $fields;
+    }
+
+    public static function checkClass(string $className): string
+    {
+        $path = "\App\Services\Metadata\Master";
+        if (file_exists(app_path("Services/Metadata/{$className}.php"))) {
+            $path = "\App\Services\Metadata\\{$className}";
+        }
+
+        return $path;
     }
 
     public static function formRulesMain(array $columns, array $formValues = []): array

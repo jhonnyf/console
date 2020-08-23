@@ -13,7 +13,7 @@
                 @foreach ($list as $row)
                     <tr>
                         @foreach ($tableFields as $colum)
-                            <td>{{$row[$colum['name']]}}</td>                                            
+                            <td>{{ isset($row[$colum['name']]) ? $row[$colum['name']] : '' }}</td>                                            
                         @endforeach
                         <td>
                             <a href="{{route("{$route}.form",['id' => $row['id']])}}">

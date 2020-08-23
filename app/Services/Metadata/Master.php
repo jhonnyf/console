@@ -4,19 +4,11 @@ namespace App\Services\Metadata;
 
 use App\Services\Metadata\Interfaces\RulesInterface;
 
-abstract class UsersTypes implements RulesInterface
+abstract class Master implements RulesInterface
 {
-
     public static function tableRules(array $columns): array
     {
-        $fields = [];
-
-        foreach ($columns as $column) {
-
-            $fields[] = $column;
-        }
-
-        return $fields;
+        return $columns;
     }
 
     public static function formRules(array $columns, array $formValues = []): array
