@@ -33,10 +33,9 @@ class UsersTypesController extends Controller
             });
         }
 
-        $data['list'] = $list->where('active', '<>', 2)
+        $data['tableValues'] = $list->where('active', '<>', 2)
             ->orderBy('id', 'desc')
-            ->get()
-            ->toArray();
+            ->get();
 
         $data['tableFields'] = Metadata::tableFields($this->Model->getTable());
         $data['route']       = $this->Route;
