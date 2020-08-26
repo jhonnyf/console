@@ -23,4 +23,10 @@
             </li>
         </ul>
     </li>
+    <li>
+        <a href="<?=route('categories.index')?>">
+            <i data-feather="sliders"></i>
+            <span>Categoria</span>            
+        </a>        
+    </li>
 </ul>

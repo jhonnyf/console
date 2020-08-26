@@ -33,4 +33,13 @@ Route::group([], function () {
         Route::post('', 'UsersTypesController@store')->name('usersTypes.store');
         Route::put('{id}', 'UsersTypesController@update')->name('usersTypes.update');
     });
+
+    Route::group(['prefix' => 'category'], function () {
+        Route::get('form/{id?}', 'CategoriesController@form')->name('categories.form');
+        Route::get('active/{id}', 'CategoriesController@active')->name('categories.active');
+        Route::get('destroy/{id}', 'CategoriesController@destroy')->name('categories.destroy');
+        Route::get('', 'CategoriesController@index')->name('categories.index');
+        Route::post('', 'CategoriesController@store')->name('categories.store');
+        Route::put('{id}', 'CategoriesController@update')->name('categories.update');
+    });
 });
