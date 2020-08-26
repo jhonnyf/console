@@ -17,7 +17,7 @@ class UsersStore extends FormRequest
         return [
             'user_type_id' => 'required|integer|exists:users_types,id',
             'name'         => 'required|string|min:3',
-            'email'        => 'required|string|unique:users',
+            'email'        => 'required|string|unique:users|email:rfc,dns',
             'password'     => 'nullable',
             'document'     => 'required|unique:users',
             'phone'        => 'nullable|min:8',

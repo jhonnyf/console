@@ -27,9 +27,9 @@
                         @break
                     @case('select')
                         <div class="form-group row">
-                            <label class="col-lg-2 col-form-label" for="{{$item['name']}}">{{$item['name']}}</label>
+                            <label class="col-lg-2 col-form-label" for="{{ $item['name'] }}">{{ $item['name'] }}{{ isset($item['required']) ? '*' : '' }}</label>
                             <div class="col-lg-10">                                
-                                <select name="{{$item['name']}}" class="form-control custom-select" id="{{$item['name']}}">
+                                <select name="{{$item['name']}}" class="form-control custom-select" id="{{ $item['name'] }}">
                                     @if (isset($item['options']))
                                         @foreach ($item['options'] as $opt)
                                             @php
@@ -44,7 +44,7 @@
                         @break
                     @case('number')
                         <div class="form-group row">
-                            <label class="col-lg-2 col-form-label" for="{{$item['name']}}">{{$item['name']}}</label>
+                            <label class="col-lg-2 col-form-label" for="{{$item['name']}}">{{$item['name']}}{{ isset($item['required']) ? '*' : '' }}</label>
                             <div class="col-lg-10">
                                 <input type="number" class="form-control" name="{{$item['name']}}" id="{{$item['name']}}" value="{{ old($item['name']) ? old($item['name']) :  $item['value'] }}" maxlength="{{ $item['max_length'] }}">
                             </div>
@@ -52,7 +52,7 @@
                         @break
                     @case('text')
                         <div class="form-group row">
-                            <label class="col-lg-2 col-form-label" for="{{$item['name']}}">{{$item['name']}}</label>
+                            <label class="col-lg-2 col-form-label" for="{{$item['name']}}">{{$item['name']}}{{ isset($item['required']) ? '*' : '' }}</label>
                             <div class="col-lg-10">
                                 <input type="text" class="form-control" name="{{$item['name']}}" id="{{$item['name']}}" value="{{ old($item['name']) ? old($item['name']) :  $item['value'] }}" maxlength="{{ $item['max_length'] }}">
                             </div>
