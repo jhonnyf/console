@@ -20,9 +20,21 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-body">           
-                    
-                    <x-form-fields :formFields="$formFields" :id="$id" :route="$route" />
+                <div class="card-body">
+
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a href="#main" data-toggle="tab" aria-expanded="false" class="nav-link active">
+                                <span class="d-block d-sm-none"><i class="uil-home-alt"></i></span>
+                                <span class="d-none d-sm-block ">Principal</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content p-3 text-muted">
+                        <div class="tab-pane show active" id="main">
+                            <x-form-fields :formFields="$formFields" :id="$id" :route="$route" />
+                        </div>
+                    </div>                    
 
                 </div>
             </div>
