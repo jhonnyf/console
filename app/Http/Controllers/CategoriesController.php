@@ -73,4 +73,22 @@ class CategoriesController extends Controller
 
         return redirect()->route("{$this->Route}.form", ['id' => $id]);
     }
+
+    public function tree(int $id, Request $request)
+    {
+
+        $data = ['id' => $id];
+
+        $formValues = $this->Model->find($id);
+        if ($formValues) {
+            $formValues = $formValues->toArray();
+        } else {
+            $formValues = [];
+        }
+
+        $data['formFields'] = Metadata::formFields($this->Model->getTable(), $formValues);
+        $data['route']      = $this->Route;
+
+        return view("{$this->Route}.tree", $data);
+    }
 }
