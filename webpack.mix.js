@@ -188,7 +188,8 @@ mix.combine('resources/js/app.js', folder.dist_assets + "js/app.min.js");
 
 mix.webpackConfig({
     plugins: [
-        new BrowserSyncPlugin({
+        new BrowserSyncPlugin({            
+            port: 3000,
             files: [
                 'app/**/*',
                 'public/**/*',

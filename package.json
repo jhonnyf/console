@@ -28,7 +28,7 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
-        "vue-template-compiler": "^2.6.10"
+        "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
         "@adactive/bootstrap-tagsinput": "^0.8.2",
@@ -39,7 +39,7 @@
         "@fullcalendar/interaction": "^4.3.0",
         "@fullcalendar/list": "^4.3.0",
         "@fullcalendar/timegrid": "^4.3.0",
-        "admin-resources": "git+https://github.com/coderthemes/admin-resources#master",
+        "admin-resources": "git+https://github.com/coderthemes/admin-resources.git#master",
         "apexcharts": "^3.8.4",
         "bootstrap": "^4.3.1",
         "bootstrap-colorpicker": "^3.1.2",

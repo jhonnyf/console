@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoriesStore;
+use App\Http\Requests\CategoriesTree;
 use App\Http\Requests\CategoriesUpdate;
 use App\Models\Categories as Model;
+use App\Models\CategoriesCategories;
 use App\Services\Metadata\Metadata;
 use App\Services\QueryService;
 use Illuminate\Http\Request;
@@ -76,19 +78,37 @@ class CategoriesController extends Controller
 
     public function tree(int $id, Request $request)
     {
+        $data = ['id' => $id, 'links' => []];
 
-        $data = ['id' => $id];
-
-        $formValues = $this->Model->find($id);
-        if ($formValues) {
-            $formValues = $formValues->toArray();
-        } else {
-            $formValues = [];
+        $links = CategoriesCategories::where('secondary_id', $id)->get();
+        if ($links->count() > 0) {
+            foreach ($links as $value) {
+                $data['links'][] = $value->primary_id;
+            }
         }
 
-        $data['formFields'] = Metadata::formFields($this->Model->getTable(), $formValues);
+        $data['categories'] = Model::where('active', 1)->where('id', '<>', $id)->get();
         $data['route']      = $this->Route;
 
         return view("{$this->Route}.tree", $data);
+    }
+
+    public function saveTree(int $id, CategoriesTree $request)
+    {
+        $data_request = $request->all();
+
+        CategoriesCategories::where('secondary_id', $data_request['secondary_id'])->delete();
+
+        if (isset($data_request['primary_id'])) {
+            foreach ($data_request['primary_id'] as $primary_id) {
+                $insert = ['primary_id' => $primary_id, 'secondary_id' => $data_request['secondary_id']];
+
+                if (CategoriesCategories::where($insert)->exists() === false) {
+                    CategoriesCategories::create($insert);
+                }
+            }
+        }
+
+        return redirect()->route('categories.tree', ['id' => $id]);
     }
 }
