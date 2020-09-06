@@ -29,4 +29,10 @@
             <span>Categoria</span>            
         </a>        
     </li>
+    <li>
+        <a href="<?=route('pages.index')?>">
+            <i data-feather="file-text"></i>
+            <span>Páginas</span>            
+        </a>        
+    </li>
 </ul>

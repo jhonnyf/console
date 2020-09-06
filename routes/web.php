@@ -44,4 +44,8 @@ Route::group([], function () {
         Route::post('', 'CategoriesController@store')->name('categories.store');
         Route::put('{id}', 'CategoriesController@update')->name('categories.update');
     });
+
+    Route::group(['prefix' => 'page'], function(){
+        Route::get('', 'ContentsController@index')->name('pages.index');
+    });
 });
