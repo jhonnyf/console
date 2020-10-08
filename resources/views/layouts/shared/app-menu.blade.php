@@ -30,7 +30,7 @@
         </a>        
     </li>
     <li>
-        <a href="<?=route('contents.index')?>">
+        <a href="<?=route('contents.list-categories')?>">
             <i data-feather="file-text"></i>
             <span>Conteúdo</span>            
         </a>        

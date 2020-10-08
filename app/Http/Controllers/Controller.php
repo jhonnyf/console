@@ -6,6 +6,7 @@ use App\Services\Metadata\Metadata;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 
 abstract class Controller extends BaseController
@@ -22,9 +23,9 @@ abstract class Controller extends BaseController
         }
     }
 
-    public function form(int $id = null)
+    public function form(int $id = null, Request $request)
     {
-        $data = ['id' => $id];
+        $data = ['id' => $id, 'request_data' => $request->all()];
 
         $formValues = $this->Model->find($id);
         if ($formValues) {

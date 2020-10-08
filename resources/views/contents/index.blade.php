@@ -18,22 +18,32 @@
 
     <div class="row">
         <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">           
 
-            @if ($pages->count())
-                <div class="row">
-                    @foreach ($pages as $item)
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <a href="{{ route('contents.list-contents', ['category_id' => $item->id]) }}" class="card-link"><?=$item->name?></a>
-                                    </h5>                                    
-                                </div>
-                            </div>    
-                        </div>  
-                    @endforeach
+                    <div class="text-right mb-3">
+                        <a href="{{ route("{$route}.form", ['category_id' => $category_id]) }}" class="btn btn-dark width-lg"><i data-feather="plus" class="icon-xs"></i>adicionar</a>
+                    </div>
+
+                    <div class="mb-3 d-flex justify-content-end">
+                        <form action="" class="form-inline" method="get">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="search" id="search" value="{{ $search }}" placeholder="Pesquisar">
+                                    <div class="input-group-prepend">
+                                        <button type="submit" class="btn btn-dark rounded-right">
+                                            <i data-feather="search" class="icon-xs"></i>    
+                                        </button>
+                                    </div>
+                                </div>                                    
+                            </div>                                
+                        </form>                    
+                    </div>
+
+                    <x-table-fields :tableFields="$tableFields" :tableValues="$tableValues" :route="$route"/>
+                    
                 </div>
-            @endif 
+            </div>
 
         </div>
     </div>

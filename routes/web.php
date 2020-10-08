@@ -24,7 +24,7 @@ Route::group([], function () {
         Route::post('', 'UsersController@store')->name('users.store');
         Route::put('{id}', 'UsersController@update')->name('users.update');
     });
-    
+
     Route::group(['prefix' => 'user-type'], function () {
         Route::get('form/{id?}', 'UsersTypesController@form')->name('usersTypes.form');
         Route::get('active/{id}', 'UsersTypesController@active')->name('usersTypes.active');
@@ -45,8 +45,10 @@ Route::group([], function () {
         Route::put('{id}', 'CategoriesController@update')->name('categories.update');
     });
 
-    Route::group(['prefix' => 'content'], function(){
-        Route::get('', 'ContentsController@index')->name('contents.index');
-        Route::get('list-contents/{category_id}', 'ContentsController@listContents')->name('contents.list-contents');
+    Route::group(['prefix' => 'content'], function () {
+        Route::get('list-categories', 'ContentsController@listCategories')->name('contents.list-categories');
+        Route::get('form/{id?}', 'ContentsController@form')->name('contents.form');
+        Route::get('{category_id}', 'ContentsController@index')->name('contents.index');
+        Route::post('', 'ContentsController@store')->name('contents.store');
     });
 });

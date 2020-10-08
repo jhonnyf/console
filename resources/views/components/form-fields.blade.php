@@ -62,10 +62,10 @@
                         
                 @endswitch
                 
-            @endforeach   
-            
+            @endforeach               
+
             <div class="text-right">
-                <a href="{{route("{$route}.index")}}" class="btn btn-primary">Voltar</a>
+                <a href="{{ route("{$route}.index", ['category_id' => $requestData['category_id'] ]) }}" class="btn btn-primary">Voltar</a>
                 <button type="submit" class="btn btn-dark">Salvar</button>
             </div>
         </div>
