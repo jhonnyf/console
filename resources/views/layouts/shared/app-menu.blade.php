@@ -30,9 +30,9 @@
         </a>        
     </li>
     <li>
-        <a href="<?=route('pages.index')?>">
+        <a href="<?=route('contents.index')?>">
             <i data-feather="file-text"></i>
-            <span>Páginas</span>            
+            <span>Conteúdo</span>            
         </a>        
     </li>
 </ul>

@@ -45,7 +45,8 @@ Route::group([], function () {
         Route::put('{id}', 'CategoriesController@update')->name('categories.update');
     });
 
-    Route::group(['prefix' => 'page'], function(){
-        Route::get('', 'ContentsController@index')->name('pages.index');
+    Route::group(['prefix' => 'content'], function(){
+        Route::get('', 'ContentsController@index')->name('contents.index');
+        Route::get('list-contents/{category_id}', 'ContentsController@listContents')->name('contents.list-contents');
     });
 });
