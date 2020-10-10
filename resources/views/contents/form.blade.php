@@ -6,11 +6,11 @@
             <nav aria-label="breadcrumb" class="float-right mt-1">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Console</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('users.index')}}">Usuário</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('contents.index', ['category_id' => $requestData['category_id']])}}">Conteúdo</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ is_null($id) ? "Novo" : "Editar" }}</li>
                 </ol>
             </nav>
-            <h4 class="mb-1 mt-0">Usuário</h4>
+            <h4 class="mb-1 mt-0">Conteúdo</h4>
         </div>
     </div>
 @endsection

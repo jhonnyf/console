@@ -58,11 +58,19 @@
                             </div>
                         </div>
                         @break
+                    @case('textarea')
+                        <div class="form-group row">
+                            <label class="col-lg-2 col-form-label" for="{{$item['name']}}">{{$item['name']}}{{ isset($item['required']) ? '*' : '' }}</label>
+                            <div class="col-lg-10">                                
+                                <textarea name="{{$item['name']}}" id="{{$item['name']}}" class="form-control" cols="30" rows="10"  maxlength="{{ $item['max_length'] }}">{{ old($item['name']) ? old($item['name']) :  $item['value'] }}</textarea>
+                            </div>
+                        </div>
+                        @break
                     @case('text')
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label" for="{{$item['name']}}">{{$item['name']}}{{ isset($item['required']) ? '*' : '' }}</label>
                             <div class="col-lg-10">
-                                <input type="text" class="form-control" name="{{$item['name']}}" id="{{$item['name']}}" value="{{ old($item['name']) ? old($item['name']) :  $item['value'] }}" maxlength="{{ $item['max_length'] }}">
+                                <input type="text" class="form-control" name="{{$item['name']}}" id="{{$item['name']}}" value="{{ old($item['name']) ? old($item['name']) :  $item['value'] }}" {{ isset($item['readonly']) ? 'readonly' : '' }} maxlength="{{ $item['max_length'] }}">
                             </div>
                         </div>
                         @break

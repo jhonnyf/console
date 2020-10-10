@@ -64,6 +64,9 @@ class ContentsController extends Controller
     {
         $create = $request->all();
 
+        print_r($create);
+        exit();
+
         $response = Model::create($create);
 
         return redirect()->route("{$this->Route}.form", ['id' => $response->id]);
