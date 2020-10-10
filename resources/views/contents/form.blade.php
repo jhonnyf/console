@@ -22,7 +22,7 @@
             <div class="card">
                 <div class="card-body">           
                     
-                    <x-form-fields :formFields="$formFields" :id="$id" :route="$route" :requestData="$request_data" />
+                    <x-form-fields :formFields="$formFields" :id="$id" :route="$route" />
 
                 </div>
             </div>
