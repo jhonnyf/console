@@ -23,9 +23,9 @@ abstract class Controller extends BaseController
         }
     }
 
-    public function form(int $id = null, Request $request)
+    public function form(int $id = null)
     {
-        $data = ['id' => $id, 'request_data' => $request->all()];
+        $data = ['id' => $id];
 
         $formValues = $this->Model->find($id);
         if ($formValues) {

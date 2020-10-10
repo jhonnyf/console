@@ -18,8 +18,8 @@ class CreateContents extends Migration
 
             $table->id();
             $table->integer('active')->default(1);
-            $table->date('date')->nullable();
             $table->string('slug')->unique();
+            $table->date('date')->nullable();            
             $table->string('title');
             $table->string('subtitle')->nullable();
             $table->string('content')->nullable();

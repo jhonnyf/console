@@ -5,7 +5,7 @@
     }
 @endphp
 
-<form action="{{$action}}" method="POST" class="form-horizontal">
+<form action="{{$action}}" method="POST" class="form-horizontal" autocomplete="off">
     @csrf
     @if (is_null($id) === false)
         @method('put')
@@ -47,6 +47,14 @@
                             <label class="col-lg-2 col-form-label" for="{{$item['name']}}">{{$item['name']}}{{ isset($item['required']) ? '*' : '' }}</label>
                             <div class="col-lg-10">
                                 <input type="number" class="form-control" name="{{$item['name']}}" id="{{$item['name']}}" value="{{ old($item['name']) ? old($item['name']) :  $item['value'] }}" maxlength="{{ $item['max_length'] }}">
+                            </div>
+                        </div>
+                        @break
+                    @case('date')
+                        <div class="form-group row">
+                            <label class="col-lg-2 col-form-label" for="{{$item['name']}}">{{$item['name']}}{{ isset($item['required']) ? '*' : '' }}</label>
+                            <div class="col-lg-10">
+                                <input type="date" class="form-control" name="{{$item['name']}}" id="{{$item['name']}}" value="{{ old($item['name']) ? old($item['name']) :  $item['value'] }}" maxlength="{{ $item['max_length'] }}">
                             </div>
                         </div>
                         @break

@@ -68,7 +68,7 @@ class Metadata
             } elseif (in_array($column['type'], $number)) {
                 $type = 'number';
             } elseif ($column['type'] === 'date') {
-                $type = 'number';
+                $type = 'date';
             } else {
                 exit("Tipo não definido - {$column['type']}");
             }
