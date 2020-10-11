@@ -6,7 +6,7 @@
             <nav aria-label="breadcrumb" class="float-right mt-1">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Console</a></li>
-                    <li class="breadcrumb-item"><a href="{{route('contents.index', ['category_id' => $requestData['category_id']])}}">Conteúdo</a></li>
+                    <li class="breadcrumb-item"><a href="{{route('contents.index', ['category_id' => $category_id])}}">Conteúdo</a></li>
                     <li class="breadcrumb-item active" aria-current="page">{{ is_null($id) ? "Novo" : "Editar" }}</li>
                 </ol>
             </nav>
@@ -22,7 +22,7 @@
             <div class="card">
                 <div class="card-body">           
                     
-                    <x-form-fields :formFields="$formFields" :id="$id" :route="$route" />
+                    <x-form-fields :formFields="$formFields" :id="$id" :route="$route" :extraData="$extraData" />
 
                 </div>
             </div>

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
+use App\Models\CategoriesContents;
 use App\Models\Contents as Model;
 use App\Services\Metadata\Metadata;
 use App\Services\QueryService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ContentsController extends Controller
 {
@@ -60,25 +62,57 @@ class ContentsController extends Controller
         return view("{$this->Route}.index", $data);
     }
 
+    public function setExtraData(Request $request): array
+    {
+        return ['category_id' => $request->category_id];
+    }
+
     public function store(Request $request)
     {
         $create = $request->all();
 
-        print_r($create);
-        exit();
+        $create['slug'] = $this->checkSlug($create['title']);
 
         $response = Model::create($create);
 
-        return redirect()->route("{$this->Route}.form", ['id' => $response->id]);
+        if (isset($create['category_id'])) {
+
+            $link = ['category_id' => $create['category_id'], 'content_id' => $response->id];
+            if (CategoriesContents::where($link)->exists() === false) {
+                CategoriesContents::create($link);
+            }
+        }
+
+        return redirect()->route("{$this->Route}.form", ['id' => $response->id, 'category_id' => $create['category_id']]);
+    }
+
+    private function checkSlug(string $title, int $id = null)
+    {
+        $slug = Str::slug($title);
+
+        $check = Model::where('slug', $slug);
+
+        if(is_null($id) === false){
+            $check->where('id', '<>', $id);
+        }
+
+        if ($check->exists() === false) {
+            return $slug;
+        } else {
+            echo 'TEM IGUAL';
+            exit();
+        }
     }
 
     public function update(int $id, Request $request)
     {
         $fill = $request->all();
 
+        $fill['slug'] = $this->checkSlug($fill['title'], $id);
+
         Model::find($id)->fill($fill)->save();
 
-        return redirect()->route("{$this->Route}.form", ['id' => $id]);
+        return redirect()->route("{$this->Route}.form", ['id' => $id, 'category_id' => $fill['category_id']]);
     }
 
 }

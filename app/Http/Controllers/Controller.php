@@ -25,7 +25,13 @@ abstract class Controller extends BaseController
 
     public function form(int $id = null, Request $request)
     {
-        $data = ['id' => $id, 'requestData' => $request->all()];
+        $data = ['id' => $id];
+
+        $setExtraData = $this->setExtraData($request);
+        if (count($setExtraData) > 0) {
+            $data['extraData'] = $setExtraData;
+            $data              = array_merge($data, $setExtraData);
+        }
 
         $formValues = $this->Model->find($id);
         if ($formValues) {
@@ -58,5 +64,10 @@ abstract class Controller extends BaseController
         $Object->save();
 
         return redirect()->back();
+    }
+
+    public function setExtraData(Request $request): array
+    {
+        return [];
     }
 }

@@ -8,6 +8,10 @@ abstract class Contents implements RulesInterface
 {
     public static function tableRules(array $columns): array
     {
+        unset($columns['content']);
+        unset($columns['link']);
+        unset($columns['video']);
+
         return $columns;
     }
 

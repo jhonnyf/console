@@ -10,13 +10,15 @@ class FormFields extends Component
     public $formFields;
     public $id;
     public $route;
+    public $extraData;
     public $requestData;
 
-    public function __construct($formFields, $id, $route, Request $request)
+    public function __construct($formFields, $id, $route, $extraData = [], Request $request)
     {
         $this->formFields  = $formFields;
         $this->id          = $id;
         $this->route       = $route;
+        $this->extraData   = $extraData;
         $this->requestData = $request->all();
     }
 

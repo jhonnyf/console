@@ -48,7 +48,10 @@ Route::group([], function () {
     Route::group(['prefix' => 'content'], function () {
         Route::get('list-categories', 'ContentsController@listCategories')->name('contents.list-categories');
         Route::get('form/{id?}', 'ContentsController@form')->name('contents.form');
+        Route::get('active/{id}', 'ContentsController@active')->name('contents.active');
+        Route::get('destroy/{id}', 'ContentsController@destroy')->name('contents.destroy');
         Route::get('{category_id}', 'ContentsController@index')->name('contents.index');
         Route::post('', 'ContentsController@store')->name('contents.store');
+        Route::put('{id}', 'ContentsController@update')->name('contents.update');
     });
 });

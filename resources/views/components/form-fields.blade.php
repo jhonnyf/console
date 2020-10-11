@@ -10,6 +10,12 @@
     @if (is_null($id) === false)
         @method('put')
     @endif
+    @if (count($extraData) > 0)
+        @foreach ($extraData as $key => $item)
+            <input type="hidden" name="{{ $key }}" value="{{ $item }}">
+        @endforeach
+    @endif
+
     
     @if ($errors->any())       
         @foreach ($errors->all() as $error)
@@ -81,7 +87,7 @@
             @endforeach               
 
             <div class="text-right">
-                <a href="{{ route("{$route}.index", ['category_id' => $requestData['category_id'] ]) }}" class="btn btn-primary">Voltar</a>
+                <a href="{{ route("{$route}.index", $extraData) }}" class="btn btn-primary">Voltar</a>
                 <button type="submit" class="btn btn-dark">Salvar</button>
             </div>
         </div>
