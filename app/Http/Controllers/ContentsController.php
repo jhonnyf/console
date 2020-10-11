@@ -52,7 +52,10 @@ class ContentsController extends Controller
             });
         }
 
+        $links = CategoriesContents::where('category_id', $category_id)->get()->keyBy('content_id')->toArray();
+
         $data['tableValues'] = $list->where('active', '<>', 2)
+            ->whereIn('id', array_keys($links))
             ->orderBy('id', 'desc')
             ->get();
 
@@ -92,7 +95,7 @@ class ContentsController extends Controller
 
         $check = Model::where('slug', $slug);
 
-        if(is_null($id) === false){
+        if (is_null($id) === false) {
             $check->where('id', '<>', $id);
         }
 
