@@ -16,19 +16,25 @@
                             <td> {{ App\Services\TableFieldsService::format($row, $column) }}</td>
                         @endforeach
                         <td>
-                            <a href="{{ route("{$route}.form",['id' => $row->id]) }}">
+                            @php
+                                $params_form = ['id' => $row->id];
+                                if(isset($extraData) && count($extraData) > 0){
+                                    $params_form = array_merge($params_form, $extraData);
+                                }
+                            @endphp
+                            <a href="{{ route("{$route}.form", $params_form) }}">
                                 <i data-feather="edit-2" class="icon-sm"></i>
                             </a>
                             @if ($row->active == 1)
-                                <a href="{{ route("{$route}.active",['id' => $row->id]) }}">
+                                <a href="{{ route("{$route}.active", ['id' => $row->id]) }}">
                                     <i data-feather="check-circle" class="icon-sm"></i>    
                                 </a>
                             @else
-                                <a href="{{ route("{$route}.active",['id' => $row->id]) }}">
+                                <a href="{{ route("{$route}.active", ['id' => $row->id]) }}">
                                     <i data-feather="circle" class="icon-sm"></i>    
                                 </a>
                             @endif
-                            <a href="{{ route("{$route}.destroy",['id' => $row->id]) }}">
+                            <a href="{{ route("{$route}.destroy", ['id' => $row->id]) }}">
                                 <i data-feather="trash-2" class="icon-sm"></i>
                             </a>
                         </td>                                            

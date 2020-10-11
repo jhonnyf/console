@@ -41,6 +41,8 @@ class ContentsController extends Controller
         $data           = ['category_id' => $category_id];
         $data['search'] = isset($request->search) ? $request->search : '';
 
+        $data['extraData'] = ['category_id' => $category_id];
+
         $list = Model::query();
 
         if (isset($request->search)) {

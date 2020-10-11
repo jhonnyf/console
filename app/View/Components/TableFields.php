@@ -6,15 +6,17 @@ use Illuminate\View\Component;
 
 class TableFields extends Component
 {
-    public $tableValues;
     public $tableFields;
+    public $tableValues;
     public $route;
+    public $extraData;
 
-    public function __construct($tableFields, $tableValues, $route)
+    public function __construct($tableFields, $tableValues, $route, $extraData = [])
     {
-        $this->tableValues = $tableValues;
         $this->tableFields = $tableFields;
+        $this->tableValues = $tableValues;
         $this->route       = $route;
+        $this->extraData   = $extraData;
     }
 
     public function render()
