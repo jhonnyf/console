@@ -22,7 +22,7 @@
                 <div class="card-body">           
 
                     <div class="text-right mb-3">
-                        <a href="{{ route("{$route}.form", ['category_id' => $category_id]) }}" class="btn btn-dark width-lg"><i data-feather="plus" class="icon-xs"></i>adicionar</a>
+                        <a href="{{ route("{$route}.form", ['category_id' => $category_id]) }}" class="btn btn-primary width-lg"><i data-feather="plus" class="icon-xs"></i>adicionar</a>
                     </div>
 
                     <div class="mb-3 d-flex justify-content-end">
@@ -31,7 +31,7 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="search" id="search" value="{{ $search }}" placeholder="Pesquisar">
                                     <div class="input-group-prepend">
-                                        <button type="submit" class="btn btn-dark rounded-right">
+                                        <button type="submit" class="btn btn-primary rounded-right">
                                             <i data-feather="search" class="icon-xs"></i>    
                                         </button>
                                     </div>
