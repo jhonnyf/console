@@ -5,7 +5,7 @@
                 @foreach ($tableFields as $colum)
                     <th scope="col">{{ $colum['name'] }}</th>    
                 @endforeach
-                <th scope="col">Ações</th>    
+                <th scope="col" style="width: 150px">Ações</th>    
             </tr>
         </thead>
         <tbody>
@@ -15,7 +15,7 @@
                         @foreach ($tableFields as $column)
                             <td> {{ App\Services\TableFieldsService::format($row, $column) }}</td>
                         @endforeach
-                        <td>
+                        <td class="text-center">
                             @php
                                 $params_form = ['id' => $row->id];
                                 if(isset($extraData) && count($extraData) > 0){
