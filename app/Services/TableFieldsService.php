@@ -6,8 +6,7 @@ class TableFieldsService
 {
     public static function format(object $row, array $column): ?string
     {
-        $value = '';
-
+        $value     = '';
         $parameter = isset($column['parameter']) ? $column['parameter'] : $column['name'];
 
         if (strpos($parameter, "->")) {
@@ -17,7 +16,13 @@ class TableFieldsService
 
             $value = $row;
         } else {
-            $value = $row->$parameter;
+            if (in_array($column['type'], ['datetime', 'timestamp'])) {
+                $value = date('d/m/Y H:i:s', strtotime($row->$parameter));
+            } elseif ($column['type'] == 'date') {
+                $value = date('d/m/Y', strtotime($row->$parameter));
+            } else {
+                $value = $row->$parameter;
+            }
         }
 
         return $value;

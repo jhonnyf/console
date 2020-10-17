@@ -9,7 +9,9 @@ abstract class Users implements RulesInterface
 {
     public static function tableRules(array $columns): array
     {
+        unset($columns['active']);
         unset($columns['password']);
+
         $columns['user_type_id']['parameter'] = "userType->user_type";
 
         return $columns;
