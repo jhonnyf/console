@@ -10,7 +10,8 @@ class UsersSeeder extends Seeder
     {
         DB::table('users')->insert([
             'user_type_id' => '1',
-            'name'         => 'Root',
+            'first_name'   => 'Root',
+            'last_name'    => 'Seventh',
             'email'        => 'root@seven.com',
             'password'     => Hash::make('123123'),
             'document'     => '',

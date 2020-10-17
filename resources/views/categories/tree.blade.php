@@ -57,8 +57,10 @@
                                     </select>
                                 </div>
 
-                                <a href="{{ route("{$route}.index") }}" class="btn btn-primary">Voltar</a>
-                                <button class="btn btn-dark">Salvar</button>
+                                <div class="text-right">
+                                    <a href="{{ route("{$route}.index") }}" class="btn btn-primary">Voltar</a>
+                                    <button class="btn btn-dark">Salvar</button>
+                                </div>
                             </form>
                         </div>
                     </div>                    

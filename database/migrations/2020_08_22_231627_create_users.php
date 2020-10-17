@@ -19,7 +19,8 @@ class CreateUsers extends Migration
             $table->id();
             $table->integer('active')->default(1);
             $table->unsignedBigInteger('user_type_id');
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->string('document')->unique();

@@ -55,7 +55,7 @@ class Metadata
         $fields = [];
 
         $text   = ['varchar', 'char'];
-        $number = ['bigint'];
+        $number = ['bigint', 'tinyint'];
 
         foreach ($columns as $column) {
 
@@ -73,7 +73,12 @@ class Metadata
                 exit("Tipo não definido - {$column['type']}");
             }
 
-            $fields[$column['name']] = ['name' => $column['name'], 'type' => $type, 'max_length' => $column['max_length'], 'value' => $value];
+            $fields[$column['name']] = [
+                'name'       => $column['name'],
+                'type'       => $type,
+                'max_length' => $column['max_length'],
+                'value'      => $value,
+            ];
         }
 
         return $fields;

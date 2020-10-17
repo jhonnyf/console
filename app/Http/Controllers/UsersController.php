@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UsersStore;
 use App\Http\Requests\UsersUpdate;
+use App\Models\Categories;
 use App\Models\Users as Model;
 use Illuminate\Support\Facades\Hash;
 
@@ -54,9 +55,13 @@ class UsersController extends Controller
     public function category(int $id)
     {
         $data = [
-            'id' => $id
+            'id'    => $id,
+            'route' => $this->Route,
         ];
+
+        $categories = Categories::where('active', '<>', '2')->get();
 
         return view('users.category', $data);
     }
 }
+

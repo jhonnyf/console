@@ -18,7 +18,8 @@ class CreateCategories extends Migration
 
             $table->id();
             $table->integer('active')->default(1);
-            $table->string('name', 120);
+            $table->string('category', 120);
+            $table->tinyInteger('default')->default(0);
             $table->timestamps();
         });
     }
