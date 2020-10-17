@@ -46,4 +46,17 @@ class UsersController extends Controller
 
         return redirect()->route("{$this->Route}.form", ['id' => $id]);
     }
+
+    /**
+     * EXTRA
+     */
+
+    public function category(int $id)
+    {
+        $data = [
+            'id' => $id
+        ];
+
+        return view('users.category', $data);
+    }
 }

@@ -17,6 +17,7 @@ Route::group([], function () {
     Route::get('', 'DashboardController@index')->name('dashboard');
 
     Route::group(['prefix' => 'user'], function () {
+        Route::get('category/{id}', 'UsersController@category')->name('users.category');
         Route::get('form/{id?}', 'UsersController@form')->name('users.form');
         Route::get('active/{id}', 'UsersController@active')->name('users.active');
         Route::get('destroy/{id}', 'UsersController@destroy')->name('users.destroy');

@@ -70,7 +70,10 @@ abstract class Controller extends BaseController
 
     public function form(int $id = null, Request $request)
     {
-        $data = ['id' => $id];
+        $data = [
+            'id'    => $id,
+            'route' => $this->Route,
+        ];
 
         $setData = $this->setData($request);
         if (count($setData) > 0) {
@@ -79,14 +82,9 @@ abstract class Controller extends BaseController
         }
 
         $formValues = $this->Model->find($id);
-        if ($formValues) {
-            $formValues = $formValues->toArray();
-        } else {
-            $formValues = [];
-        }
+        $formValues = $formValues ? $formValues->toArray() : [];
 
         $data['formFields'] = Metadata::formFields($this->Model->getTable(), $formValues);
-        $data['route']      = $this->Route;
 
         return view("{$this->Route}.form", $data);
     }
