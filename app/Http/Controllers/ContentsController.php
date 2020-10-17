@@ -38,15 +38,18 @@ class ContentsController extends Controller
 
     public function index(int $category_id, Request $request)
     {
-        $data           = ['category_id' => $category_id];
-        $data['search'] = isset($request->search) ? $request->search : '';
+        $data = [
+            'category_id' => $category_id,
+            'search'      => isset($request->search) ? $request->search : '',
+            'route'       => $this->Route,
+        ];
 
         $data['extraData'] = ['category_id' => $category_id];
 
         $list = Model::query();
 
         if (isset($request->search)) {
-            $fields = QueryService::fieldsLike('users');
+            $fields = QueryService::fieldsLike('contents');
             $list->where(function ($q) use ($fields, $request) {
                 foreach ($fields as $column) {
                     $q->orWhere($column, 'LIKE', "%{$request->search}%");
@@ -54,15 +57,16 @@ class ContentsController extends Controller
             });
         }
 
-        $links = CategoriesContents::where('category_id', $category_id)->get()->keyBy('content_id')->toArray();
+        $links = CategoriesContents::where('category_id', $category_id)
+            ->get()
+            ->keyBy('content_id')
+            ->toArray();
 
+        $data['tableFields'] = Metadata::tableFields($this->Model->getTable());
         $data['tableValues'] = $list->where('active', '<>', 2)
             ->whereIn('id', array_keys($links))
             ->orderBy('id', 'desc')
             ->get();
-
-        $data['tableFields'] = Metadata::tableFields($this->Model->getTable());
-        $data['route']       = $this->Route;
 
         return view("{$this->Route}.index", $data);
     }

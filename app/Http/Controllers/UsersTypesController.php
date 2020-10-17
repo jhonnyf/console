@@ -19,8 +19,10 @@ class UsersTypesController extends Controller
 
     public function index(Request $request)
     {
-        $data           = [];
-        $data['search'] = isset($request->search) ? $request->search : '';
+        $data = [
+            'search' => isset($request->search) ? $request->search : '',
+            'route'  => $this->Route,
+        ];
 
         $list = Model::query();
 
@@ -33,12 +35,10 @@ class UsersTypesController extends Controller
             });
         }
 
+        $data['tableFields'] = Metadata::tableFields($this->Model->getTable());
         $data['tableValues'] = $list->where('active', '<>', 2)
             ->orderBy('id', 'desc')
             ->get();
-
-        $data['tableFields'] = Metadata::tableFields($this->Model->getTable());
-        $data['route']       = $this->Route;
 
         return view("{$this->Route}.index", $data);
     }
