@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UsersStore;
 use App\Http\Requests\UsersUpdate;
 use App\Models\Users as Model;
-use App\Services\Metadata\Metadata;
-use App\Services\QueryService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -15,33 +12,9 @@ class UsersController extends Controller
     public function __construct()
     {
         parent::__construct(Model::class);
-        $this->Route = 'users';
-    }
 
-    public function index(Request $request)
-    {
-        $data = [
-            'search' => isset($request->search) ? $request->search : '',
-            'route'  => $this->Route,
-        ];
-
-        $list = Model::query();
-
-        if (isset($request->search)) {
-            $fields = QueryService::fieldsLike('users');
-            $list->where(function ($q) use ($fields, $request) {
-                foreach ($fields as $column) {
-                    $q->orWhere($column, 'LIKE', "%{$request->search}%");
-                }
-            });
-        }
-
-        $data['tableFields'] = Metadata::tableFields($this->Model->getTable());
-        $data['tableValues'] = $list->where('active', '<>', 2)
-            ->orderBy('id', 'desc')
-            ->get();
-
-        return view("{$this->Route}.index", $data);
+        $this->Route     = 'users';
+        $this->TableName = 'users';
     }
 
     public function store(UsersStore $request)

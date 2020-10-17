@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\Metadata\Metadata;
+use App\Services\QueryService;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -15,12 +16,56 @@ abstract class Controller extends BaseController
 
     protected $Model;
     protected $Route;
+    protected $TableName;
 
     public function __construct($Model = null)
     {
         if (is_null($Model) === false) {
             $this->Model = new $Model;
         }
+    }
+
+    public function index(Request $request)
+    {
+        $data = [
+            'search' => isset($request->search) ? $request->search : '',
+            'route'  => $this->Route,
+        ];
+
+        $setData = $this->setData($request);
+        if (count($setData) > 0) {
+            $data['extraData'] = $setData;
+            $data              = array_merge($data, $setData);
+        }
+
+        $list = $this->Model->query();
+
+        $setCondition = $this->setCondition($request);
+        if (count($setCondition) > 0) {
+            foreach ($setCondition as $field => $value) {
+                if (is_array($value)) {
+                    $list->whereIn($field, $value);
+                } else {
+                    $list->where($field, $value);
+                }
+            }
+        }
+
+        if (isset($request->search)) {
+            $fields = QueryService::fieldsLike($this->TableName);
+            $list->where(function ($q) use ($fields, $request) {
+                foreach ($fields as $column) {
+                    $q->orWhere($column, 'LIKE', "%{$request->search}%");
+                }
+            });
+        }
+
+        $data['tableFields'] = Metadata::tableFields($this->Model->getTable());
+        $data['tableValues'] = $list->where('active', '<>', 2)
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return view("{$this->Route}.index", $data);
     }
 
     public function form(int $id = null, Request $request)
@@ -66,7 +111,12 @@ abstract class Controller extends BaseController
         return redirect()->back();
     }
 
-    public function setExtraData(Request $request): array
+    protected function setData(Request $request): array
+    {
+        return [];
+    }
+
+    protected function setCondition(Request $request): array
     {
         return [];
     }

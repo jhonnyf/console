@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Categories;
 use App\Models\CategoriesContents;
 use App\Models\Contents as Model;
-use App\Services\Metadata\Metadata;
-use App\Services\QueryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -16,7 +14,9 @@ class ContentsController extends Controller
     public function __construct()
     {
         parent::__construct(Model::class);
-        $this->Route = 'contents';
+
+        $this->Route     = 'contents';
+        $this->TableName = 'contents';
     }
 
     public function listCategories(Request $request)
@@ -28,52 +28,31 @@ class ContentsController extends Controller
 
         $category = Categories::find($category_page);
 
-        $data = [];
-
-        $data['pages'] = $category->categorySecondary;
-        $data['route'] = $this->Route;
+        $data = [
+            'pages' => $category->categorySecondary,
+            'route' => $this->Route,
+        ];
 
         return view("{$this->Route}.list-categories", $data);
     }
 
-    public function index(int $category_id, Request $request)
+    protected function setData(Request $request): array
     {
-        $data = [
-            'category_id' => $category_id,
-            'search'      => isset($request->search) ? $request->search : '',
-            'route'       => $this->Route,
+        return [
+            'category_id' => $request->category_id,
         ];
+    }
 
-        $data['extraData'] = ['category_id' => $category_id];
-
-        $list = Model::query();
-
-        if (isset($request->search)) {
-            $fields = QueryService::fieldsLike('contents');
-            $list->where(function ($q) use ($fields, $request) {
-                foreach ($fields as $column) {
-                    $q->orWhere($column, 'LIKE', "%{$request->search}%");
-                }
-            });
-        }
-
-        $links = CategoriesContents::where('category_id', $category_id)
+    protected function setCondition(Request $request): array
+    {
+        $links = CategoriesContents::where('category_id', $request->category_id)
             ->get()
             ->keyBy('content_id')
             ->toArray();
 
-        $data['tableFields'] = Metadata::tableFields($this->Model->getTable());
-        $data['tableValues'] = $list->where('active', '<>', 2)
-            ->whereIn('id', array_keys($links))
-            ->orderBy('id', 'desc')
-            ->get();
-
-        return view("{$this->Route}.index", $data);
-    }
-
-    public function setExtraData(Request $request): array
-    {
-        return ['category_id' => $request->category_id];
+        return [
+            'id' => array_keys($links),
+        ];
     }
 
     public function store(Request $request)
@@ -95,6 +74,17 @@ class ContentsController extends Controller
         return redirect()->route("{$this->Route}.form", ['id' => $response->id, 'category_id' => $create['category_id']]);
     }
 
+    public function update(int $id, Request $request)
+    {
+        $fill = $request->all();
+
+        $fill['slug'] = $this->checkSlug($fill['title'], $id);
+
+        Model::find($id)->fill($fill)->save();
+
+        return redirect()->route("{$this->Route}.form", ['id' => $id, 'category_id' => $fill['category_id']]);
+    }
+
     private function checkSlug(string $title, int $id = null)
     {
         $slug = Str::slug($title);
@@ -111,17 +101,6 @@ class ContentsController extends Controller
             echo 'TEM IGUAL';
             exit();
         }
-    }
-
-    public function update(int $id, Request $request)
-    {
-        $fill = $request->all();
-
-        $fill['slug'] = $this->checkSlug($fill['title'], $id);
-
-        Model::find($id)->fill($fill)->save();
-
-        return redirect()->route("{$this->Route}.form", ['id' => $id, 'category_id' => $fill['category_id']]);
     }
 
 }
