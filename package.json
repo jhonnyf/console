@@ -41,7 +41,7 @@
         "@fullcalendar/timegrid": "^4.3.0",
         "admin-resources": "git+https://github.com/coderthemes/admin-resources.git#master",
         "apexcharts": "^3.22.0",
-        "bootstrap": "^4.3.1",
+        "bootstrap": "^4.5.3",
         "bootstrap-colorpicker": "^3.1.2",
         "bootstrap-touchspin": "^4.2.5",
         "chart.js": "^2.8.0",
