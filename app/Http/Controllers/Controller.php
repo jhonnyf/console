@@ -72,10 +72,10 @@ abstract class Controller extends BaseController
     {
         $data = ['id' => $id];
 
-        $setExtraData = $this->setExtraData($request);
-        if (count($setExtraData) > 0) {
-            $data['extraData'] = $setExtraData;
-            $data              = array_merge($data, $setExtraData);
+        $setData = $this->setData($request);
+        if (count($setData) > 0) {
+            $data['extraData'] = $setData;
+            $data              = array_merge($data, $setData);
         }
 
         $formValues = $this->Model->find($id);

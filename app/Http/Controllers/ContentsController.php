@@ -36,25 +36,6 @@ class ContentsController extends Controller
         return view("{$this->Route}.list-categories", $data);
     }
 
-    protected function setData(Request $request): array
-    {
-        return [
-            'category_id' => $request->category_id,
-        ];
-    }
-
-    protected function setCondition(Request $request): array
-    {
-        $links = CategoriesContents::where('category_id', $request->category_id)
-            ->get()
-            ->keyBy('content_id')
-            ->toArray();
-
-        return [
-            'id' => array_keys($links),
-        ];
-    }
-
     public function store(Request $request)
     {
         $create = $request->all();
@@ -83,6 +64,29 @@ class ContentsController extends Controller
         Model::find($id)->fill($fill)->save();
 
         return redirect()->route("{$this->Route}.form", ['id' => $id, 'category_id' => $fill['category_id']]);
+    }
+
+    /**
+     * EXTRA
+     */
+
+    protected function setData(Request $request): array
+    {
+        return [
+            'category_id' => $request->category_id,
+        ];
+    }
+
+    protected function setCondition(Request $request): array
+    {
+        $links = CategoriesContents::where('category_id', $request->category_id)
+            ->get()
+            ->keyBy('content_id')
+            ->toArray();
+
+        return [
+            'id' => array_keys($links),
+        ];
     }
 
     private function checkSlug(string $title, int $id = null)
