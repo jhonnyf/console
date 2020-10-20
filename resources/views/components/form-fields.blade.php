@@ -5,17 +5,18 @@
     }
 @endphp
 
-<form action="{{$action}}" method="POST" class="form-horizontal" autocomplete="off">
+<form action="{{ $action }}" method="POST" class="form-horizontal" autocomplete="off">
     @csrf
+
     @if (is_null($id) === false)
         @method('put')
     @endif
+
     @if (count($extraData) > 0)
         @foreach ($extraData as $key => $item)
             <input type="hidden" name="{{ $key }}" value="{{ $item }}">
         @endforeach
     @endif
-
     
     @if ($errors->any())       
         @foreach ($errors->all() as $error)

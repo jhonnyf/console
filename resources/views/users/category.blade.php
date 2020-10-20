@@ -41,7 +41,30 @@
 
                     <div class="tab-content p-3 text-muted">
                         <div class="tab-pane show active" id="main">
-                            CATEGORY
+
+                            @php
+                                $action = route("{$route}.store");
+                                if(is_null($id) === false){
+                                    $action = route("{$route}.update", ['id' => $id]);    
+                                }
+                            @endphp
+                            
+                            <form action="{{ $action }}" method="POST" class="form-horizontal" autocomplete="off">
+                                @csrf
+                                @if ($categories->count() > 0)                                
+                                    <div class="form-group row">
+                                        <label class="col-lg-2 col-form-label">{{ $categories->category }}</label>
+                                        <div class="col-lg-10">
+                                            <select class="form-control custom-select">
+                                                @foreach ($categories->categorySecondary as $category)                
+                                                    <option value="{{ $category->id }}">{{ $category->category }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                @endif
+                            </form>
+
                         </div>
                     </div>                    
 

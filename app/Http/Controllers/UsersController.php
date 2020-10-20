@@ -55,13 +55,16 @@ class UsersController extends Controller
     public function category(int $id)
     {
         $data = [
-            'id'    => $id,
-            'route' => $this->Route,
+            'id'         => $id,
+            'route'      => $this->Route,
+            'categories' => Categories::find(2),
         ];
-
-        $categories = Categories::where('active', '<>', '2')->get();
 
         return view('users.category', $data);
     }
-}
 
+    public function categoryStore(int $id)
+    {
+        # code...
+    }
+}

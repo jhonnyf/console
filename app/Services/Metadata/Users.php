@@ -30,7 +30,7 @@ abstract class Users implements RulesInterface
         $columns['user_type_id']['options'] = $UsersTypes;
 
         $columns['user_type_id']['required'] = true;
-        $columns['name']['required']         = true;
+        $columns['first_name']['required']   = true;
         $columns['email']['required']        = true;
         $columns['document']['required']     = true;
 

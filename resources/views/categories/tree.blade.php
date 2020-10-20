@@ -52,7 +52,7 @@
                                     <label>Selecione as categorias superiores</label>
                                     <select name="primary_id[]" class="form-control wide" data-plugin="customselect" multiple>
                                         @foreach ($categories as $item)
-                                            <option value="{{ $item->id }}" {{ in_array($item->id, $links) ? 'selected' : '' }}>{{ $item->name }}</option>
+                                            <option value="{{ $item->id }}" {{ in_array($item->id, $links) ? 'selected' : '' }}>{{ $item->category }}</option>
                                         @endforeach
                                     </select>
                                 </div>
