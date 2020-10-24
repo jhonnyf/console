@@ -40,8 +40,7 @@ Route::group([], function () {
         Route::put('{id}', 'CategoriesController@update')->name('categories.update');
     });
 
-    Route::group(['prefix' => 'content'], function () {
-        Route::get('list-categories', 'ContentsController@listCategories')->name('contents.list-categories');
+    Route::group(['prefix' => 'content'], function () {        
         Route::get('form/{id?}', 'ContentsController@form')->name('contents.form');
         Route::get('active/{id}', 'ContentsController@active')->name('contents.active');
         Route::get('destroy/{id}', 'ContentsController@destroy')->name('contents.destroy');

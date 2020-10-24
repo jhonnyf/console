@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categories;
 use App\Models\CategoriesContents;
 use App\Models\Contents as Model;
 use Illuminate\Http\Request;
@@ -17,23 +16,6 @@ class ContentsController extends Controller
 
         $this->Route     = 'contents';
         $this->TableName = 'contents';
-    }
-
-    public function listCategories(Request $request)
-    {
-        $category_page = env('CATEGORY_PAGE');
-        if (empty($category_page)) {
-            abort(500, 'Categoria de conteúdo não definida');
-        }
-
-        $category = Categories::find($category_page);
-
-        $data = [
-            'pages' => $category->categorySecondary,
-            'route' => $this->Route,
-        ];
-
-        return view("{$this->Route}.list-categories", $data);
     }
 
     public function store(Request $request)
@@ -72,9 +54,7 @@ class ContentsController extends Controller
 
     protected function setData(Request $request): array
     {
-        return [
-            'category_id' => $request->category_id,
-        ];
+        return ['category_id' => $request->category_id];
     }
 
     protected function setCondition(Request $request): array
@@ -84,9 +64,7 @@ class ContentsController extends Controller
             ->keyBy('content_id')
             ->toArray();
 
-        return [
-            'id' => array_keys($links),
-        ];
+        return ['id' => array_keys($links)];
     }
 
     private function checkSlug(string $title, int $id = null)

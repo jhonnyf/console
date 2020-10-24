@@ -35,9 +35,21 @@
         </a>        
     </li>
     <li>
-        <a href="{{ route('contents.list-categories') }}">
+        <a href="javascript: void(0);">
             <i data-feather="file-text"></i>
             <span>Conteúdo</span>            
-        </a>        
+        </a> 
+        <ul class="nav-second-level" aria-expanded="false">
+            @php
+                $usersTypes = \App\Models\Categories::find(3)->categorySecondary;                
+            @endphp
+            @if ($usersTypes->count() > 0)
+                @foreach ($usersTypes as $item)
+                    <li>
+                        <a href="{{ route('contents.index', ['category_id' => $item->id ]) }}">{{ $item->category }}</a>
+                    </li>
+                @endforeach
+            @endif
+        </ul>
     </li>
 </ul>
