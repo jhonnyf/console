@@ -25,8 +25,8 @@
                         <div class="col-md-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">
-                                        <a href="{{ route('contents.index', ['category_id' => $item->id]) }}" class="card-link"><?=$item->name?></a>
+                                    <h5 class="card-title mb-0">
+                                        <a href="{{ route('contents.index', ['category_id' => $item->id]) }}" class="card-link"><?=$item->category?></a>
                                     </h5>                                    
                                 </div>
                             </div>    

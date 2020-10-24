@@ -16,6 +16,7 @@ abstract class Categories implements RulesInterface
         $columns = Metadata::formRulesMain($columns, $formValues);
 
         $columns['category']['required'] = true;
+        $columns['default']['type'] = 'hidden';
 
         return $columns;
     }

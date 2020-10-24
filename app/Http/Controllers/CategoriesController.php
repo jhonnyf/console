@@ -52,8 +52,8 @@ class CategoriesController extends Controller
         $create = $request->all();
 
         $response = Model::create($create);
-        if (isset($create['id_category'])) {
-            $this->saveLink($create['id_category'], $response->id);
+        if (isset($create['category_id'])) {
+            $this->saveLink($create['category_id'], $response->id);
         }
 
         return redirect()->route("{$this->Route}.form", ['id' => $response->id]);
@@ -90,6 +90,6 @@ class CategoriesController extends Controller
 
     protected function setData(Request $request): array
     {
-        return ['id_category' => $request->id_category];
+        return ['category_id' => $request->category_id];
     }
 }

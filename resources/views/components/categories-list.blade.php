@@ -35,7 +35,7 @@
     
     <div class="row">
         <div class="col text-center">
-            <a class="btn btn-primary" href="{{ route('categories.form', ['id_category' => $category->id]) }}" >
+            <a class="btn btn-primary" href="{{ route('categories.form', ['category_id' => $category->id]) }}" >
                 <i data-feather="plus" class="icon-dual"></i> adicionar
             </a>
         </div>
