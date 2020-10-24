@@ -27,6 +27,13 @@ class CategoriesSeeder extends Seeder
         ]);
 
         DB::table('categories')->insert([
+            'category'   => 'Páginas',
+            'default'    => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('categories')->insert([
             'category'   => 'Root',
             'default'    => 1,
             'created_at' => date('Y-m-d H:i:s'),
