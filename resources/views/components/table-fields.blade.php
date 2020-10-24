@@ -24,16 +24,10 @@
                             @endphp
                             <a href="{{ route("{$route}.form", $params_form) }}">
                                 <i data-feather="edit-2" class="icon-sm"></i>
-                            </a>
-                            @if ($row->active == 1)
-                                <a href="{{ route("{$route}.active", ['id' => $row->id]) }}">
-                                    <i data-feather="check-circle" class="icon-sm"></i>    
-                                </a>
-                            @else
-                                <a href="{{ route("{$route}.active", ['id' => $row->id]) }}">
-                                    <i data-feather="circle" class="icon-sm"></i>    
-                                </a>
-                            @endif
+                            </a>                            
+                            <a href="{{ route("{$route}.active", ['id' => $row->id]) }}">
+                                <i data-feather="{{ $row->active == 1 ? 'check-circle' : 'circle'}}" class="icon-sm"></i>    
+                            </a>                            
                             <a href="{{ route("{$route}.destroy", ['id' => $row->id]) }}">
                                 <i data-feather="trash-2" class="icon-sm"></i>
                             </a>

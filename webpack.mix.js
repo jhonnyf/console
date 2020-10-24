@@ -164,6 +164,7 @@ var app_pages_assets = {
     js: [
         folder.src + "js/pages/dashboard.init.js",
         folder.src + "js/pages/calendar.init.js",
+        folder.src + "js/pages/category.init.js",
         folder.src + "js/pages/apexcharts.init.js",
         folder.src + "js/pages/form-advanced.init.js",
         folder.src + "js/pages/form-validation.init.js",

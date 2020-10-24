@@ -40,8 +40,7 @@ Route::group([], function () {
     });
 
     Route::group(['prefix' => 'category'], function () {
-        Route::post('save-tree/{id}', 'CategoriesController@saveTree')->name('categories.save-tree');
-        Route::get('tree/{id}', 'CategoriesController@tree')->name('categories.tree');
+        Route::post('structure', 'CategoriesController@structure')->name('categories.structure');
         Route::get('form/{id?}', 'CategoriesController@form')->name('categories.form');
         Route::get('active/{id}', 'CategoriesController@active')->name('categories.active');
         Route::get('destroy/{id}', 'CategoriesController@destroy')->name('categories.destroy');

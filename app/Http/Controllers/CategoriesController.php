@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoriesStore;
-use App\Http\Requests\CategoriesTree;
 use App\Http\Requests\CategoriesUpdate;
 use App\Models\Categories as Model;
 use App\Models\CategoriesCategories;
@@ -20,17 +19,42 @@ class CategoriesController extends Controller
         $this->TableName = 'categories';
     }
 
+    public function index(Request $request)
+    {
+        $data = [
+            'route'    => $this->Route,
+            'category' => Model::find(1)
+        ];
+
+        return view("{$this->Route}.index", $data);
+    }
+
+    public function structure(Request $request)
+    {
+        $data = [
+            'id'       => $request->id,
+            'category' => Model::find($request->id),
+        ];
+
+        $response = [
+            'error'   => false,
+            'message' => 'success',
+            'result'  => [
+                'html' => view("{$this->Route}.structure", $data)->render(),
+            ],
+        ];
+
+        return response()->json($response);
+    }
+
     public function store(CategoriesStore $request)
     {
         $create = $request->all();
 
-        if (empty($create['password']) === false) {
-            $create['password'] = Hash::make($create['password']);
-        } else {
-            unset($create['password']);
-        }
-
         $response = Model::create($create);
+        if (isset($create['id_category'])) {
+            $this->saveLink($create['id_category'], $response->id);
+        }
 
         return redirect()->route("{$this->Route}.form", ['id' => $response->id]);
     }
@@ -50,39 +74,22 @@ class CategoriesController extends Controller
         return redirect()->route("{$this->Route}.form", ['id' => $id]);
     }
 
-    public function tree(int $id, Request $request)
+    private function saveLink(int $primary_id, int $secondary_id): bool
     {
-        $data = ['id' => $id, 'links' => []];
+        $response = false;
+        CategoriesCategories::where('secondary_id', $secondary_id)->delete();
 
-        $links = CategoriesCategories::where('secondary_id', $id)->get();
-        if ($links->count() > 0) {
-            foreach ($links as $value) {
-                $data['links'][] = $value->primary_id;
-            }
+        $insert = ['primary_id' => $primary_id, 'secondary_id' => $secondary_id];
+        if (CategoriesCategories::where($insert)->exists() === false) {
+            CategoriesCategories::create($insert);
+            $response = true;
         }
 
-        $data['categories'] = Model::where('active', 1)->where('id', '<>', $id)->get();
-        $data['route']      = $this->Route;
-
-        return view("{$this->Route}.tree", $data);
+        return $response;
     }
 
-    public function saveTree(int $id, CategoriesTree $request)
+    protected function setData(Request $request): array
     {
-        $data_request = $request->all();
-
-        CategoriesCategories::where('secondary_id', $data_request['secondary_id'])->delete();
-
-        if (isset($data_request['primary_id'])) {
-            foreach ($data_request['primary_id'] as $primary_id) {
-                $insert = ['primary_id' => $primary_id, 'secondary_id' => $data_request['secondary_id']];
-
-                if (CategoriesCategories::where($insert)->exists() === false) {
-                    CategoriesCategories::create($insert);
-                }
-            }
-        }
-
-        return redirect()->route('categories.tree', ['id' => $id]);
+        return ['id_category' => $request->id_category];
     }
 }
