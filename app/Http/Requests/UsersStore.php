@@ -15,13 +15,13 @@ class UsersStore extends FormRequest
     public function rules()
     {
         return [
-            'user_type_id' => 'required|integer|exists:users_types,id',
-            'name'         => 'required|string|min:3',
-            'email'        => 'required|string|unique:users|email:rfc,dns',
-            'password'     => 'nullable',
-            'document'     => 'required|unique:users',
-            'phone'        => 'nullable|min:8',
-            'cellphone'    => 'nullable|min:8',
+            'category_id' => 'required|integer|exists:categories,id',
+            'first_name'  => 'required|string|min:3',
+            'email'       => 'required|string|unique:users|email:rfc,dns',
+            'password'    => 'nullable',
+            'document'    => 'required|unique:users',
+            'phone'       => 'nullable|min:8',
+            'cellphone'   => 'nullable|min:8',
         ];
     }
 }

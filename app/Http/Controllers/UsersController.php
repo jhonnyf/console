@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UsersStore;
 use App\Http\Requests\UsersUpdate;
 use App\Models\Categories;
+use App\Models\CategoriesUsers;
+use App\Models\Users;
 use App\Models\Users as Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -29,6 +32,9 @@ class UsersController extends Controller
         }
 
         $response = Model::create($create);
+        if (isset($create['category_id'])) {
+            $this->saveLink($create['category_id'], $response->id);
+        }
 
         return redirect()->route("{$this->Route}.form", ['id' => $response->id]);
     }
@@ -52,6 +58,37 @@ class UsersController extends Controller
      * EXTRA
      */
 
+    protected function setData(Request $request): array
+    {
+        return ['category_id' => $request->category_id];
+    }
+
+    protected function setCondition(Request $request): array
+    {
+        $links = CategoriesUsers::where('category_id', $request->category_id)
+            ->get()
+            ->keyBy('user_id')
+            ->toArray();
+
+        return [
+            'id' => array_keys($links),
+        ];
+    }
+
+    private function saveLink(int $category_id, int $user_id): bool
+    {
+        $response = false;
+        CategoriesUsers::where('user_id', $user_id)->delete();
+
+        $insert = ['category_id' => $category_id, 'user_id' => $user_id];
+        if (CategoriesUsers::where($insert)->exists() === false) {
+            CategoriesUsers::create($insert);
+            $response = true;
+        }
+
+        return $response;
+    }
+
     public function category(int $id)
     {
         $data = [
@@ -60,11 +97,17 @@ class UsersController extends Controller
             'categories' => Categories::find(2),
         ];
 
+        $user = Users::find($id);
+
+        $data['category'] = $user->category->first();
+
         return view('users.category', $data);
     }
 
-    public function categoryStore(int $id)
+    public function categoryStore(int $id, Request $request)
     {
-        # code...
+        $this->saveLink($request->category_id, $id);
+
+        return redirect(route('users.category', ['id' => $id]));
     }
 }

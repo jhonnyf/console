@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Users extends Model
 {
-    protected $fillable = ['user_type_id', 'name', 'email', 'password', 'document', 'phone', 'cellphone'];
+    protected $fillable = ['first_name', 'last_name', 'email', 'password', 'document', 'phone', 'cellphone'];
     protected $hidden   = ['password'];
 
-    public function userType()
+    public function category()
     {
-        return $this->belongsTo(UsersTypes::class);
+        return $this->belongsToMany(Categories::class, 'categories_users', 'user_id', 'category_id');
     }
 }

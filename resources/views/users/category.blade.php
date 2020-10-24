@@ -43,10 +43,7 @@
                         <div class="tab-pane show active" id="main">
 
                             @php
-                                $action = route("{$route}.store");
-                                if(is_null($id) === false){
-                                    $action = route("{$route}.update", ['id' => $id]);    
-                                }
+                                $action = route("{$route}.category-store", ['id' => $id]);                                    
                             @endphp
                             
                             <form action="{{ $action }}" method="POST" class="form-horizontal" autocomplete="off">
@@ -55,14 +52,22 @@
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label">{{ $categories->category }}</label>
                                         <div class="col-lg-10">
-                                            <select class="form-control custom-select">
-                                                @foreach ($categories->categorySecondary as $category)                
-                                                    <option value="{{ $category->id }}">{{ $category->category }}</option>
-                                                @endforeach
+                                            <select name="category_id" class="form-control custom-select">
+                                                @if ($categories->categorySecondary->count() > 0)
+                                                    @foreach ($categories->categorySecondary as $row)                
+                                                        <option value="{{ $row->id }}" {{ $category->id === $row->id ? 'selected' : ''  }}>{{ $row->category }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
                                 @endif
+
+                                <div class="text-right">
+                                    <a href="{{ route("users.index") }}" class="btn btn-primary">Voltar</a>
+                                    <button type="submit" class="btn btn-dark">Salvar</button>
+                                </div>
+
                             </form>
 
                         </div>

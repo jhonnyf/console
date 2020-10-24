@@ -41,7 +41,7 @@
 
                     <div class="tab-content p-3 text-muted">
                         <div class="tab-pane show active" id="main">
-                            <x-form-fields :formFields="$formFields" :id="$id" :route="$route" />
+                            <x-form-fields :formFields="$formFields" :id="$id" :route="$route" :extraData="$extraData" />
                         </div>
                     </div>                    
 

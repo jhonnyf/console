@@ -2,7 +2,7 @@
 
 namespace App\Services\Metadata;
 
-use App\Models\UsersTypes;
+use App\Models\Categories;
 use App\Services\Metadata\Interfaces\RulesInterface;
 
 abstract class Users implements RulesInterface
@@ -12,7 +12,7 @@ abstract class Users implements RulesInterface
         unset($columns['active']);
         unset($columns['password']);
 
-        $columns['user_type_id']['parameter'] = "userType->user_type";
+        // $columns['user_type_id']['parameter'] = "userType->user_type";
 
         return $columns;
     }
@@ -21,15 +21,19 @@ abstract class Users implements RulesInterface
     {
         $columns = Metadata::formRulesMain($columns, $formValues);
 
-        $UsersTypes = UsersTypes::where('active', '<>', 2)
-            ->select('id', 'user_type as option')
-            ->orderBy('user_type', 'asc')
-            ->get();
+        $options = [];
 
-        $columns['user_type_id']['type']    = 'select';
-        $columns['user_type_id']['options'] = $UsersTypes;
+        $usersTypes = Categories::find(2)->categorySecondary;
+        if ($usersTypes->count() > 0) {
+            foreach ($usersTypes as $key => $value) {
+                $options[] = ['id' => $value->id, 'option' => $value->category];
+            }
+        }
 
-        $columns['user_type_id']['required'] = true;
+        // $columns['user_type_id']['type']    = 'select';
+        // $columns['user_type_id']['options'] = $options;
+        // $columns['user_type_id']['required'] = true;
+
         $columns['first_name']['required']   = true;
         $columns['email']['required']        = true;
         $columns['document']['required']     = true;

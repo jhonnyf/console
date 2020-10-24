@@ -17,18 +17,15 @@ class CreateUsers extends Migration
             $table->engine = 'InnoDB';
 
             $table->id();
-            $table->integer('active')->default(1);
-            $table->unsignedBigInteger('user_type_id');
+            $table->integer('active')->default(1);            
             $table->string('first_name');
-            $table->string('last_name');
+            $table->string('last_name')->nullable();
             $table->string('email')->unique();
             $table->string('password')->nullable();
             $table->string('document')->unique();
             $table->string('phone', 15)->nullable();
             $table->string('cellphone', 15)->nullable();
             $table->timestamps();
-
-            $table->foreign('user_type_id')->references('id')->on('users_types');
         });
     }
 

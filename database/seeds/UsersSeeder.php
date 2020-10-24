@@ -8,8 +8,7 @@ class UsersSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('users')->insert([
-            'user_type_id' => '1',
+        DB::table('users')->insert([            
             'first_name'   => 'Root',
             'last_name'    => 'Seventh',
             'email'        => 'root@seven.com',

@@ -19,7 +19,7 @@ Route::group([], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::group(['prefix' => 'category'], function () {
             Route::get('{id}', 'UsersController@category')->name('users.category');
-            Route::post('{id}', 'UsersController@categoryStore')->name('users.store');
+            Route::post('{id}', 'UsersController@categoryStore')->name('users.category-store');
         });
 
         Route::get('form/{id?}', 'UsersController@form')->name('users.form');
@@ -28,15 +28,6 @@ Route::group([], function () {
         Route::get('', 'UsersController@index')->name('users.index');
         Route::post('', 'UsersController@store')->name('users.store');
         Route::put('{id}', 'UsersController@update')->name('users.update');
-    });
-
-    Route::group(['prefix' => 'user-type'], function () {
-        Route::get('form/{id?}', 'UsersTypesController@form')->name('usersTypes.form');
-        Route::get('active/{id}', 'UsersTypesController@active')->name('usersTypes.active');
-        Route::get('destroy/{id}', 'UsersTypesController@destroy')->name('usersTypes.destroy');
-        Route::get('', 'UsersTypesController@index')->name('usersTypes.index');
-        Route::post('', 'UsersTypesController@store')->name('usersTypes.store');
-        Route::put('{id}', 'UsersTypesController@update')->name('usersTypes.update');
     });
 
     Route::group(['prefix' => 'category'], function () {
