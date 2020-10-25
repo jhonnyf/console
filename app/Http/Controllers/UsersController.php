@@ -70,9 +70,7 @@ class UsersController extends Controller
             ->keyBy('user_id')
             ->toArray();
 
-        return [
-            'id' => array_keys($links),
-        ];
+        return ['id' => array_keys($links)];
     }
 
     private function saveLink(int $category_id, int $user_id): bool
@@ -97,9 +95,7 @@ class UsersController extends Controller
             'categories' => Categories::find(2),
         ];
 
-        $user = Users::find($id);
-
-        $data['category'] = $user->category->first();
+        $data['category'] = Users::find($id)->category->first();
 
         return view('users.category', $data);
     }
