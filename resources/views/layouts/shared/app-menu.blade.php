@@ -1,14 +1,12 @@
-<ul class="metismenu" id="menu-bar">
-    <li class="menu-title">Navigation</li>
-
+<ul class="metismenu" id="menu-bar">   
     <li>
-        <a href="/">
+        <a href="{{ route('dashboard') }}">
             <i data-feather="home"></i>
             <span class="badge badge-success float-right">1</span>
-            <span> Dashboard </span>
+            <span>Dashboard</span>
         </a>
     </li>
-    <li class="menu-title">Apps</li>
+    <li class="menu-title">Modulos</li>
     <li>
         <a href="javascript: void(0);">
             <i data-feather="users"></i>

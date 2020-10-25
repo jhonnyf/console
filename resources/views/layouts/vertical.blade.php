@@ -2,12 +2,11 @@
 <html lang="pt-br">
     <head>
         <meta charset="utf-8" />
-        <title>Shreyu</title>
+        <title>Seventh</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />        
         @if(isset($isDark) && $isDark)
             @include('layouts.shared.head', ['isDark' => true])
         @elseif(isset($isRTL) && $isRTL)
@@ -16,7 +15,6 @@
             @include('layouts.shared.head', ['isDark' => true])
         @endif
     </head>
-
     @if(isset($isScrollable) && $isScrollable)
         <body class="scrollable-layout">
     @elseif(isset($isBoxed) && $isBoxed)
@@ -60,8 +58,6 @@
             @include('layouts.shared.footer')
         </div>
     </div>
-
-    @include('layouts.shared.rightbar')
 
     @include('layouts.shared.footer-script')
 
