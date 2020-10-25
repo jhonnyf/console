@@ -7,7 +7,6 @@ use App\Http\Requests\CategoriesUpdate;
 use App\Models\Categories as Model;
 use App\Models\CategoriesCategories;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class CategoriesController extends Controller
 {
@@ -23,7 +22,7 @@ class CategoriesController extends Controller
     {
         $data = [
             'route'    => $this->Route,
-            'category' => Model::find(1)
+            'category' => Model::find(1),
         ];
 
         return view("{$this->Route}.index", $data);
@@ -61,15 +60,7 @@ class CategoriesController extends Controller
 
     public function update(int $id, CategoriesUpdate $request)
     {
-        $fill = $request->all();
-
-        if (empty($fill['password']) === false) {
-            $fill['password'] = Hash::make($fill['password']);
-        } else {
-            unset($fill['password']);
-        }
-
-        Model::find($id)->fill($fill)->save();
+        Model::find($id)->fill($request->all())->save();
 
         return redirect()->route("{$this->Route}.form", ['id' => $id]);
     }

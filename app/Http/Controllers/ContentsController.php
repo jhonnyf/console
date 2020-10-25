@@ -27,7 +27,6 @@ class ContentsController extends Controller
         $response = Model::create($create);
 
         if (isset($create['category_id'])) {
-
             $link = ['category_id' => $create['category_id'], 'content_id' => $response->id];
             if (CategoriesContents::where($link)->exists() === false) {
                 CategoriesContents::create($link);
