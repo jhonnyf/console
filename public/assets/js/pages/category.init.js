@@ -19342,8 +19342,19 @@ $('a[data-ajax]').click(function () {
     var response = response.data;
 
     if (response.error === false) {
-      $('.structure-category').append(response.result.html);
-      feather.replace();
+      var append_element = true;
+      $('.structure-category .col').each(function () {
+        var parent_id = $(this).data('parent_id');
+
+        if (parent_id == response.result.parent_id) {
+          append_element = false;
+        }
+      });
+
+      if (append_element) {
+        $('.structure-category').append(response.result.html);
+        feather.replace();
+      }
     }
   });
 });

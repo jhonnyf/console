@@ -1,4 +1,4 @@
-<div class="col">
+<div class="col" data-parent_id="{{ $category->id }}">
     <div class="header-title mb-2">{{ $category->category }}</div>
 
     @if ($category->categorySecondary->count())

@@ -39,7 +39,8 @@ class CategoriesController extends Controller
             'error'   => false,
             'message' => 'success',
             'result'  => [
-                'html' => view("{$this->Route}.structure", $data)->render(),
+                'parent_id' => $data['id'],
+                'html'      => view("{$this->Route}.structure", $data)->render(),
             ],
         ];
 
