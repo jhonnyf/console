@@ -2,7 +2,6 @@
     <li>
         <a href="{{ route('dashboard') }}">
             <i data-feather="home"></i>
-            <span class="badge badge-success float-right">1</span>
             <span>Dashboard</span>
         </a>
     </li>
@@ -35,7 +34,8 @@
     <li>
         <a href="javascript: void(0);">
             <i data-feather="file-text"></i>
-            <span>Conteúdo</span>            
+            <span>Conteúdo</span>
+            <span class="menu-arrow"></span>          
         </a> 
         <ul class="nav-second-level" aria-expanded="false">
             @php
