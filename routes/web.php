@@ -48,4 +48,8 @@ Route::group([], function () {
         Route::post('', 'ContentsController@store')->name('contents.store');
         Route::put('{id}', 'ContentsController@update')->name('contents.update');
     });
+    
+    Route::group(['prefix' => 'gallery'], function(){
+        Route::get('{module}/{link_id}', 'GalleriesController@form')->name('galleries.index');
+    });
 });

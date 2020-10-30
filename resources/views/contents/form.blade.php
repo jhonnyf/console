@@ -20,9 +20,30 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-body">           
+                <div class="card-body">     
                     
-                    <x-form-fields :formFields="$formFields" :id="$id" :route="$route" :extraData="$extraData" />
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a href="{{ route('contents.form', ['id' => $id, 'category_id' => $category_id] ) }}" class="nav-link active">
+                                <span class="d-block d-sm-none"><i class="uil-home-alt"></i></span>
+                                <span class="d-none d-sm-block ">Principal</span>
+                            </a>                            
+                        </li>
+                        @if (is_null($id) === false)
+                            <li class="nav-item">
+                                <a href="{{ route('galleries.index', ['module' => 'content', 'link_id' => $id]) }}"  class="nav-link">
+                                    <span class="d-block d-sm-none"><i class="uil-home-alt"></i></span>
+                                    <span class="d-none d-sm-block ">Galerias</span>
+                                </a>    
+                            </li>
+                        @endif
+                    </ul>
+                    
+                    <div class="tab-content p-3 text-muted">
+                        <div class="tab-pane show active" id="main">
+                            <x-form-fields :formFields="$formFields" :id="$id" :route="$route" :extraData="$extraData" />
+                        </div>
+                    </div>
 
                 </div>
             </div>
