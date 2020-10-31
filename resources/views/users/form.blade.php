@@ -16,7 +16,6 @@
 @endsection
 
 @section('content')
-
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
@@ -36,6 +35,12 @@
                                     <span class="d-none d-sm-block ">Categorias</span>
                                 </a>    
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('users.custom') }}"  class="nav-link">
+                                    <span class="d-block d-sm-none"><i class="uil-home-alt"></i></span>
+                                    <span class="d-none d-sm-block ">Custom</span>
+                                </a>    
+                            </li>
                         @endif
                     </ul>
 
@@ -50,5 +55,4 @@
 
         </div>
     </div>
-
 @endsection

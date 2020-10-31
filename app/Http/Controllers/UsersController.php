@@ -8,6 +8,7 @@ use App\Models\Categories;
 use App\Models\CategoriesUsers;
 use App\Models\Users;
 use App\Models\Users as Model;
+use App\Services\FormElement\FormElement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -105,5 +106,42 @@ class UsersController extends Controller
         $this->saveLink($request->category_id, $id);
 
         return redirect(route('users.category', ['id' => $id]));
+    }
+
+    public function custom()
+    {
+        $form = new FormElement;
+
+        $form->setAction('https://g1.globo.com/');
+        $form->setAutocomplete(false);
+        $form->setMethod('post');
+
+        $email = $form->newElement('input');
+        $email->setName('email');
+        $email->setType('text');
+
+        $form->addElement($email);
+
+        $password = $form->newElement('input');
+        $password->setName('password');
+        $password->setType('password');
+
+        $form->addElement($password);
+
+        $form->newRow();
+
+        $email = $form->newElement('input');
+        $email->setName('email 1');
+        $email->setType('text');
+
+        $form->addElement($email);
+
+        $password = $form->newElement('input');
+        $password->setName('password 1');
+        $password->setType('password');
+
+        $form->addElement($password);
+
+        echo $form->render();
     }
 }
