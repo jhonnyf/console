@@ -22,8 +22,6 @@ Route::group([], function () {
             Route::post('{id}', 'UsersController@categoryStore')->name('users.category-store');
         });
 
-        Route::get('custom', 'UsersController@custom')->name('users.custom');
-
         Route::get('form/{id?}', 'UsersController@form')->name('users.form');
         Route::get('active/{id}', 'UsersController@active')->name('users.active');
         Route::get('destroy/{id}', 'UsersController@destroy')->name('users.destroy');
