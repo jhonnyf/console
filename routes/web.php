@@ -13,7 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::group([], function () {
+Route::group(['prefix' => 'login'], function () {
+    Route::get('', 'loginController@index')->name('login.index');
+    Route::post('authenticate', 'loginController@authenticate')->name('login.authenticate');
+    Route::get('logout', 'LoginController@logout')->name('login.logout');
+});
+
+Route::group(['middleware' => 'auth'], function () {
     Route::get('', 'DashboardController@index')->name('dashboard');
 
     Route::group(['prefix' => 'user'], function () {
@@ -40,7 +46,7 @@ Route::group([], function () {
         Route::put('{id}', 'CategoriesController@update')->name('categories.update');
     });
 
-    Route::group(['prefix' => 'content'], function () {        
+    Route::group(['prefix' => 'content'], function () {
         Route::get('form/{id?}', 'ContentsController@form')->name('contents.form');
         Route::get('active/{id}', 'ContentsController@active')->name('contents.active');
         Route::get('destroy/{id}', 'ContentsController@destroy')->name('contents.destroy');
@@ -48,8 +54,8 @@ Route::group([], function () {
         Route::post('', 'ContentsController@store')->name('contents.store');
         Route::put('{id}', 'ContentsController@update')->name('contents.update');
     });
-    
-    Route::group(['prefix' => 'gallery'], function(){
+
+    Route::group(['prefix' => 'gallery'], function () {
         Route::get('{module}/{link_id}', 'GalleriesController@form')->name('galleries.index');
     });
 });
