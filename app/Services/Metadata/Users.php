@@ -2,7 +2,6 @@
 
 namespace App\Services\Metadata;
 
-use App\Models\Categories;
 use App\Services\Metadata\Interfaces\RulesInterface;
 
 abstract class Users implements RulesInterface
@@ -21,22 +20,9 @@ abstract class Users implements RulesInterface
     {
         $columns = Metadata::formRulesMain($columns, $formValues);
 
-        $options = [];
-
-        $usersTypes = Categories::find(2)->categorySecondary;
-        if ($usersTypes->count() > 0) {
-            foreach ($usersTypes as $key => $value) {
-                $options[] = ['id' => $value->id, 'option' => $value->category];
-            }
-        }
-
-        // $columns['user_type_id']['type']    = 'select';
-        // $columns['user_type_id']['options'] = $options;
-        // $columns['user_type_id']['required'] = true;
-
-        $columns['first_name']['required']   = true;
-        $columns['email']['required']        = true;
-        $columns['document']['required']     = true;
+        $columns['first_name']['required'] = true;
+        $columns['email']['required']      = true;
+        $columns['document']['required']   = true;
 
         return $columns;
     }

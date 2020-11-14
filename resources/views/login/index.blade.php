@@ -46,15 +46,14 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group mb-4">
+                                        {{-- <div class="form-group mb-4">
                                             <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                    id="checkbox-signin" checked>
-                                                <label class="custom-control-label" for="checkbox-signin">Remember me</label>
+                                                <input type="checkbox" class="custom-control-input" name="remember" value="1" id="checkbox-signin" checked>
+                                                <label class="custom-control-label" for="checkbox-signin">Lembre-me</label>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="form-group mb-0 text-center">
+                                        <div class="form-group mb-0 text-center mt-5">
                                             <button class="btn btn-primary btn-block" type="submit"> Log In</button>
                                         </div>
                                     </form>                                                                    

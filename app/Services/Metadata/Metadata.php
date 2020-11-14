@@ -59,7 +59,8 @@ class Metadata
 
         foreach ($columns as $column) {
 
-            $value = isset($formValues[$column['name']]) ? $formValues[$column['name']] : '';
+            $value   = isset($formValues[$column['name']]) ? $formValues[$column['name']] : '';
+            $element = 'input';
 
             if ($column['key'] === 'pri') {
                 $type = 'hidden';
@@ -74,7 +75,8 @@ class Metadata
             }
 
             $fields[$column['name']] = [
-                'name'       => $column['name'],
+                'element'    => $element,
+                'name'       => $column['name'],                
                 'type'       => $type,
                 'max_length' => $column['max_length'],
                 'value'      => $value,
@@ -89,7 +91,7 @@ class Metadata
         return static::fields(static::describe($table));
     }
 
-    public static function describe(string $table): array
+    private static function describe(string $table): array
     {
         return DB::select("DESCRIBE {$table};");
     }
