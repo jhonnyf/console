@@ -9,6 +9,7 @@ use App\Models\CategoriesUsers;
 use App\Models\Users;
 use App\Models\Users as Model;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -36,7 +37,7 @@ class UsersController extends Controller
             $this->saveLink($create['category_id'], $response->id);
         }
 
-        return redirect()->route("{$this->Route}.form", ['id' => $response->id]);
+        return redirect()->route("{$this->Route}.form", ['id' => $response->id, 'category_id' => $request->category_id]);
     }
 
     public function update(int $id, UsersUpdate $request)
@@ -51,7 +52,7 @@ class UsersController extends Controller
 
         Model::find($id)->fill($fill)->save();
 
-        return redirect()->route("{$this->Route}.form", ['id' => $id]);
+        return redirect()->route("{$this->Route}.form", ['id' => $id, 'category_id' => $request->category_id]);
     }
 
     /**
@@ -73,6 +74,30 @@ class UsersController extends Controller
         return ['id' => array_keys($links)];
     }
 
+    protected function setNav(Request $request, int $id = null): array
+    {
+
+        $response[] = [
+            'name'  => 'Principal',
+            'route' => route('users.form', ['id' => $id, 'category_id' => $request->category_id]),
+        ];
+
+        if (is_null($id) === false) {
+
+            $response[] = [
+                'name'  => 'Categorias',
+                'route' => route('users.category', ['id' => $id, 'category_id' => $request->category_id]),
+            ];
+
+            $response[] = [
+                'name'  => 'Senha',
+                'route' => route('users.password', ['id' => $id, 'category_id' => $request->category_id]),
+            ];
+        }
+
+        return $response;
+    }
+
     private function saveLink(int $category_id, int $user_id): bool
     {
         $response = false;
@@ -87,11 +112,12 @@ class UsersController extends Controller
         return $response;
     }
 
-    public function category(int $id)
+    public function category(int $id, Request $request)
     {
         $data = [
             'id'         => $id,
             'route'      => $this->Route,
+            'nav'        => $this->setNav($request, $id),
             'categories' => Categories::find(2),
         ];
 
@@ -105,6 +131,17 @@ class UsersController extends Controller
         $this->saveLink($request->category_id, $id);
 
         return redirect(route('users.category', ['id' => $id]));
+    }
+
+    public function password(int $id, Request $request)
+    {
+        $data = [
+            'id'    => $id,
+            'route' => $this->Route,
+            'nav'   => $this->setNav($request, $id),
+        ];
+
+        return view('users.password', $data);
     }
 
 }

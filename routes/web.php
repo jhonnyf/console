@@ -28,6 +28,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('{id}', 'UsersController@categoryStore')->name('users.category-store');
         });
 
+        Route::get('password/{id}', 'UsersController@password')->name('users.password');
+
         Route::get('form/{id?}', 'UsersController@form')->name('users.form');
         Route::get('active/{id}', 'UsersController@active')->name('users.active');
         Route::get('destroy/{id}', 'UsersController@destroy')->name('users.destroy');

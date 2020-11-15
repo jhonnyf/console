@@ -73,6 +73,7 @@ abstract class Controller extends BaseController
         $data = [
             'id'    => $id,
             'route' => $this->Route,
+            'nav'   => $this->setNav($request, $id),
         ];
 
         $setData = $this->setData($request);
@@ -115,6 +116,11 @@ abstract class Controller extends BaseController
     }
 
     protected function setCondition(Request $request): array
+    {
+        return [];
+    }
+
+    protected function setNav(Request $request, int $id = null): array
     {
         return [];
     }

@@ -24,6 +24,8 @@ abstract class Users implements RulesInterface
         $columns['email']['required']      = true;
         $columns['document']['required']   = true;
 
+        unset($columns['password']);
+
         return $columns;
     }
 

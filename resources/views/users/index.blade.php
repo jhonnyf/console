@@ -40,7 +40,7 @@
                         </form>                    
                     </div>
 
-                    <x-table-fields :tableFields="$tableFields" :tableValues="$tableValues" :route="$route"/>
+                    <x-table-fields :tableFields="$tableFields" :tableValues="$tableValues" :route="$route" :extraData="$extraData" />
                     
                 </div>
             </div>

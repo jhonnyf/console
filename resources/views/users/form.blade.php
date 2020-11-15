@@ -21,22 +21,7 @@
             <div class="card">
                 <div class="card-body">       
 
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                            <a href="{{ route('users.form', ['id' => $id]) }}" class="nav-link active">
-                                <span class="d-block d-sm-none"><i class="uil-home-alt"></i></span>
-                                <span class="d-none d-sm-block ">Principal</span>
-                            </a>                            
-                        </li>
-                        @if (is_null($id) === false)
-                            <li class="nav-item">
-                                <a href="{{ route('users.category', ['id' => $id]) }}"  class="nav-link">
-                                    <span class="d-block d-sm-none"><i class="uil-home-alt"></i></span>
-                                    <span class="d-none d-sm-block ">Categorias</span>
-                                </a>    
-                            </li>
-                        @endif
-                    </ul>
+                    <x-nav :id="$id" :nav="$nav" />
 
                     <div class="tab-content p-3 text-muted">
                         <div class="tab-pane show active" id="main">
