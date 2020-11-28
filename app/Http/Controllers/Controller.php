@@ -75,6 +75,7 @@ abstract class Controller extends BaseController
         $data = [
             'id'    => $id,
             'route' => $this->Route,
+            'name'  => $this->Name,
             'nav'   => $this->setNav($request, $id),
         ];
 

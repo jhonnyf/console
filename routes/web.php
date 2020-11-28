@@ -28,7 +28,10 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('{id}', 'UsersController@categoryStore')->name('users.category-store');
         });
 
-        Route::get('password/{id}', 'UsersController@password')->name('users.password');
+        Route::group(['prefix' => 'password'], function () {
+            Route::get('{id}', 'UsersController@password')->name('users.password');
+            Route::post('{id}', 'UsersController@passwordStore')->name('users.password-store');
+        });
 
         Route::get('form/{id?}', 'UsersController@form')->name('users.form');
         Route::get('active/{id}', 'UsersController@active')->name('users.active');

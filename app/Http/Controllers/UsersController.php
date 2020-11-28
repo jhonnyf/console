@@ -8,6 +8,7 @@ use App\Models\Categories;
 use App\Models\CategoriesUsers;
 use App\Models\Users;
 use App\Models\Users as Model;
+use App\Services\FormElement\FormElement;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Hash;
@@ -123,6 +124,15 @@ class UsersController extends Controller
             'categories' => Categories::find(2),
         ];
 
+        $setData = $this->setData($request);
+        if (count($setData) > 0) {
+            $data['extraData'] = $setData;
+            $data              = array_merge($data, $setData);
+        }
+
+        $form = new FormElement;
+
+        $data['form']     = $form;
         $data['category'] = Users::find($id)->category->first();
 
         return view('users.category', $data);
@@ -140,10 +150,42 @@ class UsersController extends Controller
         $data = [
             'id'    => $id,
             'route' => $this->Route,
+            'name'  => $this->Name,
             'nav'   => $this->setNav($request, $id),
         ];
 
+        $setData = $this->setData($request);
+        if (count($setData) > 0) {
+            $data['extraData'] = $setData;
+            $data              = array_merge($data, $setData);
+        }
+
+        $form = new FormElement;
+
+        $form->setAction(route('users.password-store', ['id' => $id]));
+        $form->setAutocomplete('off');
+        $form->setMethod('post');
+
+        $password = $form->newElement('input');
+        $password->setName('password');
+        $password->setType('password');
+
+        $form->addElement($password);
+
+        $coPassword = $form->newElement('input');
+        $coPassword->setName('co-password');
+        $coPassword->setType('password');
+
+        $form->addElement($coPassword);
+
+        $data['form'] = $form->render();
+
         return view('users.password', $data);
+    }
+
+    public function passwordStore(int $id, Request $request)
+    {
+        # code...
     }
 
 }

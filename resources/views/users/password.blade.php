@@ -14,16 +14,13 @@
 
                     <div class="tab-content p-3 text-muted">
                         <div class="tab-pane show active" id="main">
-                            
-                            <form action="{{ route("{$route}.category-store", ['id' => $id]) }}" method="POST" class="form-horizontal" autocomplete="off">
-                                @csrf
-                                
-                                <div class="text-right">
-                                    <a href="{{ route("users.index") }}" class="btn btn-primary">Voltar</a>
-                                    <button type="submit" class="btn btn-dark">Salvar</button>
-                                </div>
 
-                            </form>
+                            {!! $form !!}
+
+                            <div class="text-right">
+                                <a href="{{ route("{$route}.index", $extraData) }}" class="btn btn-primary">Voltar</a>
+                                <button type="submit" class="btn btn-dark">Salvar</button>
+                            </div>
 
                         </div>
                     </div>                    

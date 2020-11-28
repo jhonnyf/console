@@ -2,14 +2,13 @@
 
     @if (is_array($row) && count($row) > 0)
         @foreach ($row as $cols)
-            <div class="row">
-                @foreach ($cols as $col)
-                    <div class="col">
-                        {!! $col !!}
-                    </div>
-                @endforeach
-            </div>
-            <hr>
+
+            @foreach ($cols as $col)
+                <div class="form-group row">
+                    {!! $col !!}
+                </div>
+            @endforeach
+                        
         @endforeach
     @endif
 
