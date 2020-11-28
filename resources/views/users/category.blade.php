@@ -1,18 +1,7 @@
 @extends('layouts.vertical')
 
 @section('breadcrumb')
-    <div class="row page-title">
-        <div class="col-md-12">
-            <nav aria-label="breadcrumb" class="float-right mt-1">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Console</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Usuário</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ is_null($id) ? "Novo" : "Editar" }}</li>
-                </ol>
-            </nav>
-            <h4 class="mb-1 mt-0">Usuário</h4>
-        </div>
-    </div>
+    <x-breadcrumb :id="$id" :route="$route" :name="$name" />
 @endsection
 
 @section('content')
@@ -33,6 +22,7 @@
                             
                             <form action="{{ $action }}" method="POST" class="form-horizontal" autocomplete="off">
                                 @csrf
+
                                 @if ($categories->count() > 0)                                
                                     <div class="form-group row">
                                         <label class="col-lg-2 col-form-label">{{ $categories->category }}</label>

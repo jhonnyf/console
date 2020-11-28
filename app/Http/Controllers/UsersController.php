@@ -20,6 +20,7 @@ class UsersController extends Controller
 
         $this->Route     = 'users';
         $this->TableName = 'users';
+        $this->Name      = 'Usuário';
     }
 
     public function store(UsersStore $request)
@@ -117,6 +118,7 @@ class UsersController extends Controller
         $data = [
             'id'         => $id,
             'route'      => $this->Route,
+            'name'       => $this->Name,
             'nav'        => $this->setNav($request, $id),
             'categories' => Categories::find(2),
         ];

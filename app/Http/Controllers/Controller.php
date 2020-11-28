@@ -17,6 +17,7 @@ abstract class Controller extends BaseController
     protected $Model;
     protected $Route;
     protected $TableName;
+    protected $Name;
 
     public function __construct($Model = null)
     {
@@ -30,6 +31,7 @@ abstract class Controller extends BaseController
         $data = [
             'search' => isset($request->search) ? $request->search : '',
             'route'  => $this->Route,
+            'name'   => $this->Name,
         ];
 
         $setData = $this->setData($request);
