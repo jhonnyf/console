@@ -14,20 +14,12 @@
 
                     <div class="tab-content p-3 text-muted">
                         <div class="tab-pane show active" id="main">
-
                             {!! $form !!}
-
-                            <div class="text-right">
-                                <a href="{{ route("{$route}.index", $extraData) }}" class="btn btn-primary">Voltar</a>
-                                <button type="submit" class="btn btn-dark">Salvar</button>
-                            </div>
-
                         </div>
                     </div>                    
 
                 </div>
             </div>
-
         </div>
     </div>
 @endsection

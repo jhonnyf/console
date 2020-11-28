@@ -50,7 +50,7 @@ class FormElement
         $this->row[$this->totalRows][] = $element->render();
     }
 
-    public function render()
+    public function render(array $extraData = [])
     {
         $data = [
             'action'       => $this->action,
@@ -58,6 +58,10 @@ class FormElement
             'method'       => $this->method,
             'row'          => $this->row,
         ];
+
+        if(count($extraData) > 0){
+            $data = array_merge($data, $extraData);
+        }
 
         return view('system.form-element.render', $data)->render();
     }

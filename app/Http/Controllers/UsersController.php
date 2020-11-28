@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Password;
 use App\Http\Requests\UsersStore;
 use App\Http\Requests\UsersUpdate;
 use App\Models\Categories;
@@ -169,23 +170,27 @@ class UsersController extends Controller
         $password = $form->newElement('input');
         $password->setName('password');
         $password->setType('password');
+        $password->setLabel('Senha');
 
         $form->addElement($password);
 
         $coPassword = $form->newElement('input');
         $coPassword->setName('co-password');
         $coPassword->setType('password');
+        $coPassword->setLabel('Confirmação de senha');
 
         $form->addElement($coPassword);
 
-        $data['form'] = $form->render();
+        $data['form'] = $form->render($data);
 
         return view('users.password', $data);
     }
 
-    public function passwordStore(int $id, Request $request)
+    public function passwordStore(int $id, Password $request)
     {
-        # code...
+        Model::find($id)->fill(['password' => Hash::make($request->password)])->save();
+
+        return redirect()->route("{$this->Route}.password", ['id' => $id, 'category_id' => $request->category_id]);
     }
 
 }

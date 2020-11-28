@@ -10,6 +10,7 @@ class Element
     private $type;
     private $max_length;
     private $value;
+    private $label;
 
     public function __construct(string $element)
     {
@@ -40,6 +41,11 @@ class Element
         $this->value = $value;
     }
 
+    public function setLabel(string $label): void
+    {
+        $this->label = $label;
+    }
+
     /**
      * METHODS
      */
@@ -50,6 +56,7 @@ class Element
             'name'       => $this->name,
             'type'       => $this->type,
             'max_length' => $this->max_length,
+            'label'      => $this->label,
             'value'      => $this->value,
         ];
 
