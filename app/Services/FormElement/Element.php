@@ -11,6 +11,7 @@ class Element
     private $max_length;
     private $value;
     private $label;
+    private $options = [];
 
     public function __construct(string $element)
     {
@@ -46,6 +47,11 @@ class Element
         $this->label = $label;
     }
 
+    public function setOptions(array $options): void
+    {
+        $this->options = $options;
+    }
+
     /**
      * METHODS
      */
@@ -58,6 +64,7 @@ class Element
             'max_length' => $this->max_length,
             'label'      => $this->label,
             'value'      => $this->value,
+            'options'    => $this->options,
         ];
 
         return view("system.form-element.elements.{$this->element}", $data)->render();

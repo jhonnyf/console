@@ -7,7 +7,6 @@ use App\Http\Requests\UsersStore;
 use App\Http\Requests\UsersUpdate;
 use App\Models\Categories;
 use App\Models\CategoriesUsers;
-use App\Models\Users;
 use App\Models\Users as Model;
 use App\Services\FormElement\FormElement;
 use Illuminate\Http\Request;
@@ -118,11 +117,10 @@ class UsersController extends Controller
     public function category(int $id, Request $request)
     {
         $data = [
-            'id'         => $id,
-            'route'      => $this->Route,
-            'name'       => $this->Name,
-            'nav'        => $this->setNav($request, $id),
-            'categories' => Categories::find(2),
+            'id'    => $id,
+            'route' => $this->Route,
+            'name'  => $this->Name,
+            'nav'   => $this->setNav($request, $id),
         ];
 
         $setData = $this->setData($request);
@@ -133,8 +131,28 @@ class UsersController extends Controller
 
         $form = new FormElement;
 
-        $data['form']     = $form;
-        $data['category'] = Users::find($id)->category->first();
+        $form->setAction(route('users.category-store', ['id' => $id]));
+        $form->setAutocomplete('off');
+        $form->setMethod('post');
+
+        $categoryId = $form->newElement('select');
+        $categoryId->setName('category_id');
+        $categoryId->setLabel('Categoria');
+
+        $categories = Categories::find(2)->categorySecondary;
+        if ($categories->count() > 0) {
+            $options = [];
+            foreach ($categories as $key => $value) {
+                $options[$value->id] = $value->category;
+            }
+
+            $categoryId->setOptions($options);
+            $categoryId->setValue(Model::find($id)->category->first()->id);
+        }
+
+        $form->addElement($categoryId); 
+
+        $data['form'] = $form->render($data);
 
         return view('users.category', $data);
     }
@@ -143,7 +161,7 @@ class UsersController extends Controller
     {
         $this->saveLink($request->category_id, $id);
 
-        return redirect(route('users.category', ['id' => $id]));
+        return redirect()->route('users.category', ['id' => $id]);
     }
 
     public function password(int $id, Request $request)

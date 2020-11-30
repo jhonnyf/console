@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('', 'DashboardController@index')->name('dashboard');
 
     Route::group(['prefix' => 'user'], function () {
+        
         Route::group(['prefix' => 'category'], function () {
             Route::get('{id}', 'UsersController@category')->name('users.category');
             Route::post('{id}', 'UsersController@categoryStore')->name('users.category-store');
