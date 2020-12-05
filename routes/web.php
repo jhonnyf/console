@@ -61,7 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('{id}', 'ContentsController@update')->name('contents.update');
     });
 
-    Route::group(['prefix' => 'gallery'], function () {
-        Route::get('{module}/{link_id}', 'GalleriesController@form')->name('galleries.index');
+    Route::group(['prefix' => 'file'], function () {
+        Route::get('{module}/{link_id}', 'FilesController@listGalleries')->name('files.listGalleries');
     });
 });

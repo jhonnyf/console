@@ -17,11 +17,9 @@ class UsersController extends Controller
 {
     public function __construct()
     {
-        parent::__construct(Model::class);
+        $this->Route = 'users';
 
-        $this->Route     = 'users';
-        $this->TableName = 'users';
-        $this->Name      = 'Usuário';
+        parent::__construct(Model::class);
     }
 
     public function store(UsersStore $request)
@@ -55,49 +53,6 @@ class UsersController extends Controller
         Model::find($id)->fill($fill)->save();
 
         return redirect()->route("{$this->Route}.form", ['id' => $id, 'category_id' => $request->category_id]);
-    }
-
-    /**
-     * EXTRA
-     */
-
-    protected function setData(Request $request): array
-    {
-        return ['category_id' => $request->category_id];
-    }
-
-    protected function setCondition(Request $request): array
-    {
-        $links = CategoriesUsers::where('category_id', $request->category_id)
-            ->get()
-            ->keyBy('user_id')
-            ->toArray();
-
-        return ['id' => array_keys($links)];
-    }
-
-    protected function setNav(Request $request, int $id = null): array
-    {
-
-        $response[] = [
-            'name'  => 'Principal',
-            'route' => route('users.form', ['id' => $id, 'category_id' => $request->category_id]),
-        ];
-
-        if (is_null($id) === false) {
-
-            $response[] = [
-                'name'  => 'Categorias',
-                'route' => route('users.category', ['id' => $id, 'category_id' => $request->category_id]),
-            ];
-
-            $response[] = [
-                'name'  => 'Senha',
-                'route' => route('users.password', ['id' => $id, 'category_id' => $request->category_id]),
-            ];
-        }
-
-        return $response;
     }
 
     /**
@@ -140,7 +95,7 @@ class UsersController extends Controller
         $form = new FormElement;
 
         $form->setAction(route('users.category-store', ['id' => $id]));
-        $form->setAutocomplete('off');
+        $form->setAutocomplete(false);
         $form->setMethod('post');
 
         $categoryId = $form->newElement('select');
@@ -194,7 +149,7 @@ class UsersController extends Controller
         $form = new FormElement;
 
         $form->setAction(route('users.password-store', ['id' => $id]));
-        $form->setAutocomplete('off');
+        $form->setAutocomplete(false);
         $form->setMethod('post');
 
         $password = $form->newElement('input');

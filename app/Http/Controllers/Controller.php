@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\App;
 
 abstract class Controller extends BaseController
 {
@@ -24,6 +25,8 @@ abstract class Controller extends BaseController
         if (is_null($Model) === false) {
             $this->Model = new $Model;
         }
+
+        $this->setModuleVariables();
     }
 
     public function index(Request $request)
@@ -113,18 +116,37 @@ abstract class Controller extends BaseController
         return redirect()->back();
     }
 
+    /**
+     * EXTRA
+     */
+
+    private function setModuleVariables(): void
+    {
+        $ModuleConfig = App::make("App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
+
+        $this->Route     = $ModuleConfig->Route;
+        $this->TableName = $ModuleConfig->TableName;
+        $this->Name      = $ModuleConfig->Name;
+    }
+
     protected function setData(Request $request): array
     {
-        return [];
+        $ModuleConfig = App::make("App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
+
+        return $ModuleConfig->setData($request);
     }
 
     protected function setCondition(Request $request): array
     {
-        return [];
+        $ModuleConfig = App::make("App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
+
+        return $ModuleConfig->setCondition($request);
     }
 
     protected function setNav(Request $request, int $id = null): array
     {
-        return [];
+        $ModuleConfig = App::make("App\Services\ModuleConfig\Module\\" . ucwords($this->Route) . "ModuleConfig");
+
+        return $ModuleConfig->setNav($request, $id);
     }
 }
