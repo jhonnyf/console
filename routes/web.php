@@ -34,12 +34,12 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('{id}', 'UsersController@passwordStore')->name('users.password-store');
         });
 
+        Route::get('', 'UsersController@index')->name('users.index');        
         Route::get('form/{id?}', 'UsersController@form')->name('users.form');
+        Route::post('form', 'UsersController@store')->name('users.store');
+        Route::put('form/{id}', 'UsersController@update')->name('users.update');
         Route::get('active/{id}', 'UsersController@active')->name('users.active');
-        Route::get('destroy/{id}', 'UsersController@destroy')->name('users.destroy');
-        Route::get('', 'UsersController@index')->name('users.index');
-        Route::post('', 'UsersController@store')->name('users.store');
-        Route::put('{id}', 'UsersController@update')->name('users.update');
+        Route::get('destroy/{id}', 'UsersController@destroy')->name('users.destroy');        
     });
 
     Route::group(['prefix' => 'category'], function () {
@@ -63,5 +63,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'file'], function () {
         Route::get('{module}/{link_id}', 'FilesController@listGalleries')->name('files.listGalleries');
+    });
+
+    Route::group(['prefix' => 'file-gallery'], function () {
+        Route::get('', 'FilesGalleriesController@index')->name('filesGalleries.index');
+        Route::get('form/{id?}', 'FilesGalleriesController@form')->name('filesGalleries.form');
+        Route::post('form', 'FilesGalleriesController@store')->name('filesGalleries.store');
+        Route::put('form/{id}', 'FilesGalleriesController@update')->name('filesGalleries.update');        
+        Route::get('active/{id}', 'FilesGalleriesController@active')->name('filesGalleries.active');
+        Route::get('destroy/{id}', 'FilesGalleriesController@destroy')->name('filesGalleries.destroy');                
     });
 });

@@ -50,4 +50,11 @@
             @endif
         </ul>
     </li>
+    <li class="menu-title">Configurações</li>
+    <li>
+        <a href="{{ route('filesGalleries.index') }}">
+            <i data-feather="file-plus"></i>
+            <span>Tipos de arquivos</span>            
+        </a>        
+    </li>
 </ul>

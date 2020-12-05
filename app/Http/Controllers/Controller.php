@@ -24,9 +24,8 @@ abstract class Controller extends BaseController
     {
         if (is_null($Model) === false) {
             $this->Model = new $Model;
+            $this->setModuleVariables();
         }
-
-        $this->setModuleVariables();
     }
 
     public function index(Request $request)

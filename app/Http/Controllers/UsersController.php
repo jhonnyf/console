@@ -18,7 +18,6 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->Route = 'users';
-
         parent::__construct(Model::class);
     }
 
