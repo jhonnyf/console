@@ -11,11 +11,11 @@ class Breadcrumb extends Component
     public $route;
     public $name;
 
-    public function __construct(int $id, string $route, string $name = '')
+    public function __construct(string $route, string $name, int $id = null)
     {
         $this->id    = $id;
         $this->route = $route;
-        $this->name = $name;
+        $this->name  = $name;
     }
 
     public function render()

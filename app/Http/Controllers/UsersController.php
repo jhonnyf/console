@@ -100,6 +100,10 @@ class UsersController extends Controller
         return $response;
     }
 
+    /**
+     * OTHERS
+     */
+
     private function saveLink(int $category_id, int $user_id): bool
     {
         $response = false;
@@ -113,6 +117,10 @@ class UsersController extends Controller
 
         return $response;
     }
+
+    /**
+     * CATEGORY
+     */
 
     public function category(int $id, Request $request)
     {
@@ -150,7 +158,7 @@ class UsersController extends Controller
             $categoryId->setValue(Model::find($id)->category->first()->id);
         }
 
-        $form->addElement($categoryId); 
+        $form->addElement($categoryId);
 
         $data['form'] = $form->render($data);
 
@@ -163,6 +171,10 @@ class UsersController extends Controller
 
         return redirect()->route('users.category', ['id' => $id]);
     }
+
+    /**
+     * PASSWORD
+     */
 
     public function password(int $id, Request $request)
     {
