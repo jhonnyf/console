@@ -1,4 +1,3 @@
-
 !function ($) {
     "use strict";
 
@@ -52,18 +51,13 @@
 
 }(window.jQuery),
 
-
 function ($) {
     'use strict';
-
     var App = function () {
         this.$body = $('body'),
         this.$window = $(window)
     };
 
-    /**
-    Resets the scroll
-    */
     App.prototype._resetSidebarScroll = function () {
         // sidebar - scroll container
         $('.slimscroll-menu').slimscroll({
@@ -76,9 +70,6 @@ function ($) {
         });
     },
 
-    /** 
-     * Initlizes the menu - top and sidebar
-    */
     App.prototype.initMenu = function () {
         var $this = this;
 
@@ -207,6 +198,34 @@ function ($) {
         });
     },
 
+    App.prototype.modalAjax = function(){
+        $(document).on('click', 'a[data-ajax]', function(){
+            var element = $(this);
+            var src = element.data('ajax');
+
+            $.ajax({
+                url: src,
+                dataType: 'json'
+            }).done(function(response){
+            
+                $.fancybox.open({
+                    src: response.result,
+                    type: 'html',
+                    opts: {
+                        'modal': true
+                    }
+                });
+
+
+                var url = $('#dropzone-form').attr('action');
+                $('#dropzone-form').dropzone({ url: url });
+
+            });
+
+            
+        });
+    },
+
     /** 
      * Init the layout - with broad sidebar or compact side bar
     */
@@ -231,6 +250,7 @@ function ($) {
         var $this = this;
         this.initLayout();
         this.initMenu();
+        this.modalAjax();
         $.Components.init();
         // on window resize, make menu flipped automatically
         $this.$window.on('resize', function (e) {
@@ -247,7 +267,7 @@ function ($) {
 
 
 }(window.jQuery),
-//initializing main application module
+
 function ($) {
     "use strict";
     $.App.init();

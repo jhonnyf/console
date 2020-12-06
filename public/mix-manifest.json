@@ -25,6 +25,8 @@
     "/assets/libs/parsleyjs/parsleyjs.min.js": "/assets/libs/parsleyjs/parsleyjs.min.js",
     "/assets/libs/smartwizard/smartwizard.min.js": "/assets/libs/smartwizard/smartwizard.min.js",
     "/assets/libs/smartwizard/smartwizard.min.css": "/assets/libs/smartwizard/smartwizard.min.css",
+    "/assets/libs/fancybox/fancybox.min.js": "/assets/libs/fancybox/fancybox.min.js",
+    "/assets/libs/fancybox/fancybox.min.css": "/assets/libs/fancybox/fancybox.min.css",
     "/assets/libs/summernote/summernote.min.js": "/assets/libs/summernote/summernote.min.js",
     "/assets/libs/summernote/summernote.min.css": "/assets/libs/summernote/summernote.min.css",
     "/assets/libs/dropzone/dropzone.min.js": "/assets/libs/dropzone/dropzone.min.js",

@@ -27,6 +27,7 @@ var assets = {
         "./node_modules/metismenujs/dist/metismenujs.min.js",
         "./node_modules/jquery-slimscroll/jquery.slimscroll.js",
         "./node_modules/feather-icons/dist/feather.min.js",
+        "./node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js"
     ]
 };
 
@@ -53,6 +54,7 @@ var third_party_assets = {
                 "./node_modules/smartwizard/dist/css/smart_wizard_theme_dots.min.css"
             ]
         },
+        { "name": "fancybox", "assets": ["./node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js", "./node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css"] },
         { "name": "summernote", "assets": ["./node_modules/summernote/dist/summernote-bs4.min.js", "./node_modules/summernote/dist/summernote-bs4.css"] },
         { "name": "dropzone", "assets": ["./node_modules/dropzone/dist/min/dropzone.min.js", "./node_modules/dropzone/dist/min/dropzone.min.css"] },
         { "name": "bootstrap-tagsinput", "assets": ["./node_modules/@adactive/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js", "./node_modules/@adactive/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"] },
@@ -158,6 +160,9 @@ mix.sass('resources/scss/icons.scss', folder.dist_assets + "css").minify(folder.
 mix.sass('resources/scss/app-rtl.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/app-rtl.css");
 mix.sass('resources/scss/app.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/app.css");
 mix.sass('resources/scss/app-dark.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/app-dark.css");
+mix.styles([
+    './node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css'
+],'public/assets/css/app.css');
 
 //copying demo pages related assets
 var app_pages_assets = {

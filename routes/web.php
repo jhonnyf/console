@@ -63,6 +63,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['prefix' => 'file'], function () {
         Route::get('{module}/{link_id}', 'FilesController@listGalleries')->name('files.listGalleries');
+        
+        Route::group(['prefix' => 'upload'], function(){
+            Route::get('form/{module}/{link_id}/{file_gallery_id}', 'FilesController@uploadForm')->name('files.upload-form');
+            Route::post('submit/{module}/{link_id}/{file_gallery_id}', 'FilesController@submitFiles')->name('files.upload-submit');
+        });
     });
 
     Route::group(['prefix' => 'file-gallery'], function () {
