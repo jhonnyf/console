@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FileUpload;
 use App\Models\FilesGalleries;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -43,16 +44,20 @@ class FilesController
         return response()->json($response);
     }
 
-    public function submitFiles(string $module, int $link_id, int $file_gallery_id, Request $request)
+    public function submitFiles(string $module, int $link_id, int $file_gallery_id, FileUpload $request)
     {
-        $data = [
-            'module'          => $module,
-            'link_id'         => $link_id,
-            'file_gallery_id' => $file_gallery_id,
-        ];
 
         if ($request->hasFile('file')) {
-            $request->file('file')->store();
+
+            // $request->file('file')->getCl
+            
+            // $document->getClientOriginalName();
+            // $document->getClientOriginalExtension();
+            // $document->getSize();
+            // $document->getMimeType();
+
+            $response = $request->file->store('uploads');            
+            
         }
 
     }
