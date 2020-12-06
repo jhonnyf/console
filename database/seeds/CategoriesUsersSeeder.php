@@ -5,11 +5,6 @@ use Illuminate\Support\Facades\DB;
 
 class CategoriesUsersSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         DB::table('categories_users')->insert([

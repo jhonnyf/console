@@ -8,16 +8,16 @@ class UsersSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('users')->insert([            
-            'first_name'   => 'Root',
-            'last_name'    => 'Seventh',
-            'email'        => 'root@seven.com',
-            'password'     => Hash::make('123123'),
-            'document'     => '',
-            'phone'        => '',
-            'cellphone'    => '',
-            'created_at'   => date('Y-m-d H:i:s'),
-            'updated_at'   => date('Y-m-d H:i:s'),
+        DB::table('users')->insert([
+            'first_name' => 'Root',
+            'last_name'  => 'Seventh',
+            'email'      => 'root@seven.com',
+            'password'   => Hash::make('123123'),
+            'document'   => '',
+            'phone'      => '',
+            'cellphone'  => '',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ]);
     }
 }

@@ -49,15 +49,18 @@ class FilesController
 
         if ($request->hasFile('file')) {
 
-            // $request->file('file')->getCl
-            
-            // $document->getClientOriginalName();
-            // $document->getClientOriginalExtension();
-            // $document->getSize();
-            // $document->getMimeType();
+            $file = $request->file('file');
 
-            $response = $request->file->store('uploads');            
-            
+            $data = [
+                'file_gallery_id' => $file_gallery_id,
+                'original_name'   => $file->getClientOriginalName(),
+                'extension'       => $file->getClientOriginalExtension(),
+                'size'            => round($file->getSize() / 1024 / 1024, 4),
+                'mime_type'       => $file->getMimeType(),
+            ];
+
+            $data['file_path'] = $request->file->store('uploads');
+
         }
 
     }

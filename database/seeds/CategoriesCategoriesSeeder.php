@@ -5,46 +5,42 @@ use Illuminate\Support\Facades\DB;
 
 class CategoriesCategoriesSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+
     public function run()
     {
         DB::table('categories_categories')->insert([
-            'primary_id' => 1,
+            'primary_id'   => 1,
             'secondary_id' => 2,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
+            'created_at'   => date('Y-m-d H:i:s'),
+            'updated_at'   => date('Y-m-d H:i:s'),
         ]);
 
         DB::table('categories_categories')->insert([
-            'primary_id' => 1,
+            'primary_id'   => 1,
             'secondary_id' => 3,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
+            'created_at'   => date('Y-m-d H:i:s'),
+            'updated_at'   => date('Y-m-d H:i:s'),
         ]);
 
         DB::table('categories_categories')->insert([
-            'primary_id' => 2,
+            'primary_id'   => 2,
             'secondary_id' => 4,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
+            'created_at'   => date('Y-m-d H:i:s'),
+            'updated_at'   => date('Y-m-d H:i:s'),
         ]);
 
         DB::table('categories_categories')->insert([
-            'primary_id' => 2,
+            'primary_id'   => 2,
             'secondary_id' => 5,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
+            'created_at'   => date('Y-m-d H:i:s'),
+            'updated_at'   => date('Y-m-d H:i:s'),
         ]);
 
         DB::table('categories_categories')->insert([
-            'primary_id' => 2,
+            'primary_id'   => 2,
             'secondary_id' => 6,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
+            'created_at'   => date('Y-m-d H:i:s'),
+            'updated_at'   => date('Y-m-d H:i:s'),
         ]);
     }
 }
