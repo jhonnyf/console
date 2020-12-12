@@ -19,9 +19,9 @@ class UsersModuleConfig extends AbstractModuleConfig
 
     public function setCondition(Request $request): array
     {
-        $links = CategoriesUsers::where('category_id', $request->category_id)
+        $links = CategoriesUsers::where('categories_id', $request->category_id)
             ->get()
-            ->keyBy('user_id')
+            ->keyBy('users_id')
             ->toArray();
 
         return ['id' => array_keys($links)];
