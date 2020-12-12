@@ -1,5 +1,5 @@
-<div class="container">
-    <div class="card">
+<div class="container p-0 bg-transparent">
+    <div class="card mb-0">
         <div class="card-body">
             <h4 class="header-title mt-0 mb-4">Upload de arquivos</h4>                                      
 
