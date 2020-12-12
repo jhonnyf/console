@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FileUpload;
 use App\Models\Files;
 use App\Models\FilesGalleries;
+use App\Models\FilesUsers;
+use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -16,14 +18,15 @@ class FilesController
         $ModuleConfig = App::make("App\Services\ModuleConfig\Module\\" . ucwords($module) . "ModuleConfig");
 
         $data = [
-            'module'  => $module,
-            'id_link' => $id_link,
-            'nav'     => $ModuleConfig->setNav($request, $id_link),
-            'route'   => $ModuleConfig->Route,
-            'name'    => $ModuleConfig->Name,
+            'module'         => $module,
+            'id_link'        => $id_link,
+            'nav'            => $ModuleConfig->setNav($request, $id_link),
+            'route'          => $ModuleConfig->Route,
+            'name'           => $ModuleConfig->Name,
+            'filesGalleries' => FilesGalleries::where(['active' => 1, 'module' => $module])->get(),
         ];
 
-        $data['filesGalleries'] = FilesGalleries::where(['active' => 1, 'module' => $module])->get();
+        $data['entity'] = Users::find($id_link)->files();
 
         return view('files.list-galleries', $data);
     }
@@ -48,26 +51,29 @@ class FilesController
     public function submitFiles(string $module, int $link_id, int $file_gallery_id, FileUpload $request)
     {
 
-        if ($request->hasFile('file')) {
-
-            $file = $request->file('file');
-
-            $data = [
-                'file_gallery_id' => $file_gallery_id,
-                'original_name'   => $file->getClientOriginalName(),
-                'extension'       => $file->getClientOriginalExtension(),
-                'size'            => round($file->getSize() / 1024 / 1024, 4),
-                'mime_type'       => $file->getMimeType(),
-            ];
-
-            $data['file_path'] = $request->file->store('uploads');
-
-            $responseFile = Files::create($data);
-
-            print_r($responseFile);
-            exit();
+        if ($request->hasFile('file') === false) {
+            return response()->isInvalid();
         }
 
+        $file = $request->file('file');
+
+        $data = [
+            'file_gallery_id' => $file_gallery_id,
+            'original_name'   => $file->getClientOriginalName(),
+            'extension'       => $file->getClientOriginalExtension(),
+            'size'            => round($file->getSize() / 1024 / 1024, 4),
+            'mime_type'       => $file->getMimeType(),
+        ];
+
+        $data['file_path'] = $request->file->store("public/{$module}");
+        $data['file_path'] = str_replace("public/", "", $data['file_path']);
+
+        $response = Files::create($data);
+        if ($module === 'users') {
+            FilesUsers::create(['files_id' => $response->id, 'users_id' => $link_id]);
+        }
+
+        return response()->json($response);
     }
 
 }

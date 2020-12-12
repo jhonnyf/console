@@ -26,14 +26,28 @@
                     <div class="card">
                         <div class="card-body">       
                             
-                            <div class="row">
+                            <div class="row mb-4">
                                 <div class="col">
                                     <h6 class="header-title">{{ $gallery['file_gallery'] }}</h6>
                                 </div>
                                 <div class="col text-right">
                                     <a href="javascript:;" data-ajax="{{ route('files.upload-form', ['module' => $module, 'link_id' => $id_link, 'file_gallery_id' => $gallery['id']]) }}" class="btn btn-dark">UPLOAD</a>
                                 </div>
-                            </div>                                                                     
+                            </div>      
+                            
+                            <div class="row">
+                                @php
+                                    $filesGallery = $entity->where('file_gallery_id', $gallery['id']);                                    
+                                @endphp
+
+                                @if ($filesGallery->exists())
+                                    @foreach ($filesGallery->get() as $file)
+                                        <div class="col-4 mb-4">
+                                            <img src="{{ asset("storage/{$file->file_path}") }}" class="img-fluid">
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
         
                         </div>
                     </div>

@@ -14,4 +14,9 @@ class Users extends Authenticatable
     {
         return $this->belongsToMany(Categories::class, 'categories_users', 'user_id', 'category_id');
     }
+
+    public function files()
+    {
+        return $this->belongsToMany(Files::class)->with('fileGallery');
+    }
 }
