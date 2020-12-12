@@ -13,4 +13,9 @@ class Files extends Model
     {
         return $this->belongsTo(FilesGalleries::class);
     }
+
+    public function fileContent()
+    {
+        return $this->hasOne(FilesContents::class);
+    }
 }

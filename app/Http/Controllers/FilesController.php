@@ -69,6 +69,8 @@ class FilesController
         $data['file_path'] = str_replace("public/", "", $data['file_path']);
 
         $response = Files::create($data);
+        Files::find($response->id)->fileContent()->create();
+
         if ($module === 'users') {
             FilesUsers::create(['files_id' => $response->id, 'users_id' => $link_id]);
         }
