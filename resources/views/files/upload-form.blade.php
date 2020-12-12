@@ -16,7 +16,7 @@
             </form>
 
             <div class="text-right">
-                <button type="button" class="btn btn-dark">FECHAR</button>
+                <a href="" class="btn btn-dark">FECHAR</a>
             </div>
 
         </div>

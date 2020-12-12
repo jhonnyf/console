@@ -210,7 +210,7 @@ function ($) {
             
                 $.fancybox.open({
                     src: response.result,
-                    type: 'html',
+                    type: 'inline',
                     opts: {
                         'modal': true
                     }
