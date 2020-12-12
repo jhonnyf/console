@@ -16,14 +16,14 @@ class CreateCategoriesUsers extends Migration
         Schema::create('categories_users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('categories_id');
+            $table->unsignedBigInteger('users_id');
             $table->timestamps();
 
-            $table->primary(['category_id', 'user_id']);
+            $table->primary(['categories_id', 'users_id']);
 
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('categories_id')->references('id')->on('categories');
+            $table->foreign('users_id')->references('id')->on('users');
         });
     }
 

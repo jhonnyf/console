@@ -12,7 +12,7 @@ class Users extends Authenticatable
 
     public function category()
     {
-        return $this->belongsToMany(Categories::class, 'categories_users', 'user_id', 'category_id');
+        return $this->belongsToMany(Categories::class);
     }
 
     public function files()

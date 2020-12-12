@@ -63,7 +63,7 @@ class UsersController extends Controller
         $response = false;
         CategoriesUsers::where('user_id', $user_id)->delete();
 
-        $insert = ['category_id' => $category_id, 'user_id' => $user_id];
+        $insert = ['categories_id' => $category_id, 'users_id' => $user_id];
         if (CategoriesUsers::where($insert)->exists() === false) {
             CategoriesUsers::create($insert);
             $response = true;
