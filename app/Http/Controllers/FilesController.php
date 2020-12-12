@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FileUpload;
+use App\Models\Files;
 use App\Models\FilesGalleries;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -61,6 +62,10 @@ class FilesController
 
             $data['file_path'] = $request->file->store('uploads');
 
+            $responseFile = Files::create($data);
+
+            print_r($responseFile);
+            exit();
         }
 
     }
