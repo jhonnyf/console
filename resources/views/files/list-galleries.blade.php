@@ -37,13 +37,24 @@
                             
                             <div class="row">
                                 @php
-                                    $filesGallery = $entity->where('file_gallery_id', $gallery['id']);                                    
+                                    $filesGallery = $entity->where('file_gallery_id', $gallery['id'])->where('active', '<>', 2);                                    
                                 @endphp
 
                                 @if ($filesGallery->exists())
                                     @foreach ($filesGallery->get() as $file)
                                         <div class="col-4 mb-4">
-                                            <img src="{{ asset("storage/{$file->file_path}") }}" class="img-fluid">
+                                            <img src="{{ asset("storage/{$file->file_path}") }}" class="img-fluid img-thumbnail mb-3">
+                                            <div class="d-flex justify-content-around">
+                                                <div>
+                                                    <a href="{{ route('files.form', ['id' => $file->id]) }}" class="btn btn-dark btn-sm"><i data-feather="edit-2" class="icon-sm"></i></a>
+                                                </div>
+                                                <div>
+                                                    <a href="{{ route('files.active', ['id' => $file->id]) }}" class="btn btn-dark btn-sm"><i data-feather="{{ $file->active == 1 ? 'check-circle' : 'circle'}}" class="icon-sm"></i></a>
+                                                </div>
+                                                <div>
+                                                    <a href="{{ route('files.destroy', ['id' => $file->id]) }}" class="btn btn-dark btn-sm"><i data-feather="trash-2" class="icon-sm"></i></a>
+                                                </div>
+                                            </div>
                                         </div>
                                     @endforeach
                                 @endif

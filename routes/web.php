@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('', 'DashboardController@index')->name('dashboard');
 
     Route::group(['prefix' => 'user'], function () {
-        
+
         Route::group(['prefix' => 'category'], function () {
             Route::get('{id}', 'UsersController@category')->name('users.category');
             Route::post('{id}', 'UsersController@categoryStore')->name('users.category-store');
@@ -34,12 +34,12 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('{id}', 'UsersController@passwordStore')->name('users.password-store');
         });
 
-        Route::get('', 'UsersController@index')->name('users.index');        
+        Route::get('', 'UsersController@index')->name('users.index');
         Route::get('form/{id?}', 'UsersController@form')->name('users.form');
         Route::post('form', 'UsersController@store')->name('users.store');
         Route::put('form/{id}', 'UsersController@update')->name('users.update');
         Route::get('active/{id}', 'UsersController@active')->name('users.active');
-        Route::get('destroy/{id}', 'UsersController@destroy')->name('users.destroy');        
+        Route::get('destroy/{id}', 'UsersController@destroy')->name('users.destroy');
     });
 
     Route::group(['prefix' => 'category'], function () {
@@ -62,20 +62,25 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'file'], function () {
+        Route::get('form/{id?}', 'FilesController@form')->name('files.form');
+        Route::put('form/{id}', 'FilesController@update')->name('files.update');
+        Route::get('active/{id}', 'FilesController@active')->name('files.active');
+        Route::get('destroy/{id}', 'FilesController@destroy')->name('files.destroy');
+
         Route::get('{module}/{link_id}', 'FilesController@listGalleries')->name('files.listGalleries');
-        
-        Route::group(['prefix' => 'upload'], function(){
+
+        Route::group(['prefix' => 'upload'], function () {
             Route::get('form/{module}/{link_id}/{file_gallery_id}', 'FilesController@uploadForm')->name('files.upload-form');
             Route::post('submit/{module}/{link_id}/{file_gallery_id}', 'FilesController@submitFiles')->name('files.upload-submit');
-        });
+        });       
     });
 
     Route::group(['prefix' => 'file-gallery'], function () {
         Route::get('', 'FilesGalleriesController@index')->name('filesGalleries.index');
         Route::get('form/{id?}', 'FilesGalleriesController@form')->name('filesGalleries.form');
         Route::post('form', 'FilesGalleriesController@store')->name('filesGalleries.store');
-        Route::put('form/{id}', 'FilesGalleriesController@update')->name('filesGalleries.update');        
+        Route::put('form/{id}', 'FilesGalleriesController@update')->name('filesGalleries.update');
         Route::get('active/{id}', 'FilesGalleriesController@active')->name('filesGalleries.active');
-        Route::get('destroy/{id}', 'FilesGalleriesController@destroy')->name('filesGalleries.destroy');                
+        Route::get('destroy/{id}', 'FilesGalleriesController@destroy')->name('filesGalleries.destroy');
     });
 });

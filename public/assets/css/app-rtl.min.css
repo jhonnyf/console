@@ -3880,7 +3880,6 @@ body.authentication-bg {
   background-image: url(/images/auth-bg.jpg?569e5c2b64ae750bad30e1f49d7f3c1b);
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
   height: 100%;
   position: relative;
 }

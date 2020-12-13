@@ -78,4 +78,24 @@ class FilesController
         return response()->json($response);
     }
 
+    public function active(int $id)
+    {
+        $Object = Files::find($id);
+
+        $Object->active = $Object->active === 1 ? 0 : 1;
+        $Object->save();
+
+        return redirect()->back();
+    }
+
+    public function destroy(int $id)
+    {
+        $Object = Files::find($id);
+
+        $Object->active = 2;
+        $Object->save();
+
+        return redirect()->back();
+    }
+
 }
