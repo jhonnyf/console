@@ -12,10 +12,8 @@ class ContentsController extends Controller
 
     public function __construct()
     {
+        $this->Route = 'contents';
         parent::__construct(Model::class);
-
-        $this->Route     = 'contents';
-        $this->TableName = 'contents';
     }
 
     public function store(Request $request)
@@ -51,37 +49,21 @@ class ContentsController extends Controller
      * EXTRA
      */
 
-    protected function setData(Request $request): array
-    {
-        return ['category_id' => $request->category_id];
-    }
-
-    protected function setCondition(Request $request): array
-    {
-        $links = CategoriesContents::where('category_id', $request->category_id)
-            ->get()
-            ->keyBy('content_id')
-            ->toArray();
-
-        return ['id' => array_keys($links)];
-    }
-
     private function checkSlug(string $title, int $id = null)
     {
-        $slug = Str::slug($title);
-
+        $slug  = Str::slug($title);
         $check = Model::where('slug', $slug);
 
         if (is_null($id) === false) {
             $check->where('id', '<>', $id);
         }
 
-        if ($check->exists() === false) {
-            return $slug;
-        } else {
-            echo 'TEM IGUAL';
-            exit();
+        if ($check->exists()) {
+            $slug = "{$slug}-" . rand(0,100);
+            return $this->checkSlug($slug, $id);
         }
+
+        return $slug;
     }
 
 }
