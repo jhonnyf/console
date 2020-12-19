@@ -10,7 +10,6 @@ use App\Models\CategoriesUsers;
 use App\Models\Users as Model;
 use App\Services\FormElement\FormElement;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
