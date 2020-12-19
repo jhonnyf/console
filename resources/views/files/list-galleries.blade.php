@@ -31,7 +31,7 @@
                                     <h6 class="header-title">{{ $gallery['file_gallery'] }}</h6>
                                 </div>
                                 <div class="col text-right">
-                                    <a href="javascript:;" data-ajax="{{ route('files.upload-form', ['module' => $module, 'link_id' => $id_link, 'file_gallery_id' => $gallery['id']]) }}" class="btn btn-dark">UPLOAD</a>
+                                    <a href="javascript:;" data-url="{{ route('files.upload-form', ['module' => $module, 'link_id' => $id_link, 'file_gallery_id' => $gallery['id']]) }}" class="btn btn-dark open-upload">UPLOAD</a>
                                 </div>
                             </div>      
                             
@@ -74,4 +74,5 @@
 
 @section('script')
     <script src="{{ URL::asset('assets/libs/dropzone/dropzone.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/pages/files.init.js') }}"></script>
 @endsection

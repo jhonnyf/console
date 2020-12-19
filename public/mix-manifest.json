@@ -11,6 +11,7 @@
     "/assets/css/app-dark.css": "/assets/css/app-dark.css",
     "/assets/js/pages/datatables.init.js": "/assets/js/pages/datatables.init.js",
     "/assets/js/pages/email-inbox.init.js": "/assets/js/pages/email-inbox.init.js",
+    "/assets/js/pages/files.init.js": "/assets/js/pages/files.init.js",
     "/assets/js/pages/form-advanced.init.js": "/assets/js/pages/form-advanced.init.js",
     "/assets/js/pages/form-editor.init.js": "/assets/js/pages/form-editor.init.js",
     "/assets/js/pages/form-validation.init.js": "/assets/js/pages/form-validation.init.js",
