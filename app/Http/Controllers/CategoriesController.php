@@ -12,10 +12,8 @@ class CategoriesController extends Controller
 {
     public function __construct()
     {
+        $this->Route = 'categories';
         parent::__construct(Model::class);
-
-        $this->Route     = 'categories';
-        $this->TableName = 'categories';
     }
 
     public function index(Request $request)
@@ -78,10 +76,5 @@ class CategoriesController extends Controller
         }
 
         return $response;
-    }
-
-    protected function setData(Request $request): array
-    {
-        return ['category_id' => $request->category_id];
     }
 }

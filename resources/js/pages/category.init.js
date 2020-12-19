@@ -1,33 +1,87 @@
-window._ = require('lodash');
+"use strict";
 
 window.axios = require('axios');
-
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-$('a[data-ajax]').click(function () {
-    var id = $(this).data('id');
-    var url = $(this).data('ajax');
+var Category = function () {
 
-    window.axios.post(url, {
-        'id': id
-    })
-        .then(function (response) {
-            var response = response.data;
-            if (response.error === false) {
-                var append_element = true;
+    var getChild = function () {
+        var id = $(this).data('id');
+        var url = $(this).data('url');
 
-                $('.structure-category .col').each(function(){
-                    var parent_id = $(this).data('parent_id');
+        axios.post(url, {
+            'id': id
+        })
+            .then(function (response) {
+                var response = response.data;
+                if (response.error === false) {
+                    var append_element = true;
 
-                    if(parent_id == response.result.parent_id){
-                        append_element = false;
+                    $('.structure-category .col').each(function () {
+                        var parent_id = $(this).data('parent_id');
+
+                        if (parent_id == response.result.parent_id) {
+                            append_element = false;
+                        }
+                    });
+
+                    if (append_element) {
+                        $('.structure-category').append(response.result.html);
+                        feather.replace();
                     }
-                });
+                }
+            });
 
-                if(append_element){
-                    $('.structure-category').append(response.result.html);
-                    feather.replace();
-                }                
-            }
-        });
+    }
+
+    return {
+        init: function () {
+
+            $(document).on('click', '.card-link', getChild);
+        }
+    }
+}();
+
+if (typeof module !== 'undefined') {
+    module.exports = Category;
+}
+
+jQuery(document).ready(function () {
+    Category.init();
 });
+
+
+// window._ = require('lodash');
+
+// window.axios = require('axios');
+
+// window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+// $('a[data-ajax]').click(function () {
+//     var id = $(this).data('id');
+//     var url = $(this).data('ajax');
+
+//     window.axios.post(url, {
+//         'id': id
+//     })
+//         .then(function (response) {
+//             var response = response.data;
+//             if (response.error === false) {
+//                 var append_element = true;
+
+//                 $('.structure-category .col').each(function(){
+//                     var parent_id = $(this).data('parent_id');
+
+//                     if(parent_id == response.result.parent_id){
+//                         append_element = false;
+//                     }
+//                 });
+
+//                 if(append_element){
+//                     $('.structure-category').append(response.result.html);
+//                     feather.replace();
+//                 }                
+//             }
+//         });
+// });
+
