@@ -37,7 +37,7 @@ class Element
         $this->max_length = $maxLength;
     }
 
-    public function setValue(string $value): void
+    public function setValue(string $value = null): void
     {
         $this->value = $value;
     }

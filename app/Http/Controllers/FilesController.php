@@ -7,11 +7,60 @@ use App\Models\Files;
 use App\Models\FilesGalleries;
 use App\Models\FilesUsers;
 use App\Models\Users;
+use App\Services\FormElement\FormElement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
 class FilesController
 {
+
+    public function form(int $id)
+    {
+        $data = [
+            'id'       => $id,
+            'route'    => 'files',
+            'btn_back' => false,
+        ];
+
+        $files = Files::find($id)->fileContent;
+
+        $form = new FormElement;
+
+        $form->setAction(route('files.form', ['id' => $id]));
+        $form->setAutocomplete(false);
+        $form->setMethod('post');
+        $form->setClass(['form-ajax']);
+
+        $title = $form->newElement('input');
+        $title->setName('title');
+        $title->setType('text');
+        $title->setLabel('Título');
+        $title->setValue($files->title);
+
+        $form->addElement($title);
+
+        $content = $form->newElement('textarea');
+        $content->setName('content');
+        $content->setLabel('Conteúdo');
+        $content->setValue($files->content);
+
+        $form->addElement($content);
+
+        $data['form'] = $form->render($data);
+
+        $response = [
+            'error'   => false,
+            'message' => 'sucesso',
+            'result'  => view('files.form', $data)->render(),
+        ];
+
+        return response()->json($response);
+    }
+
+    public function update(int $id, Request $request)
+    {
+        echo 'UPDATE FORM';
+    }
 
     public function listGalleries(string $module, int $id_link, Request $request)
     {

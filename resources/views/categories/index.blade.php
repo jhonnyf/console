@@ -27,5 +27,5 @@
 @endsection
 
 @section('script-bottom')
-    <script src="{{ URL::asset('assets/js/pages/category.init.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/pages/category.js') }}"></script>
 @endsection

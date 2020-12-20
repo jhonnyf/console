@@ -7,6 +7,7 @@ class FormElement
     private $action;
     private $autocomplete;
     private $method;
+    private $class;
 
     private $row       = [];
     private $totalRows = 0;
@@ -30,6 +31,11 @@ class FormElement
         $this->method = $method;
     }
 
+    public function setClass(array $class): void
+    {
+        $this->class = $class;
+    }
+
     /**
      * METHODS
      */
@@ -46,7 +52,7 @@ class FormElement
     }
 
     public function addElement(Element $element)
-    {       
+    {
         $this->row[$this->totalRows][] = $element->render();
     }
 
@@ -57,9 +63,10 @@ class FormElement
             'autocomplete' => $this->autocomplete,
             'method'       => $this->method,
             'row'          => $this->row,
+            'class'        => $this->class,
         ];
 
-        if(count($extraData) > 0){
+        if (count($extraData) > 0) {
             $data = array_merge($data, $extraData);
         }
 

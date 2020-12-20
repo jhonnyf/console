@@ -609,13 +609,11 @@
 @endsection
 
 @section('script')
-    <!-- optional plugins -->
     <script src="{{ URL::asset('assets/libs/moment/moment.min.js') }}"></script>
     <script src="{{ URL::asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ URL::asset('assets/libs/flatpickr/flatpickr.min.js') }}"></script>
 @endsection
 
 @section('script-bottom')
-    <!-- init js -->
-    <script src="{{ URL::asset('assets/js/pages/dashboard.init.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/pages/dashboard.js') }}"></script>
 @endsection

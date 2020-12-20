@@ -1,7 +1,7 @@
-<form @if (empty($action) === false) action="{{ $action }}" @endif  @if (empty($method) === false) method="{{ $method }}" @endif @if (empty($autocomplete) === false) autocomplete="{{ $autocomplete }}" @endif>
+<form @if (empty($action) === false) action="{{ $action }}" @endif  @if (empty($method) === false) method="{{ $method }}" @endif @if (empty($autocomplete) === false) autocomplete="{{ $autocomplete }}" @endif @if (empty($class) === false) class="{{ implode(' ', $class) }}" @endif>
     @csrf
 
-    @if (count($extraData) > 0)
+    @if (isset($extraData) && count($extraData) > 0)
         @foreach ($extraData as $key => $item)
             <input type="hidden" name="{{ $key }}" value="{{ $item }}">
         @endforeach
@@ -25,8 +25,23 @@
         @endforeach
     @endif
 
-    <div class="text-right">
-        <a href="{{ route("{$route}.index", $extraData) }}" class="btn btn-primary">Voltar</a>
+    @php
+        $routeParams = [];
+        $button_back = true;
+
+        if (isset($extraData) && count($extraData) > 0) {
+            $routeParams = $extraData;
+        }
+
+        if (isset($btn_back)) {
+            $button_back = $btn_back;
+        }
+    @endphp
+
+    <div class="text-right">        
+        @if ($button_back)
+            <a href="{{ route("{$route}.index", $routeParams) }}" class="btn btn-primary">Voltar</a>
+        @endif
         <button type="submit" class="btn btn-dark">Salvar</button>
     </div>
 

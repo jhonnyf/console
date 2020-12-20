@@ -1,13 +1,4 @@
 
-/*
-Template Name: Shreyu - Responsive Bootstrap 4 Admin Dashboard
-Author: CoderThemes
-Version: 1.0.0
-Website: https://coderthemes.com/
-Contact: support@coderthemes.com
-File: Dashboard init js
-*/
-
 
 !function($) {
     "use strict";
