@@ -22,7 +22,7 @@ class FilesController
             'btn_back' => false,
         ];
 
-        $files = Files::find($id)->fileContent;
+        $file = Files::find($id)->fileContent;
 
         $form = new FormElement;
 
@@ -35,14 +35,14 @@ class FilesController
         $title->setName('title');
         $title->setType('text');
         $title->setLabel('Título');
-        $title->setValue($files->title);
+        $title->setValue($file->title);
 
         $form->addElement($title);
 
         $content = $form->newElement('textarea');
         $content->setName('content');
         $content->setLabel('Conteúdo');
-        $content->setValue($files->content);
+        $content->setValue($file->content);
 
         $form->addElement($content);
 
@@ -59,7 +59,20 @@ class FilesController
 
     public function update(int $id, Request $request)
     {
-        echo 'UPDATE FORM';
+        $response = Files::find($id)->fileContent->fill($request->all())->save();
+
+        $data = [
+            'class'   => $response ? 'success' : 'danger',
+            'message' => $response ? 'Ação realizada com sucesso' : 'Não foi possivel realizar a ação',
+        ];
+
+        $response = [
+            'error'   => $response,
+            'message' => view('system.alert', $data)->render(),
+            'result'  => Files::with('fileContent')->find($id),
+        ];
+
+        return response()->json($response);
     }
 
     public function listGalleries(string $module, int $id_link, Request $request)

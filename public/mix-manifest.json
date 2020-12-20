@@ -1,12 +1,12 @@
 {
     "/assets/js/pages/category.js": "/assets/js/pages/category.js",
+    "/assets/js/pages/dashboard.js": "/assets/js/pages/dashboard.js",
     "/assets/css/bootstrap.css": "/assets/css/bootstrap.css",
     "/assets/css/bootstrap-dark.css": "/assets/css/bootstrap-dark.css",
     "/assets/css/icons.css": "/assets/css/icons.css",
     "/assets/css/app-rtl.css": "/assets/css/app-rtl.css",
     "/assets/css/app.css": "/assets/css/app.css",
     "/assets/css/app-dark.css": "/assets/css/app-dark.css",
-    "/assets/js/pages/dashboard.js": "/assets/js/pages/dashboard.js",
     "/assets/js/pages/files.js": "/assets/js/pages/files.js",
     "/assets/js/vendor.js": "/assets/js/vendor.js",
     "/assets/js/vendor.min.js": "/assets/js/vendor.min.js",

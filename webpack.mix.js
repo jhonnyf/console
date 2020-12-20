@@ -114,12 +114,12 @@ mix.sass('resources/scss/icons.scss', folder.dist_assets + "css").minify(folder.
 mix.sass('resources/scss/app-rtl.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/app-rtl.css");
 mix.sass('resources/scss/app.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/app.css");
 mix.sass('resources/scss/app-dark.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/app-dark.css");
-mix.styles('./node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css', folder.dist_assets + "css/app.css");
+mix.styles('./node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css', folder.dist_assets + "css/app.css").minify(folder.dist_assets + "css/app.css");
 
 var app_pages_assets = {
     js: [
-        folder.src + "js/pages/category.js",
         folder.src + "js/pages/dashboard.js",
+        folder.src + "js/pages/category.js",        
         folder.src + "js/pages/files.js"
     ]
 };

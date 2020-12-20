@@ -8,7 +8,7 @@ const openUpload = function () {
     axios.get(src)
         .then(function (response) {
             response = response.data;
-             
+
             $.fancybox.open({
                 src: response.result,
                 type: 'inline',
@@ -29,15 +29,39 @@ const editForm = function () {
     axios.get(src)
         .then(function (response) {
             response = response.data;
-             
+
             $.fancybox.open({
                 src: response.result,
                 type: 'inline',
                 opts: {
-                    'modal': true
+                    'modal': true,
+                    afterLoad: function () {
+                        $('.form-ajax').submit(saveForm);
+                    }
                 }
             });
         });
+}
+
+const saveForm = function () {
+    let element = $(this);
+
+    let src = element.attr('action');
+    let data = element.serialize();
+
+    axios.put(src, data)
+        .then(function (response) {
+            response = response.data;            
+
+            element.prepend(response.message);
+            setTimeout(() => {
+                element.find('.alert').fadeOut(function(){
+                    $(this).remove();
+                });
+            }, 2000);
+        });
+
+    return false;
 }
 
 $(".open-upload").click(openUpload);
