@@ -55,6 +55,8 @@
     "/assets/css/app-rtl.min.css": "/assets/css/app-rtl.min.css",
     "/assets/css/app.min.css": "/assets/css/app.min.css",
     "/assets/css/app-dark.min.css": "/assets/css/app-dark.min.css",
+    "/assets/css/seven.css": "/assets/css/seven.css",
+    "/assets/css/seven.min.css": "/assets/css/seven.min.css",
     "/assets/js/app.min.js": "/assets/js/app.min.js",
     "/assets/js/app.min.min.js": "/assets/js/app.min.min.js"
 }
