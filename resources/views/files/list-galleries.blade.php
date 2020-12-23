@@ -1,7 +1,7 @@
 @extends('layouts.vertical')
 
 @section('breadcrumb')
-    <x-breadcrumb :id="$id_link" :route="$route" :name="$name" />
+    <x-breadcrumb :id="$link_id" :route="$route" :name="$name" />
 @endsection
 
 @section('content')
@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-body">       
 
-                    <x-nav :id="$id_link" :nav="$nav" />
+                    <x-nav :id="$link_id" :nav="$nav" />
 
                     <div class="tab-content p-3 text-muted">
                         <div class="tab-pane show active" id="main">                             
@@ -31,17 +31,17 @@
                                     <h6 class="header-title">{{ $gallery['file_gallery'] }}</h6>
                                 </div>
                                 <div class="col text-right">
-                                    <a href="javascript:;" data-url="{{ route('files.upload-form', ['module' => $module, 'link_id' => $id_link, 'file_gallery_id' => $gallery['id']]) }}" class="btn btn-dark open-upload">UPLOAD</a>
+                                    <a href="javascript:;" data-url="{{ route('files.upload-form', ['module' => $module, 'link_id' => $link_id, 'file_gallery_id' => $gallery['id']]) }}" class="btn btn-dark open-upload">UPLOAD</a>
                                 </div>
                             </div>      
                             
                             <div class="row">
-                                @php
-                                    $filesGallery = $entity->where('file_gallery_id', $gallery['id'])->where('active', '<>', 2);                                    
-                                @endphp
-
-                                @if ($filesGallery->exists())
+                                @if ($entity->exists())
+                                    @php
+                                        $filesGallery = $entity->get()->toQuery()->where('file_gallery_id', $gallery['id']);
+                                    @endphp
                                     @foreach ($filesGallery->get() as $file)
+                                        
                                         <div class="col-4 mb-4">
                                             <img src="{{ asset("storage/{$file->file_path}") }}" class="img-fluid img-thumbnail mb-3">
                                             <div class="d-flex justify-content-around">

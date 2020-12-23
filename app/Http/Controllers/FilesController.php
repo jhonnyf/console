@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FileUpload;
+use App\Models\Contents;
 use App\Models\Files;
 use App\Models\FilesGalleries;
 use App\Models\FilesUsers;
@@ -22,7 +23,7 @@ class FilesController
             'btn_back' => false,
         ];
 
-        $file = Files::find($id)->fileContent;
+        $file = Files::find($id)->fileText;
 
         $form = new FormElement;
 
@@ -59,7 +60,7 @@ class FilesController
 
     public function update(int $id, Request $request)
     {
-        $response = Files::find($id)->fileContent->fill($request->all())->save();
+        $response = Files::find($id)->fileText->fill($request->all())->save();
 
         $data = [
             'class'   => $response ? 'success' : 'danger',
@@ -69,26 +70,38 @@ class FilesController
         $response = [
             'error'   => $response,
             'message' => view('system.alert', $data)->render(),
-            'result'  => Files::with('fileContent')->find($id),
+            'result'  => Files::with('fileText')->find($id),
         ];
 
         return response()->json($response);
     }
 
-    public function listGalleries(string $module, int $id_link, Request $request)
+    public function listGalleries(string $module, int $link_id, Request $request)
     {
         $ModuleConfig = App::make("App\Services\ModuleConfig\Module\\" . ucwords($module) . "ModuleConfig");
 
         $data = [
             'module'         => $module,
-            'id_link'        => $id_link,
-            'nav'            => $ModuleConfig->setNav($request, $id_link),
+            'link_id'        => $link_id,
+            'nav'            => $ModuleConfig->setNav($request, $link_id),
             'route'          => $ModuleConfig->Route,
             'name'           => $ModuleConfig->Name,
-            'filesGalleries' => FilesGalleries::where(['active' => 1, 'module' => $module])->get(),
+            'filesGalleries' => FilesGalleries::where(['active' => 1, 'module' => $module])
+                ->orWhere(function ($q) {
+                    $q->where('module', null)->orWhere('module', "");
+                })
+                ->get(),
         ];
 
-        $data['entity'] = Users::find($id_link)->files();
+        if ($module == 'users') {
+            $data['entity'] = Users::find($link_id)
+                ->files()
+                ->where('active', '<>', 2);
+        } elseif ($module == 'contents') {
+            $data['entity'] = Contents::find($link_id)
+                ->files()
+                ->where('active', '<>', 2);
+        }
 
         return view('files.list-galleries', $data);
     }
@@ -131,7 +144,7 @@ class FilesController
         $data['file_path'] = str_replace("public/", "", $data['file_path']);
 
         $response = Files::create($data);
-        Files::find($response->id)->fileContent()->create();
+        Files::find($response->id)->fileText()->create();
 
         if ($module === 'users') {
             FilesUsers::create(['files_id' => $response->id, 'users_id' => $link_id]);

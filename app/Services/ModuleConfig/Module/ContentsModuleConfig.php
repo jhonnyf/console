@@ -38,7 +38,7 @@ class ContentsModuleConfig extends AbstractModuleConfig
 
             $response[] = [
                 'name'  => 'Arquivos',
-                'route' => route('files.listGalleries', ['module' => 'users', 'link_id' => $id, 'category_id' => $request->category_id]),
+                'route' => route('files.listGalleries', ['module' => 'contents', 'link_id' => $id, 'category_id' => $request->category_id]),
             ];
 
         }
