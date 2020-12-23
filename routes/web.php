@@ -43,11 +43,12 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'category'], function () {
+        Route::get('show/{id}', 'CategoriesController@show')->name('categories.show');
         Route::post('structure', 'CategoriesController@structure')->name('categories.structure');
         Route::get('form/{id?}', 'CategoriesController@form')->name('categories.form');
         Route::get('active/{id}', 'CategoriesController@active')->name('categories.active');
         Route::get('destroy/{id}', 'CategoriesController@destroy')->name('categories.destroy');
-        Route::get('', 'CategoriesController@index')->name('categories.index');
+        Route::get('', 'CategoriesController@index')->name('categories.index');        
         Route::post('', 'CategoriesController@store')->name('categories.store');
         Route::put('{id}', 'CategoriesController@update')->name('categories.update');
     });

@@ -2101,53 +2101,38 @@ process.umask = function() { return 0; };
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
+var getChild = function getChild() {
+  var id = $(this).data('id');
+  var url = $(this).data('url');
+  axios.post(url, {
+    'id': id
+  }).then(function (response) {
+    response = response.data;
 
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    if (response.error === false) {
+      var append_element = true;
+      $('.structure-category > .col').each(function () {
+        var parent_id = $(this).data('parent_id');
 
-var Category = function () {
-  var getChild = function getChild() {
-    var id = $(this).data('id');
-    var url = $(this).data('url');
-    axios.post(url, {
-      'id': id
-    }).then(function (response) {
-      var response = response.data;
-
-      if (response.error === false) {
-        var append_element = true;
-        $('.structure-category .col').each(function () {
-          var parent_id = $(this).data('parent_id');
-
-          if (parent_id == response.result.parent_id) {
-            append_element = false;
-          }
-        });
-
-        if (append_element) {
-          $('.structure-category').append(response.result.html);
-          feather.replace();
+        if (parent_id == response.result.parent_id) {
+          append_element = false;
+        } else {
+          $(this).remove();
         }
+      });
+
+      if (append_element) {
+        $('.structure-category').append(response.result.html);
+        feather.replace();
       }
-    });
-  };
-
-  return {
-    init: function init() {
-      $(document).on('click', '.card-link', getChild);
     }
-  };
-}();
+  });
+};
 
-if (true) {
-  module.exports = Category;
-}
-
-jQuery(document).ready(function () {
-  Category.init();
-});
+$(document).on('click', '.card-link', getChild);
 
 /***/ }),
 

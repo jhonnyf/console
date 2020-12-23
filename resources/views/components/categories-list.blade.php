@@ -35,7 +35,10 @@
     
     <div class="row">
         <div class="col text-center">
-            <a class="btn btn-primary" href="{{ route('categories.form', ['category_id' => $category->id]) }}" >
+            @if ($category->id > 1)
+                <a href="{{ route('categories.show', ['id' => $category->categoryPrimary->first()->id]) }}" class="btn btn-primary">voltar</a>
+            @endif            
+            <a class="btn btn-dark" href="{{ route('categories.form', ['category_id' => $category->id]) }}" >
                 <i data-feather="plus" class="icon-dual"></i> adicionar
             </a>
         </div>

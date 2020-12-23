@@ -26,6 +26,16 @@ class CategoriesController extends Controller
         return view("{$this->Route}.index", $data);
     }
 
+    public function show(int $id)
+    {
+        $data = [
+            'route'    => $this->Route,
+            'category' => Model::find($id),
+        ];
+
+        return view("{$this->Route}.index", $data);
+    }
+
     public function structure(Request $request)
     {
         $data = [
