@@ -21,7 +21,7 @@
     "devDependencies": {
         "axios": "^0.19",
         "browser-sync": "^2.26.13",
-        "browser-sync-webpack-plugin": "^2.2.2",
+        "browser-sync-webpack-plugin": "^2.3.0",
         "cross-env": "^5.1",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.13",
@@ -58,7 +58,7 @@
         "datatables.net-select-bs4": "^1.2.5",
         "dropzone": "^5.5.1",
         "feather-icons": "^4.24.0",
-        "flatpickr": "^4.6.7",
+        "flatpickr": "^4.6.8",
         "jquery": "^3.4.1",
         "jquery-knob": "^1.2.11",
         "jquery-nice-select": "^1.1.0",
