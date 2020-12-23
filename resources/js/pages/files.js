@@ -13,7 +13,10 @@ const openUpload = function () {
                 src: response.result,
                 type: 'inline',
                 opts: {
-                    'modal': true
+                    modal: true,
+                    beforeClose: function(){
+                        window.location.reload();
+                    }
                 }
             });
 
@@ -32,9 +35,9 @@ const editForm = function () {
 
             $.fancybox.open({
                 src: response.result,
-                type: 'inline',
+                type: 'html',
                 opts: {
-                    'modal': true,
+                    modal: true,                    
                     afterLoad: function () {
                         $('.form-ajax').submit(saveForm);
                     }
@@ -64,5 +67,5 @@ const saveForm = function () {
     return false;
 }
 
-$(".open-upload").click(openUpload);
-$(".edit-form").click(editForm);
+$(document).on("click", ".open-upload", openUpload);
+$(document).on("click", ".edit-form", editForm);

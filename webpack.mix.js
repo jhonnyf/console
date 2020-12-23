@@ -14,8 +14,7 @@ var assets = {
         "./node_modules/bootstrap/dist/js/bootstrap.bundle.js",
         "./node_modules/metismenujs/dist/metismenujs.min.js",
         "./node_modules/jquery-slimscroll/jquery.slimscroll.js",
-        "./node_modules/feather-icons/dist/feather.min.js",
-        "./node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.js"
+        "./node_modules/feather-icons/dist/feather.min.js"
     ]
 };
 
@@ -108,18 +107,17 @@ lodash(third_party_assets).forEach(function (assets, type) {
     }
 });
 
-mix.sass('resources/scss/bootstrap.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/bootstrap.css");
-mix.sass('resources/scss/bootstrap-dark.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/bootstrap-dark.css");
-mix.sass('resources/scss/icons.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/icons.css");
+mix.sass('resources/scss/app-dark.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/app-dark.css");
 mix.sass('resources/scss/app-rtl.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/app-rtl.css");
 mix.sass('resources/scss/app.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/app.css");
-mix.sass('resources/scss/app-dark.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/app-dark.css");
-mix.styles('./node_modules/@fancyapps/fancybox/dist/jquery.fancybox.min.css', folder.dist_assets + "css/seven.css").minify(folder.dist_assets + "css/seven.css");
+mix.sass('resources/scss/bootstrap-dark.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/bootstrap-dark.css");
+mix.sass('resources/scss/bootstrap.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/bootstrap.css");
+mix.sass('resources/scss/icons.scss', folder.dist_assets + "css").minify(folder.dist_assets + "css/icons.css");
 
 var app_pages_assets = {
     js: [
         folder.src + "js/pages/dashboard.js",
-        folder.src + "js/pages/category.js",        
+        folder.src + "js/pages/category.js",
         folder.src + "js/pages/files.js"
     ]
 };

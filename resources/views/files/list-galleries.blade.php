@@ -70,9 +70,11 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ URL::asset('assets/libs/dropzone/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('assets/libs/fancybox/fancybox.min.css') }}">
 @endsection
 
 @section('script')
     <script src="{{ URL::asset('assets/libs/dropzone/dropzone.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/libs/fancybox/fancybox.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/pages/files.js') }}"></script>
 @endsection

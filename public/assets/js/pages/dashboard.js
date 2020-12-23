@@ -500,18 +500,18 @@ function ($) {
 
 /***/ 0:
 /*!***************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/pages/dashboard.js ./resources/scss/bootstrap.scss ./resources/scss/bootstrap-dark.scss ./resources/scss/icons.scss ./resources/scss/app-rtl.scss ./resources/scss/app.scss ./resources/scss/app-dark.scss ***!
+  !*** multi ./resources/js/pages/dashboard.js ./resources/scss/app-dark.scss ./resources/scss/app-rtl.scss ./resources/scss/app.scss ./resources/scss/bootstrap-dark.scss ./resources/scss/bootstrap.scss ./resources/scss/icons.scss ***!
   \***************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\wamp64\www\console\resources\js\pages\dashboard.js */"./resources/js/pages/dashboard.js");
-__webpack_require__(/*! C:\wamp64\www\console\resources\scss\bootstrap.scss */"./resources/scss/bootstrap.scss");
-__webpack_require__(/*! C:\wamp64\www\console\resources\scss\bootstrap-dark.scss */"./resources/scss/bootstrap-dark.scss");
-__webpack_require__(/*! C:\wamp64\www\console\resources\scss\icons.scss */"./resources/scss/icons.scss");
+__webpack_require__(/*! C:\wamp64\www\console\resources\scss\app-dark.scss */"./resources/scss/app-dark.scss");
 __webpack_require__(/*! C:\wamp64\www\console\resources\scss\app-rtl.scss */"./resources/scss/app-rtl.scss");
 __webpack_require__(/*! C:\wamp64\www\console\resources\scss\app.scss */"./resources/scss/app.scss");
-module.exports = __webpack_require__(/*! C:\wamp64\www\console\resources\scss\app-dark.scss */"./resources/scss/app-dark.scss");
+__webpack_require__(/*! C:\wamp64\www\console\resources\scss\bootstrap-dark.scss */"./resources/scss/bootstrap-dark.scss");
+__webpack_require__(/*! C:\wamp64\www\console\resources\scss\bootstrap.scss */"./resources/scss/bootstrap.scss");
+module.exports = __webpack_require__(/*! C:\wamp64\www\console\resources\scss\icons.scss */"./resources/scss/icons.scss");
 
 
 /***/ })

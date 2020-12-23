@@ -2112,7 +2112,10 @@ var openUpload = function openUpload() {
       src: response.result,
       type: 'inline',
       opts: {
-        'modal': true
+        modal: true,
+        beforeClose: function beforeClose() {
+          window.location.reload();
+        }
       }
     });
     var url = $('#dropzone-form').attr('action');
@@ -2128,9 +2131,9 @@ var editForm = function editForm() {
     response = response.data;
     $.fancybox.open({
       src: response.result,
-      type: 'inline',
+      type: 'html',
       opts: {
-        'modal': true,
+        modal: true,
         afterLoad: function afterLoad() {
           $('.form-ajax').submit(saveForm);
         }
@@ -2155,8 +2158,8 @@ var saveForm = function saveForm() {
   return false;
 };
 
-$(".open-upload").click(openUpload);
-$(".edit-form").click(editForm);
+$(document).on("click", ".open-upload", openUpload);
+$(document).on("click", ".edit-form", editForm);
 
 /***/ }),
 

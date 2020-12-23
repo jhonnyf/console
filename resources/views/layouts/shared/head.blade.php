@@ -1,5 +1,4 @@
 <link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.ico') }}">
-<link href="{{ URL::asset('assets/css/seven.css') }}" rel="stylesheet" type="text/css" />
 @yield('css')
 <link href="{{ URL::asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 @if(isset($isDark) && $isDark)
