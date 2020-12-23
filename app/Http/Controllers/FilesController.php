@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\FileUpload;
 use App\Models\Contents;
 use App\Models\Files;
+use App\Models\FilesContents;
 use App\Models\FilesGalleries;
 use App\Models\FilesUsers;
 use App\Models\Users;
@@ -148,6 +149,8 @@ class FilesController
 
         if ($module === 'users') {
             FilesUsers::create(['files_id' => $response->id, 'users_id' => $link_id]);
+        }elseif ($module === 'contents') {
+            FilesContents::create(['files_id' => $response->id, 'contents_id' => $link_id]);
         }
 
         return response()->json($response);
