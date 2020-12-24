@@ -24,6 +24,7 @@ lodash(assets).forEach(function (asset, type) {
         js.push(asset[i]);
     };
     mix.combine(js, folder.dist_assets + "js/vendor.js").minify(folder.dist_assets + "js/vendor.js");
+    mix.combine('./node_modules/feather-icons/dist/feather.min.js.map', folder.dist_assets + "js/feather.min.js.map");
 });
 
 var third_party_assets = {
