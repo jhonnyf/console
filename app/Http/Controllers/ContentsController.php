@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CategoriesContents;
 use App\Models\Contents as Model;
+use App\Models\Languages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -24,10 +25,35 @@ class ContentsController extends Controller
 
         $response = Model::create($create);
 
+        $languageDefault = Languages::where('active', '<>', 2)
+            ->where('default', true)
+            ->first();
+
+        $Content              = Model::find($response->id);
+        $Content->language_id = $languageDefault->id;
+        $Content->save();
+
         if (isset($create['category_id'])) {
             $link = ['category_id' => $create['category_id'], 'content_id' => $response->id];
             if (CategoriesContents::where($link)->exists() === false) {
                 CategoriesContents::create($link);
+            }
+        }
+
+        $languages = Languages::where('active', '<>', 2)
+            ->where('default', false);
+        if ($languages->exists()) {
+            foreach ($languages->get() as $key => $value) {
+                $newContent = $Content->toArray();
+
+                $newContent['language_id'] = $value['id'];
+                $newContent['slug']        = $this->checkSlug($newContent['title']);
+                $newContent['created_at']  = date('Y-m-d H:i:s');
+                $newContent['updated_at']  = date('Y-m-d H:i:s');
+
+                unset($newContent['id']);
+
+                Model::insert($newContent);
             }
         }
 
@@ -59,7 +85,7 @@ class ContentsController extends Controller
         }
 
         if ($check->exists()) {
-            $slug = "{$slug}-" . rand(0,100);
+            $slug = "{$slug}-" . rand(0, 100);
             return $this->checkSlug($slug, $id);
         }
 

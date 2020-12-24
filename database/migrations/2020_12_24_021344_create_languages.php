@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateLanguages extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('languages', function (Blueprint $table) {
@@ -18,16 +14,13 @@ class CreateLanguages extends Migration
 
             $table->id();
             $table->integer('active')->default(1);
-            $table->string('language');            
+            $table->string('language');
+            $table->char('code', 10);
+            $table->boolean('default');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('languages');

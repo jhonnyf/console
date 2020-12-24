@@ -16,21 +16,22 @@
                     <div class="tab-content p-3 text-muted">
                         <div class="tab-pane show active" id="main">
                             
-
-                            <ul class="nav nav-pills navtab-bg nav-justified mb-3">
-                                <li class="nav-item">
-                                    <a href="#home1" data-toggle="tab" aria-expanded="false" class="nav-link">
-                                        <span class="d-block d-sm-none"><i class="uil-home-alt"></i></span>
-                                        <span class="d-none d-sm-block">PT</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#profile1" data-toggle="tab" aria-expanded="true" class="nav-link active">
-                                        <span class="d-block d-sm-none"><i class="uil-user"></i></span>
-                                        <span class="d-none d-sm-block">IN</span>
-                                    </a>
-                                </li>
-                            </ul>
+                            @if (is_null($id) === false)
+                                @php
+                                    $languages = \App\Models\Languages::where('active', '<>', 2);
+                                @endphp
+                                @if ($languages->exists())
+                                    <ul class="nav nav-pills navtab-bg nav-justified mb-3">
+                                        @foreach ($languages->get() as $language)
+                                            <li class="nav-item">
+                                                <a href="{{ route('contents.form', ['id' => $formFields['id']['value'], 'language_id' => $language->id, 'category_id' => $category_id]) }}" class="nav-link {{ $formFields['language_id']['value'] == $language->id ? 'active' : '' }}">
+                                                    {{ $language->language }}
+                                                </a>
+                                            </li>
+                                        @endforeach 
+                                    </ul>    
+                                @endif
+                            @endif
 
                             <x-form-fields :formFields="$formFields" :id="$id" :route="$route" :extraData="$extraData" />
                         </div>
