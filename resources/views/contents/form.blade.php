@@ -23,8 +23,11 @@
                                 @if ($languages->exists())
                                     <ul class="nav nav-pills navtab-bg nav-justified mb-3">
                                         @foreach ($languages->get() as $language)
+                                            @php
+                                                $route_id = empty($formFields['reference_id']['value']) ? $formFields['id']['value'] : $formFields['reference_id']['value'];                                                
+                                            @endphp
                                             <li class="nav-item">
-                                                <a href="{{ route('contents.form', ['id' => $formFields['id']['value'], 'language_id' => $language->id, 'category_id' => $category_id]) }}" class="nav-link {{ $formFields['language_id']['value'] == $language->id ? 'active' : '' }}">
+                                                <a href="{{ route('contents.form', ['id' => $route_id, 'language_id' => $language->id, 'category_id' => $category_id]) }}" class="nav-link {{ $formFields['language_id']['value'] == $language->id ? 'active' : '' }}">
                                                     {{ $language->language }}
                                                 </a>
                                             </li>

@@ -20,6 +20,7 @@ abstract class Contents implements RulesInterface
         $columns = Metadata::formRulesMain($columns, $formValues);
 
         $columns['language_id']['type'] = 'hidden';
+        $columns['reference_id']['type'] = 'hidden';
         $columns['title']['required']   = true;
         $columns['slug']['readonly']    = true;
         $columns['content']['type']     = 'textarea';

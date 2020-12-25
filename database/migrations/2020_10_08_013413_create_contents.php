@@ -15,6 +15,7 @@ class CreateContents extends Migration
             $table->id();
             $table->integer('active')->default(1);
             $table->unsignedBigInteger('language_id')->nullable();
+            $table->unsignedBigInteger('reference_id')->nullable();
             $table->string('slug')->unique();
             $table->date('date')->nullable();
             $table->string('title');
@@ -24,6 +25,7 @@ class CreateContents extends Migration
             $table->string('video')->nullable();
             $table->timestamps();
             
+            $table->foreign('reference_id')->on('contents')->references('id')->cascadeOnDelete();
         });
     }
 

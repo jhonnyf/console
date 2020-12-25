@@ -17,6 +17,23 @@ class ContentsController extends Controller
         parent::__construct(Model::class);
     }
 
+    public function form(?int $id = null, Request $request)
+    {
+        $languageDefault = Languages::where('active', '<>', 2)
+            ->where('default', true)
+            ->first();
+
+        $language_id = isset($request->language_id) ? $request->language_id : $languageDefault->id;
+
+        $Content = Model::where(function ($q) use ($id) {
+            $q->where('id', $id)->orWhere('reference_id', $id);
+        })
+            ->where('language_id', $language_id)
+            ->first();
+
+        return parent::form($Content->id, $request);
+    }
+
     public function store(Request $request)
     {
         $create = $request->all();
@@ -46,10 +63,11 @@ class ContentsController extends Controller
             foreach ($languages->get() as $key => $value) {
                 $newContent = $Content->toArray();
 
-                $newContent['language_id'] = $value['id'];
-                $newContent['slug']        = $this->checkSlug($newContent['title']);
-                $newContent['created_at']  = date('Y-m-d H:i:s');
-                $newContent['updated_at']  = date('Y-m-d H:i:s');
+                $newContent['language_id']  = $value['id'];
+                $newContent['slug']         = $this->checkSlug($newContent['title']);
+                $newContent['created_at']   = date('Y-m-d H:i:s');
+                $newContent['updated_at']   = date('Y-m-d H:i:s');
+                $newContent['reference_id'] = $newContent['id'];
 
                 unset($newContent['id']);
 
@@ -57,7 +75,7 @@ class ContentsController extends Controller
             }
         }
 
-        return redirect()->route("{$this->Route}.form", ['id' => $response->id, 'category_id' => $create['category_id']]);
+        return redirect()->route("{$this->Route}.form", ['id' => $response->id, 'language_id' => $Content->language_id, 'category_id' => $create['category_id']]);
     }
 
     public function update(int $id, Request $request)
@@ -66,9 +84,14 @@ class ContentsController extends Controller
 
         $fill['slug'] = $this->checkSlug($fill['title'], $id);
 
-        Model::find($id)->fill($fill)->save();
+        $Content = Model::find($id);
 
-        return redirect()->route("{$this->Route}.form", ['id' => $id, 'category_id' => $fill['category_id']]);
+        $Content->fill($fill)->save();
+        
+
+        $route_id = empty($Content->reference_id) ? $Content->id : $Content->reference_id;
+
+        return redirect()->route("{$this->Route}.form", ['id' => $route_id, 'language_id' => $Content->language_id, 'category_id' => $fill['category_id']]);
     }
 
     /**
