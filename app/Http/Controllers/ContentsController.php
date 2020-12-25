@@ -87,7 +87,6 @@ class ContentsController extends Controller
         $Content = Model::find($id);
 
         $Content->fill($fill)->save();
-        
 
         $route_id = empty($Content->reference_id) ? $Content->id : $Content->reference_id;
 
