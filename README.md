@@ -7,6 +7,11 @@ Guia de instalação
 ```bash
 php composer install
 ```
+## NPM
+
+```bash
+npm install
+```
 
 ## ARTISAN
 
@@ -14,10 +19,4 @@ Popular banco de dados
 
 ```bash
 php artisan migrate:refresh --seed
-```
-
-## NPM
-
-```bash
-npm install
 ```
