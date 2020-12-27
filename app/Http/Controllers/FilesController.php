@@ -132,7 +132,9 @@ class FilesController
             'btn_back' => false,
         ];
 
-        $file = Files::find($id)->contentFile;
+        $LanguageDefault = Languages::where('default', true)->first();        
+
+        $file = Files::find($id)->contentFile->where('language_id', $LanguageDefault->id)->first();
 
         $form = new FormElement;
 
@@ -140,6 +142,13 @@ class FilesController
         $form->setAutocomplete(false);
         $form->setMethod('post');
         $form->setClass(['form-ajax']);
+
+        $content_id = $form->newElement('input');
+        $content_id->setName('content_id');
+        $content_id->setType('hidden');
+        $content_id->setValue($file->id);
+
+        $form->addElement($content_id);
 
         $title = $form->newElement('input');
         $title->setName('title');
@@ -169,7 +178,7 @@ class FilesController
 
     public function update(int $id, Request $request)
     {
-        $response = Files::find($id)->fileText->fill($request->all())->save();
+        $response = Files::find($id)->contentFile->where('id', $request->content_id)->first()->fill($request->all())->save();
 
         $data = [
             'class'   => $response ? 'success' : 'danger',
@@ -179,7 +188,7 @@ class FilesController
         $response = [
             'error'   => $response,
             'message' => view('system.alert', $data)->render(),
-            'result'  => Files::with('fileText')->find($id),
+            'result'  => Files::with('contentFile')->find($id),
         ];
 
         return response()->json($response);

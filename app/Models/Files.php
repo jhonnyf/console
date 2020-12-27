@@ -16,6 +16,6 @@ class Files extends Model
 
     public function contentFile()
     {
-        return $this->hasOne(ContentsFiles::class);
+        return $this->hasMany(ContentsFiles::class);
     }
 }
