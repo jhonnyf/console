@@ -104,7 +104,7 @@ class UsersController extends Controller
         if ($categories->count() > 0) {
             $options = [];
             foreach ($categories as $key => $value) {
-                $options[$value->id] = $value->category;
+                $options[$value->id] = $value->content->title;
             }
 
             $categoryId->setOptions($options);

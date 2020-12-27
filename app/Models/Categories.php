@@ -8,6 +8,11 @@ class Categories extends Model
 {
     protected $fillable = ['category'];
 
+    public function content()
+    {
+        return $this->hasOne(ContentsCategories::class);
+    }
+
     public function categoryPrimary()
     {
         return $this->belongsToMany(Categories::class, 'categories_categories', 'secondary_id', 'primary_id')->where('active', '<>', 2);

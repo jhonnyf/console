@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FileUpload;
 use App\Models\Contents;
+use App\Models\ContentsFiles;
 use App\Models\Files;
 use App\Models\FilesContents;
 use App\Models\FilesGalleries;
 use App\Models\FilesUsers;
+use App\Models\Languages;
 use App\Models\Users;
 use App\Services\FormElement\FormElement;
 use Illuminate\Http\Request;
@@ -15,68 +17,6 @@ use Illuminate\Support\Facades\App;
 
 class FilesController
 {
-
-    public function form(int $id)
-    {
-        $data = [
-            'id'       => $id,
-            'route'    => 'files',
-            'btn_back' => false,
-        ];
-
-        $file = Files::find($id)->fileText;
-
-        $form = new FormElement;
-
-        $form->setAction(route('files.form', ['id' => $id]));
-        $form->setAutocomplete(false);
-        $form->setMethod('post');
-        $form->setClass(['form-ajax']);
-
-        $title = $form->newElement('input');
-        $title->setName('title');
-        $title->setType('text');
-        $title->setLabel('Título');
-        $title->setValue($file->title);
-
-        $form->addElement($title);
-
-        $content = $form->newElement('textarea');
-        $content->setName('content');
-        $content->setLabel('Conteúdo');
-        $content->setValue($file->content);
-
-        $form->addElement($content);
-
-        $data['form'] = $form->render($data);
-
-        $response = [
-            'error'   => false,
-            'message' => 'sucesso',
-            'result'  => view('files.form', $data)->render(),
-        ];
-
-        return response()->json($response);
-    }
-
-    public function update(int $id, Request $request)
-    {
-        $response = Files::find($id)->fileText->fill($request->all())->save();
-
-        $data = [
-            'class'   => $response ? 'success' : 'danger',
-            'message' => $response ? 'Ação realizada com sucesso' : 'Não foi possivel realizar a ação',
-        ];
-
-        $response = [
-            'error'   => $response,
-            'message' => view('system.alert', $data)->render(),
-            'result'  => Files::with('fileText')->find($id),
-        ];
-
-        return response()->json($response);
-    }
-
     public function listGalleries(string $module, int $link_id, Request $request)
     {
         $ModuleConfig = App::make("App\Services\ModuleConfig\Module\\" . ucwords($module) . "ModuleConfig");
@@ -145,13 +85,102 @@ class FilesController
         $data['file_path'] = str_replace("public/", "", $data['file_path']);
 
         $response = Files::create($data);
-        Files::find($response->id)->fileText()->create();
+
+        $this->creteContent($response->id);
 
         if ($module === 'users') {
             FilesUsers::create(['files_id' => $response->id, 'users_id' => $link_id]);
-        }elseif ($module === 'contents') {
+        } elseif ($module === 'contents') {
             FilesContents::create(['files_id' => $response->id, 'contents_id' => $link_id]);
         }
+
+        return response()->json($response);
+    }
+
+    private function creteContent(int $id): void
+    {
+        $responseLanguages = Languages::where('active', '<>', 2)
+            ->orderBy('default', 'desc');
+
+        if ($responseLanguages->exists()) {
+            $reference_id = null;
+            foreach ($responseLanguages->get() as $key => $language) {
+                $responseContentFile = Files::find($id)->contentsFiles()->create();
+
+                $ContentFile = Files::find($id)
+                    ->contentsFiles()
+                    ->where('id', $responseContentFile->id)
+                    ->first();
+
+                $ContentFile->language_id = $language->id;
+                if (is_null($reference_id) === false) {
+                    $ContentFile->reference_id = $reference_id;
+                }
+
+                $ContentFile->save();
+
+                $reference_id = $ContentFile->id;
+            }
+        }
+    }
+
+    public function form(int $id)
+    {
+        $data = [
+            'id'       => $id,
+            'route'    => 'files',
+            'btn_back' => false,
+        ];
+
+        $file = Files::find($id)->contentFile;
+
+        $form = new FormElement;
+
+        $form->setAction(route('files.form', ['id' => $id]));
+        $form->setAutocomplete(false);
+        $form->setMethod('post');
+        $form->setClass(['form-ajax']);
+
+        $title = $form->newElement('input');
+        $title->setName('title');
+        $title->setType('text');
+        $title->setLabel('Título');
+        $title->setValue($file->title);
+
+        $form->addElement($title);
+
+        $content = $form->newElement('textarea');
+        $content->setName('content');
+        $content->setLabel('Conteúdo');
+        $content->setValue($file->content);
+
+        $form->addElement($content);
+
+        $data['form'] = $form->render($data);
+
+        $response = [
+            'error'   => false,
+            'message' => 'sucesso',
+            'result'  => view('files.form', $data)->render(),
+        ];
+
+        return response()->json($response);
+    }
+
+    public function update(int $id, Request $request)
+    {
+        $response = Files::find($id)->fileText->fill($request->all())->save();
+
+        $data = [
+            'class'   => $response ? 'success' : 'danger',
+            'message' => $response ? 'Ação realizada com sucesso' : 'Não foi possivel realizar a ação',
+        ];
+
+        $response = [
+            'error'   => $response,
+            'message' => view('system.alert', $data)->render(),
+            'result'  => Files::with('fileText')->find($id),
+        ];
 
         return response()->json($response);
     }

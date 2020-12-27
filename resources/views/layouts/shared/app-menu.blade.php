@@ -19,7 +19,7 @@
             @if ($usersTypes->count() > 0)
                 @foreach ($usersTypes as $item)
                     <li>
-                        <a href="{{ route('users.index', ['category_id' => $item->id ]) }}">{{ $item->category }}</a>
+                        <a href="{{ route('users.index', ['category_id' => $item->id ]) }}">{{ $item->content->title }}</a>
                     </li>
                 @endforeach
             @endif            
