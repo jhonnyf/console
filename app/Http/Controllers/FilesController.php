@@ -104,11 +104,11 @@ class FilesController
 
         if ($responseLanguages->exists()) {
             $reference_id = null;
-            foreach ($responseLanguages->get() as $key => $language) {
-                $responseContentFile = Files::find($id)->contentsFiles()->create();
+            foreach ($responseLanguages->get() as $language) {
+                $responseContentFile = Files::find($id)->contentFile()->create();
 
                 $ContentFile = Files::find($id)
-                    ->contentsFiles()
+                    ->contentFile()
                     ->where('id', $responseContentFile->id)
                     ->first();
 
