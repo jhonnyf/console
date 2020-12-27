@@ -5,7 +5,6 @@ use App\Models\CategoriesCategories;
 use App\Models\ContentsCategories;
 use App\Models\Languages;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class CategoriesSeeder extends Seeder
 {
@@ -32,13 +31,8 @@ class CategoriesSeeder extends Seeder
 
     private function create(string $name): void
     {
-        DB::table('categories')->insert([
-            'default'    => 1,
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
-        ]);
 
-        $response = Categories::orderBy('id', 'desc')->limit(1)->first();
+        $response = Categories::create(['default' => true]);
 
         $languages = Languages::where('active', '<>', 2)->orderBy('default', 'desc');
         if ($languages->exists()) {
