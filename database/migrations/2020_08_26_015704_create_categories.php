@@ -17,8 +17,7 @@ class CreateCategories extends Migration
             $table->engine = 'InnoDB';
 
             $table->id();
-            $table->integer('active')->default(1);
-            $table->string('category', 120);
+            $table->integer('active')->default(1);            
             $table->tinyInteger('default')->default(0);
             $table->timestamps();
         });

@@ -25,7 +25,7 @@ class CreateContents extends Migration
             $table->string('video')->nullable();
             $table->timestamps();
             
-            $table->foreign('reference_id')->on('contents')->references('id')->cascadeOnDelete();
+            $table->foreign('reference_id')->on('contents')->references('id')->cascadeOnDelete();        
         });
     }
 
