@@ -60,7 +60,7 @@
     <li>
         <a href="{{ route('filesGalleries.index') }}">
             <i data-feather="file-plus"></i>
-            <span>Tipos de galerias</span>            
+            <span>Tipo de galeria</span>            
         </a>        
     </li>
 </ul>
