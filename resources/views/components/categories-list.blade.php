@@ -9,13 +9,13 @@
                         <div class="col">
                             <p class="mb-0">
                                 <a href="javascript:;" data-id="{{ $item->id }}" data-url="{{ route('categories.structure') }}" class="card-link d-block">
-                                    {{ $item->content->title }}
+                                    {{ $item->content->first()->title }}
                                     <i data-feather="chevron-right" class="icon-dual"></i>
                                 </a>
                             </p>
                         </div>
                         <div class="col text-right">
-                            <a href="{{ route("categories.form", ['id' => $item->id, 'id_category' => $category->id]) }}">
+                            <a href="{{ route("categories.form", ['id' => $item->id, 'category_id' => $category->id]) }}">
                                 <i data-feather="edit-2" class="icon-sm"></i>
                             </a>                            
                             <a href="{{ route("categories.active", ['id' => $item->id]) }}">

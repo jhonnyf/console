@@ -51,6 +51,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('', 'CategoriesController@index')->name('categories.index');
         Route::post('', 'CategoriesController@store')->name('categories.store');
         Route::put('{id}', 'CategoriesController@update')->name('categories.update');
+
+        Route::group(['prefix' => 'content'], function(){
+            Route::get('{id}', 'CategoriesController@content')->name('categories.content');
+            Route::post('{id}', 'CategoriesController@contentUpdate')->name('categories.content-update');
+        });
     });
 
     Route::group(['prefix' => 'content'], function () {

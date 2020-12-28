@@ -9,7 +9,7 @@ class FilesGalleriesModuleConfig extends AbstractModuleConfig
 {
     public $Route     = 'filesGalleries';
     public $TableName = 'files_galleries';
-    public $Name      = 'Tipos de galerias';
+    public $Name      = 'Tipo de galeria';
 
     public function setNav(Request $request, int $id = null): array
     {

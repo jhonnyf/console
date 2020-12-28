@@ -10,7 +10,7 @@ class Categories extends Model
 
     public function content()
     {
-        return $this->hasOne(ContentsCategories::class);
+        return $this->hasMany(ContentsCategories::class);
     }
 
     public function categoryPrimary()
