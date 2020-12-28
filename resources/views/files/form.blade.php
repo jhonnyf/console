@@ -6,6 +6,17 @@
             </button>
         </div>
         <div class="card-body">
+            @if ($languages->exists())
+                <ul class="nav nav-pills navtab-bg nav-justified mb-3">
+                @foreach ($languages->get() as $language)
+                    <li class="nav-item">
+                        <a data-url="{{ route('files.form', ['id' => $id, 'language_id' => $language->id]) }}" class="nav-link edit-form {{ $LanguageDefault->id == $language->id ? 'active' : '' }}">
+                            {{ $language->language }}
+                        </a>
+                    </li>
+                @endforeach
+                </ul>
+            @endif
             {!! $form !!}          
         </div>
     </div>

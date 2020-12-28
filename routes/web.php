@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('form/{id?}', 'CategoriesController@form')->name('categories.form');
         Route::get('active/{id}', 'CategoriesController@active')->name('categories.active');
         Route::get('destroy/{id}', 'CategoriesController@destroy')->name('categories.destroy');
-        Route::get('', 'CategoriesController@index')->name('categories.index');        
+        Route::get('', 'CategoriesController@index')->name('categories.index');
         Route::post('', 'CategoriesController@store')->name('categories.store');
         Route::put('{id}', 'CategoriesController@update')->name('categories.update');
     });
@@ -63,6 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'file'], function () {
+
         Route::get('form/{id?}', 'FilesController@form')->name('files.form');
         Route::put('form/{id}', 'FilesController@update')->name('files.update');
         Route::get('active/{id}', 'FilesController@active')->name('files.active');
@@ -73,7 +74,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'upload'], function () {
             Route::get('form/{module}/{link_id}/{file_gallery_id}', 'FilesController@uploadForm')->name('files.upload-form');
             Route::post('submit/{module}/{link_id}/{file_gallery_id}', 'FilesController@submitFiles')->name('files.upload-submit');
-        });       
+        });
     });
 
     Route::group(['prefix' => 'file-gallery'], function () {

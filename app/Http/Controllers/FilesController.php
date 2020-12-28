@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\FileUpload;
 use App\Models\Contents;
-use App\Models\ContentsFiles;
 use App\Models\Files;
 use App\Models\FilesContents;
 use App\Models\FilesGalleries;
@@ -124,15 +123,21 @@ class FilesController
         }
     }
 
-    public function form(int $id)
+    public function form(int $id, Request $request)
     {
         $data = [
-            'id'       => $id,
-            'route'    => 'files',
-            'btn_back' => false,
+            'id'        => $id,
+            'route'     => 'files',
+            'btn_back'  => false,
+            'languages' => Languages::where('active', '<>', 2)->orderBy('default', 'desc'),
         ];
 
-        $LanguageDefault = Languages::where('default', true)->first();        
+        $LanguageDefault = Languages::where('default', true)->first();
+        if (isset($request->language_id)) {
+            $LanguageDefault = Languages::find($request->language_id);
+        }
+
+        $data['LanguageDefault'] = $LanguageDefault;
 
         $file = Files::find($id)->contentFile->where('language_id', $LanguageDefault->id)->first();
 

@@ -14,7 +14,7 @@ const openUpload = function () {
                 type: 'inline',
                 opts: {
                     modal: true,
-                    beforeClose: function(){
+                    beforeClose: function () {
                         window.location.reload();
                     }
                 }
@@ -37,8 +37,10 @@ const editForm = function () {
                 src: response.result,
                 type: 'html',
                 opts: {
-                    modal: true,                    
+                    modal: true,
+                    closeExisting: true,
                     afterLoad: function () {
+                        // $(document).on('submit', '.form-ajax', saveForm);
                         $('.form-ajax').submit(saveForm);
                     }
                 }
@@ -54,11 +56,11 @@ const saveForm = function () {
 
     axios.put(src, data)
         .then(function (response) {
-            response = response.data;            
+            response = response.data;
 
             element.prepend(response.message);
             setTimeout(() => {
-                element.find('.alert').fadeOut(function(){
+                element.find('.alert').fadeOut(function () {
                     $(this).remove();
                 });
             }, 2000);
@@ -66,6 +68,8 @@ const saveForm = function () {
 
     return false;
 }
+
+
 
 $(document).on("click", ".open-upload", openUpload);
 $(document).on("click", ".edit-form", editForm);

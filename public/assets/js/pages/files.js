@@ -2134,7 +2134,9 @@ var editForm = function editForm() {
       type: 'html',
       opts: {
         modal: true,
+        closeExisting: true,
         afterLoad: function afterLoad() {
+          // $(document).on('submit', '.form-ajax', saveForm);
           $('.form-ajax').submit(saveForm);
         }
       }
