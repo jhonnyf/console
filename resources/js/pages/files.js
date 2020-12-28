@@ -69,7 +69,5 @@ const saveForm = function () {
     return false;
 }
 
-
-
 $(document).on("click", ".open-upload", openUpload);
 $(document).on("click", ".edit-form", editForm);
