@@ -97,12 +97,13 @@ class CategoriesController extends Controller
     public function content(int $id, Request $request)
     {
         $data = [
-            'id'          => $id,
-            'route'       => $this->Route,
-            'name'        => $this->Name,
-            'nav'         => $this->setNav($request, $id),
-            'category_id' => $request->category_id,
-            'languages'   => Languages::where('active', '<>', 2),
+            'id'                     => $id,
+            'route'                  => $this->Route,
+            'name'                   => $this->Name,
+            'nav'                    => $this->setNav($request, $id),
+            'category_id'            => $request->category_id,
+            'navLanguageRoute'       => 'categories.content',
+            'navLanguageRouteParams' => ['id' => $id, 'category_id' => $request->category_id],
         ];
 
         $LanguageDefault = Languages::where('default', true)->first();
@@ -121,6 +122,7 @@ class CategoriesController extends Controller
 
         $language_id = $Form->newElement('input');
         $language_id->setName('language_id');
+        $language_id->setType('hidden');
         $language_id->setValue($CategoryContent->language_id);
 
         $Form->addElement($language_id);
