@@ -7,6 +7,13 @@ Guia de instalação
 ```bash
 php composer install
 ```
+
+Atualizar auto-load
+
+```bash
+composer dump-autoload
+```
+
 ## NPM
 
 ```bash
