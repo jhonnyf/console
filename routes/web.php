@@ -85,4 +85,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('active/{id}', 'FilesGalleriesController@active')->name('filesGalleries.active');
         Route::get('destroy/{id}', 'FilesGalleriesController@destroy')->name('filesGalleries.destroy');
     });
+
+    Route::group(['prefix' => 'language'], function () {
+        Route::get('', 'LanguagesController@index')->name('languages.index');
+        Route::get('form/{id?}', 'LanguagesController@form')->name('languages.form');
+        Route::post('form', 'LanguagesController@store')->name('languages.store');
+        Route::put('form/{id}', 'LanguagesController@update')->name('languages.update');
+        Route::get('active/{id}', 'LanguagesController@active')->name('languages.active');
+        Route::get('destroy/{id}', 'LanguagesController@destroy')->name('languages.destroy');
+    });
 });

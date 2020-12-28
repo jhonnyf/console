@@ -44,7 +44,7 @@
             @if ($usersTypes->count() > 0)
                 @foreach ($usersTypes as $item)
                     <li>
-                        <a href="{{ route('contents.index', ['category_id' => $item->id ]) }}">{{ $item->category }}</a>
+                        <a href="{{ route('contents.index', ['category_id' => $item->id ]) }}">{{ $item->content->title }}</a>
                     </li>
                 @endforeach
             @endif
@@ -52,9 +52,15 @@
     </li>
     <li class="menu-title">Configurações</li>
     <li>
+        <a href="{{ route('languages.index') }}">
+            <i data-feather="mic"></i>
+            <span>Linguagem</span>            
+        </a>        
+    </li>
+    <li>
         <a href="{{ route('filesGalleries.index') }}">
             <i data-feather="file-plus"></i>
-            <span>Tipos de arquivos</span>            
+            <span>Tipos de galerias</span>            
         </a>        
     </li>
 </ul>
