@@ -8,6 +8,12 @@ class Categories extends Model
 {
     protected $fillable = ['category'];
 
+
+    public function users()
+    {
+        return $this->belongsToMany(Users::class)->withTimestamps();
+    }
+
     public function contents()
     {
         return $this->hasMany(ContentsCategories::class);

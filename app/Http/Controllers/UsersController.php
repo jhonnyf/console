@@ -6,7 +6,6 @@ use App\Http\Requests\Password;
 use App\Http\Requests\UsersStore;
 use App\Http\Requests\UsersUpdate;
 use App\Models\Categories;
-use App\Models\CategoriesUsers;
 use App\Models\Users as Model;
 use App\Services\FormElement\FormElement;
 use Illuminate\Http\Request;
@@ -31,9 +30,7 @@ class UsersController extends Controller
         }
 
         $response = Model::create($create);
-        if (isset($create['category_id'])) {
-            $this->saveLink($create['category_id'], $response->id);
-        }
+        $this->saveLink($response->id, $create['category_id']);
 
         return redirect()->route("{$this->Route}.form", ['id' => $response->id, 'category_id' => $request->category_id]);
     }
@@ -57,18 +54,14 @@ class UsersController extends Controller
      * OTHERS
      */
 
-    private function saveLink(int $category_id, int $user_id): bool
+    private function saveLink(int $id, int $category_id): void
     {
-        $response = false;
-        CategoriesUsers::where('user_id', $user_id)->delete();
+        $User = Model::find($id);
 
-        $insert = ['categories_id' => $category_id, 'users_id' => $user_id];
-        if (CategoriesUsers::where($insert)->exists() === false) {
-            CategoriesUsers::create($insert);
-            $response = true;
-        }
+        $User->categories()->detach();
+        $User->categories()->attach($category_id);
 
-        return $response;
+        return;
     }
 
     /**
@@ -104,11 +97,11 @@ class UsersController extends Controller
         if ($categories->count() > 0) {
             $options = [];
             foreach ($categories as $key => $value) {
-                $options[$value->id] = $value->content->title;
+                $options[$value->id] = $value->contents->first()->title;
             }
 
             $categoryId->setOptions($options);
-            $categoryId->setValue(Model::find($id)->category->first()->id);
+            $categoryId->setValue(Model::find($id)->categories->first()->id);
         }
 
         $form->addElement($categoryId);
@@ -120,7 +113,7 @@ class UsersController extends Controller
 
     public function categoryStore(int $id, Request $request)
     {
-        $this->saveLink($request->category_id, $id);
+        $this->saveLink($id, $request->category_id);
 
         return redirect()->route('users.category', ['id' => $id]);
     }

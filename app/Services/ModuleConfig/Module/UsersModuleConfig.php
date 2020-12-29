@@ -2,7 +2,7 @@
 
 namespace App\Services\ModuleConfig\Module;
 
-use App\Models\CategoriesUsers;
+use App\Models\Categories;
 use App\Services\ModuleConfig\AbstractModuleConfig;
 use Illuminate\Http\Request;
 
@@ -19,9 +19,10 @@ class UsersModuleConfig extends AbstractModuleConfig
 
     public function setCondition(Request $request): array
     {
-        $links = CategoriesUsers::where('categories_id', $request->category_id)
+        $links = Categories::find($request->category_id)
+            ->users()
             ->get()
-            ->keyBy('users_id')
+            ->keyBy('id')
             ->toArray();
 
         return ['id' => array_keys($links)];
