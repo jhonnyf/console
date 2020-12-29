@@ -12,4 +12,9 @@ class Contents extends Model
     {
         return $this->belongsToMany(Files::class, 'files_contents')->withTimestamps()->with('fileGallery');
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Categories::class)->withTimestamps();
+    }
 }

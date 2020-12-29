@@ -2,7 +2,7 @@
 
 namespace App\Services\ModuleConfig\Module;
 
-use App\Models\CategoriesContents;
+use App\Models\Categories;
 use App\Services\ModuleConfig\AbstractModuleConfig;
 use Illuminate\Http\Request;
 
@@ -19,9 +19,10 @@ class ContentsModuleConfig extends AbstractModuleConfig
 
     public function setCondition(Request $request): array
     {
-        $links = CategoriesContents::where('category_id', $request->category_id)
+        $links = Categories::find($request->category_id)
+            ->contentsCategory()
             ->get()
-            ->keyBy('content_id')
+            ->keyby('id')
             ->toArray();
 
         return ['id' => array_keys($links)];
@@ -31,7 +32,7 @@ class ContentsModuleConfig extends AbstractModuleConfig
     {
         $response[] = [
             'name'  => 'Principal',
-            'route' => route('contents.form', ['id' => $id, 'category_id' => $request->category_id] ),
+            'route' => route('contents.form', ['id' => $id, 'category_id' => $request->category_id]),
         ];
 
         if (is_null($id) === false) {

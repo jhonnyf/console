@@ -6,32 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCategoriesContents extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('categories_contents', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('content_id');
+            $table->unsignedBigInteger('categories_id');
+            $table->unsignedBigInteger('contents_id');
             $table->timestamps();
 
-            $table->primary(['category_id', 'content_id']);
+            $table->primary(['categories_id', 'contents_id']);
 
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('content_id')->references('id')->on('contents');
+            $table->foreign('categories_id')->references('id')->on('categories');
+            $table->foreign('contents_id')->references('id')->on('contents');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('categories_contents');

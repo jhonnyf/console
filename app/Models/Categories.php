@@ -24,6 +24,11 @@ class Categories extends Model
         return $this->belongsToMany(Files::class)->withTimestamps()->with('fileGallery');
     }
 
+    public function contentsCategory()
+    {
+        return $this->belongsToMany(Contents::class)->withTimestamps();
+    }
+
     public function categoryPrimary()
     {
         return $this->belongsToMany(Categories::class, 'categories_categories', 'secondary_id', 'primary_id')->withTimestamps()->where('active', '<>', 2);

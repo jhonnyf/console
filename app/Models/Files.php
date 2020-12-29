@@ -21,7 +21,7 @@ class Files extends Model
 
     public function contentsFile()
     {
-        return $this->belongsToMany(Contents::class)->withTimestamps();
+        return $this->belongsToMany(Contents::class, 'files_contents')->withTimestamps();
     }
 
     public function fileGallery()

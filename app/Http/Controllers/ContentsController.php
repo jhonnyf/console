@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CategoriesContents;
 use App\Models\Contents as Model;
 use App\Models\Languages;
 use Illuminate\Http\Request;
@@ -25,13 +24,17 @@ class ContentsController extends Controller
 
         $language_id = isset($request->language_id) ? $request->language_id : $languageDefault->id;
 
-        $Content = Model::where(function ($q) use ($id) {
-            $q->where('id', $id)->orWhere('reference_id', $id);
-        })
-            ->where('language_id', $language_id)
-            ->first();
+        if (is_null($id) === false) {
+            $Content = Model::where(function ($q) use ($id) {
+                $q->where('id', $id)->orWhere('reference_id', $id);
+            })
+                ->where('language_id', $language_id)
+                ->first();
 
-        return parent::form($Content->id, $request);
+            $id = $Content->id;
+        }
+
+        return parent::form($id, $request);
     }
 
     public function store(Request $request)
@@ -46,16 +49,12 @@ class ContentsController extends Controller
             ->where('default', true)
             ->first();
 
-        $Content              = Model::find($response->id);
+        $Content = Model::find($response->id);
+
         $Content->language_id = $languageDefault->id;
         $Content->save();
 
-        if (isset($create['category_id'])) {
-            $link = ['category_id' => $create['category_id'], 'content_id' => $response->id];
-            if (CategoriesContents::where($link)->exists() === false) {
-                CategoriesContents::create($link);
-            }
-        }
+        $Content->categories()->attach($create['category_id']);
 
         $languages = Languages::where('active', '<>', 2)
             ->where('default', false);

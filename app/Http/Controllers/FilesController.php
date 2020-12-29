@@ -68,7 +68,6 @@ class FilesController
 
     public function submitFiles(string $module, int $link_id, int $file_gallery_id, FileUpload $request)
     {
-
         if ($request->hasFile('file') === false) {
             return response()->isInvalid();
         }
