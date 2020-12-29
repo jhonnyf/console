@@ -1,23 +1,21 @@
 <?php
 
+use App\Models\Users;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UsersSeeder extends Seeder
 {
     public function run()
     {
-        DB::table('users')->insert([
+        $response = Users::create([
             'first_name' => 'Root',
             'last_name'  => 'Seventh',
             'email'      => 'root@seven.com',
             'password'   => Hash::make('123123'),
             'document'   => '',
-            'phone'      => '',
-            'cellphone'  => '',
-            'created_at' => date('Y-m-d H:i:s'),
-            'updated_at' => date('Y-m-d H:i:s'),
         ]);
+
+        Users::find($response->id)->categories()->attach(4);
     }
 }

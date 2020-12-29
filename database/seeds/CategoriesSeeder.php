@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Categories;
-use App\Models\CategoriesCategories;
 use App\Models\ContentsCategories;
 use App\Models\Languages;
 use Illuminate\Database\Seeder;
@@ -13,25 +12,35 @@ class CategoriesSeeder extends Seeder
     {
         $this->create('Root'); // 1
 
-        $this->create('Usuários'); // 2
-        CategoriesCategories::create(['primary_id' => 1, 'secondary_id' => 2]);
-        $this->create('Páginas'); // 3
-        CategoriesCategories::create(['primary_id' => 1, 'secondary_id' => 3]);
+        /**
+         * Nivel 0
+         */
 
-        $this->create('Root'); // 4
-        CategoriesCategories::create(['primary_id' => 2, 'secondary_id' => 4]);
-        $this->create('Administrador'); // 5
-        CategoriesCategories::create(['primary_id' => 2, 'secondary_id' => 5]);
-        $this->create('Cliente'); // 6
-        CategoriesCategories::create(['primary_id' => 2, 'secondary_id' => 6]);
+        $response = $this->create('Usuários'); // 2
+        Categories::find($response)->categoryPrimary()->attach(1);
 
-        $this->create('Home'); // 7
-        CategoriesCategories::create(['primary_id' => 3, 'secondary_id' => 7]);
+        $response = $this->create('Páginas'); // 3
+        Categories::find($response)->categoryPrimary()->attach(1);
+
+        /**
+         * Nivel 1
+         */
+
+        $response = $this->create('Root');
+        Categories::find($response)->categoryPrimary()->attach(2);
+
+        $response = $this->create('Administrador');
+        Categories::find($response)->categoryPrimary()->attach(2);
+
+        $response = $this->create('Cliente');
+        Categories::find($response)->categoryPrimary()->attach(2);
+
+        $response = $this->create('Home');
+        Categories::find($response)->categoryPrimary()->attach(3);
     }
 
-    private function create(string $name): void
+    private function create(string $name): int
     {
-
         $response = Categories::create(['default' => true]);
 
         $languages = Languages::where('active', '<>', 2)->orderBy('default', 'desc');
@@ -49,9 +58,9 @@ class CategoriesSeeder extends Seeder
                 if (is_null($reference_id)) {
                     $reference_id = $responseContentsCategories->id;
                 }
-
             }
         }
 
+        return $response->id;
     }
 }

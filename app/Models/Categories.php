@@ -20,11 +20,11 @@ class Categories extends Model
 
     public function categoryPrimary()
     {
-        return $this->belongsToMany(Categories::class, 'categories_categories', 'secondary_id', 'primary_id')->where('active', '<>', 2);
+        return $this->belongsToMany(Categories::class, 'categories_categories', 'secondary_id', 'primary_id')->withTimestamps()->where('active', '<>', 2);
     }
 
     public function categorySecondary()
     {
-        return $this->belongsToMany(Categories::class, 'categories_categories', 'primary_id', 'secondary_id')->where('active', '<>', 2);
+        return $this->belongsToMany(Categories::class, 'categories_categories', 'primary_id', 'secondary_id')->withTimestamps()->where('active', '<>', 2);
     }
 }

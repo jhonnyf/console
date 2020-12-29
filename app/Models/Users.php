@@ -10,9 +10,9 @@ class Users extends Authenticatable
     protected $fillable = ['first_name', 'last_name', 'email', 'password', 'document', 'phone', 'cellphone'];
     protected $hidden   = ['password'];
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsToMany(Categories::class);
+        return $this->belongsToMany(Categories::class)->withTimestamps();
     }
 
     public function files()
