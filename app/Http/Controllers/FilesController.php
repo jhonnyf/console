@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FileUpload;
+use App\Models\Categories;
 use App\Models\Contents;
 use App\Models\Files;
 use App\Models\FilesContents;
@@ -39,6 +40,10 @@ class FilesController
                 ->where('active', '<>', 2);
         } elseif ($module == 'contents') {
             $data['entity'] = Contents::find($link_id)
+                ->files()
+                ->where('active', '<>', 2);
+        }elseif ($module == 'categories') {
+            $data['entity'] = Categories::find($link_id)
                 ->files()
                 ->where('active', '<>', 2);
         }
@@ -91,6 +96,8 @@ class FilesController
             FilesUsers::create(['files_id' => $response->id, 'users_id' => $link_id]);
         } elseif ($module === 'contents') {
             FilesContents::create(['files_id' => $response->id, 'contents_id' => $link_id]);
+        }elseif ($module == 'categories') {
+            Files::find($response->id)->categoriesFiles()->attach($link_id);
         }
 
         return response()->json($response);
