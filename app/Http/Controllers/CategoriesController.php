@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoriesStore;
 use App\Http\Requests\CategoriesUpdate;
+use App\Models\Categories;
 use App\Models\Categories as Model;
-use App\Models\CategoriesCategories;
 use App\Models\Languages;
 use App\Services\FormElement\FormElement;
 use Illuminate\Http\Request;
@@ -62,32 +62,50 @@ class CategoriesController extends Controller
         $create = $request->all();
 
         $response = Model::create($create);
-        if (isset($create['category_id'])) {
-            $this->saveLink($create['category_id'], $response->id);
+        $this->saveLink($response->id, $create['category_id']);
+
+        $languages = Languages::where('active', '<>', 2)->orderBy('default', 'desc');
+        if ($languages->exists()) {
+            $reference_id = null;
+            foreach ($languages->get() as $language) {
+                $responseContent = Categories::find($response->id)->contents()->create();
+
+                $content = Categories::find($response->id)
+                    ->contents()
+                    ->where('id', $responseContent->id)
+                    ->first();
+
+                $content->language_id = $language->id;
+                if (is_null($reference_id) === false) {
+                    $content->reference_id = $reference_id;
+                }
+
+                $content->save();
+
+                $reference_id = $content->id;
+            }
         }
 
-        return redirect()->route("{$this->Route}.form", ['id' => $response->id]);
+        return redirect()->route("{$this->Route}.form", ['id' => $response->id, 'category_id' => $create['category_id']]);
     }
 
     public function update(int $id, CategoriesUpdate $request)
     {
-        Model::find($id)->fill($request->all())->save();
+        Model::find($id)
+            ->fill($request->all())
+            ->save();
 
         return redirect()->route("{$this->Route}.form", ['id' => $id]);
     }
 
-    private function saveLink(int $primary_id, int $secondary_id): bool
+    private function saveLink(int $id, int $category_id): void
     {
-        $response = false;
-        CategoriesCategories::where('secondary_id', $secondary_id)->delete();
+        $Category = Categories::find($id);
 
-        $insert = ['primary_id' => $primary_id, 'secondary_id' => $secondary_id];
-        if (CategoriesCategories::where($insert)->exists() === false) {
-            CategoriesCategories::create($insert);
-            $response = true;
-        }
+        $Category->categoryPrimary()->detach();
+        $Category->categoryPrimary()->attach($category_id);
 
-        return $response;
+        return;
     }
 
     /**
@@ -112,7 +130,7 @@ class CategoriesController extends Controller
         $data['language_id']     = $language_id;
         $data['languageDefault'] = $LanguageDefault;
 
-        $CategoryContent = Model::find($id)->content->where('language_id', $language_id)->first();
+        $CategoryContent = Model::find($id)->contents->where('language_id', $language_id)->first();
         $data['content'] = $CategoryContent;
 
         $Form = new FormElement();
@@ -146,7 +164,7 @@ class CategoriesController extends Controller
 
     public function contentUpdate(int $id, Request $request)
     {
-        $CategoryContent = Model::find($id)->content->where('language_id', $request->language_id)->first();
+        $CategoryContent = Model::find($id)->contents->where('language_id', $request->language_id)->first();
 
         $CategoryContent->fill($request->all())->save();
 

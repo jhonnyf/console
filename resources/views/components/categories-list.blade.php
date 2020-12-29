@@ -9,7 +9,7 @@
                         <div class="col">
                             <p class="mb-0">
                                 <a href="javascript:;" data-id="{{ $item->id }}" data-url="{{ route('categories.structure') }}" class="card-link d-block">
-                                    {{ $item->content->first()->title }}
+                                    {{ $item->contents->first()->title }}
                                     <i data-feather="chevron-right" class="icon-dual"></i>
                                 </a>
                             </p>

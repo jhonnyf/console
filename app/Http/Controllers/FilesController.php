@@ -92,11 +92,11 @@ class FilesController
 
         $File = Files::find($response->id);
         if ($module === 'users') {
-            $File->userFiles()->attach($link_id);
+            $File->usersFile()->attach($link_id);
         } elseif ($module === 'contents') {
-            $File->contentFiles()->attach($link_id);
+            $File->contentsFile()->attach($link_id);
         } elseif ($module == 'categories') {
-            $File->categoryFiles()->attach($link_id);
+            $File->categoriesFile()->attach($link_id);
         }
 
         return response()->json($response);
@@ -110,10 +110,10 @@ class FilesController
         if ($responseLanguages->exists()) {
             $reference_id = null;
             foreach ($responseLanguages->get() as $language) {
-                $responseContentFile = Files::find($id)->contentFile()->create();
+                $responseContentFile = Files::find($id)->contents()->create();
 
                 $ContentFile = Files::find($id)
-                    ->contentFile()
+                    ->contents()
                     ->where('id', $responseContentFile->id)
                     ->first();
 

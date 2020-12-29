@@ -15,7 +15,7 @@ class CategoriesStore extends FormRequest
     public function rules()
     {
         return [
-            'category' => 'required|string|min:3',
+            'category_id' => 'required|integer|exists:categories,id',
         ];
     }
 }
