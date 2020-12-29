@@ -132,20 +132,22 @@ class FilesController
     public function form(int $id, Request $request)
     {
         $data = [
-            'id'        => $id,
-            'route'     => 'files',
-            'btn_back'  => false,
-            'languages' => Languages::where('active', '<>', 2)->orderBy('default', 'desc'),
+            'id'                     => $id,
+            'route'                  => 'files',
+            'btn_back'               => false,
+            'languages'              => Languages::where('active', '<>', 2)->orderBy('default', 'desc'),
+            'navLanguageRoute'       => 'files.form',
+            'navLanguageRouteParams' => ['id' => $id],
+            'classItem'              => ['edit-form', 'ajax-item'],
         ];
 
         $LanguageDefault = Languages::where('default', true)->first();
-        if (isset($request->language_id)) {
-            $LanguageDefault = Languages::find($request->language_id);
-        }
 
-        $data['LanguageDefault'] = $LanguageDefault;
+        $language_id             = isset($request->language_id) ? $request->language_id : $LanguageDefault->id;
+        $data['language_id']     = $language_id;
+        $data['languageDefault'] = $LanguageDefault;
 
-        $file = Files::find($id)->contentFile->where('language_id', $LanguageDefault->id)->first();
+        $file = Files::find($id)->contents->where('language_id', $language_id)->first();
 
         $form = new FormElement;
 
@@ -189,7 +191,7 @@ class FilesController
 
     public function update(int $id, Request $request)
     {
-        $response = Files::find($id)->contentFile->where('id', $request->content_id)->first()->fill($request->all())->save();
+        $response = Files::find($id)->contents->where('id', $request->content_id)->first()->fill($request->all())->save();
 
         $data = [
             'class'   => $response ? 'success' : 'danger',
@@ -199,7 +201,7 @@ class FilesController
         $response = [
             'error'   => $response,
             'message' => view('system.alert', $data)->render(),
-            'result'  => Files::with('contentFile')->find($id),
+            'result'  => Files::with('contents')->find($id),
         ];
 
         return response()->json($response);

@@ -27,9 +27,13 @@ const openUpload = function () {
 
 const editForm = function () {
 
-    let src = $(this).data('url');
+    let src = $(this).data('url').split(window.location.origin);
+    
+    console.log(src);
 
-    axios.get(src)
+    axios.get(src[1],{
+        'baseURL': window.location.origin
+    })
         .then(function (response) {
             response = response.data;
 

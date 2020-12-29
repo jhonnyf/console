@@ -2126,8 +2126,11 @@ var openUpload = function openUpload() {
 };
 
 var editForm = function editForm() {
-  var src = $(this).data('url');
-  axios.get(src).then(function (response) {
+  var src = $(this).data('url').split(window.location.origin);
+  console.log(src);
+  axios.get(src[1], {
+    'baseURL': window.location.origin
+  }).then(function (response) {
     response = response.data;
     $.fancybox.open({
       src: response.result,
