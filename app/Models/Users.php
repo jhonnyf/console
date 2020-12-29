@@ -17,6 +17,6 @@ class Users extends Authenticatable
 
     public function files()
     {
-        return $this->belongsToMany(Files::class)->with('fileGallery');
+        return $this->belongsToMany(Files::class)->withTimestamps()->with('fileGallery');
     }
 }

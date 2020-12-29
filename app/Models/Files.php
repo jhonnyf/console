@@ -29,7 +29,7 @@ class Files extends Model
         return $this->belongsTo(FilesGalleries::class);
     }
 
-    public function contentFile()
+    public function contents()
     {
         return $this->hasMany(ContentsFiles::class);
     }

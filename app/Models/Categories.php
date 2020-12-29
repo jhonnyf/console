@@ -8,14 +8,14 @@ class Categories extends Model
 {
     protected $fillable = ['category'];
 
-    public function content()
+    public function contents()
     {
         return $this->hasMany(ContentsCategories::class);
     }
 
     public function files()
     {
-        return $this->belongsToMany(Files::class)->with('fileGallery');
+        return $this->belongsToMany(Files::class)->withTimestamps()->with('fileGallery');
     }
 
     public function categoryPrimary()
