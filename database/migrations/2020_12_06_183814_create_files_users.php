@@ -9,7 +9,7 @@ class CreateFilesUsers extends Migration
 
     public function up()
     {
-        Schema::create('files_users', function (Blueprint $table) {
+        Schema::create('links_files_users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->unsignedBigInteger('files_id');
@@ -25,6 +25,6 @@ class CreateFilesUsers extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('files_users');
+        Schema::dropIfExists('links_files_users');
     }
 }

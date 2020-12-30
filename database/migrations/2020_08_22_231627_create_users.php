@@ -6,18 +6,14 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateUsers extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->id();
-            $table->integer('active')->default(1);            
+            $table->integer('active')->default(1);
             $table->string('first_name');
             $table->string('last_name')->nullable();
             $table->string('email')->unique();
@@ -29,11 +25,6 @@ class CreateUsers extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('users');

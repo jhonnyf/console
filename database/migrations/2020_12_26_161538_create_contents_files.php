@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateContentsFiles extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('contents_files', function (Blueprint $table) {
@@ -31,11 +27,6 @@ class CreateContentsFiles extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('contents_files');

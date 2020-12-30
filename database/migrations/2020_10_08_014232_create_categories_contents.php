@@ -9,7 +9,7 @@ class CreateCategoriesContents extends Migration
 
     public function up()
     {
-        Schema::create('categories_contents', function (Blueprint $table) {
+        Schema::create('links_categories_contents', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->unsignedBigInteger('categories_id');
@@ -25,6 +25,6 @@ class CreateCategoriesContents extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('categories_contents');
+        Schema::dropIfExists('links_categories_contents');
     }
 }

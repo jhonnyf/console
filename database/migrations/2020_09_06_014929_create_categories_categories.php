@@ -6,14 +6,10 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCategoriesCategories extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
-        Schema::create('categories_categories', function (Blueprint $table) {
+        Schema::create('links_categories_categories', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->unsignedBigInteger('primary_id');
@@ -27,13 +23,8 @@ class CreateCategoriesCategories extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('categories_categories');
+        Schema::dropIfExists('links_categories_categories');
     }
 }

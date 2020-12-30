@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateFiles extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('files', function (Blueprint $table) {
@@ -22,7 +18,7 @@ class CreateFiles extends Migration
             $table->string('file_path', 256);
             $table->string('original_name', 256);
             $table->string('extension', 100);
-            $table->decimal('size', 10, 4);            
+            $table->decimal('size', 10, 4);
             $table->string('mime_type', 100);
             $table->timestamps();
 
@@ -30,11 +26,6 @@ class CreateFiles extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('files');

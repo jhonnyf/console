@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateContentsCategories extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('contents_categories', function (Blueprint $table) {
@@ -31,11 +27,6 @@ class CreateContentsCategories extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('contents_categories');

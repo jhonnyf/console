@@ -6,11 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateFilesGalleries extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
         Schema::create('files_galleries', function (Blueprint $table) {
@@ -24,11 +20,6 @@ class CreateFilesGalleries extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('files_galleries');

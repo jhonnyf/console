@@ -6,14 +6,10 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateCategoriesFiles extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
+
     public function up()
     {
-        Schema::create('categories_files', function (Blueprint $table) {
+        Schema::create('links_categories_files', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
             $table->unsignedBigInteger('files_id');
@@ -27,13 +23,8 @@ class CreateCategoriesFiles extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('categories_files');
+        Schema::dropIfExists('links_categories_files');
     }
 }

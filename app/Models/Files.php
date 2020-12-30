@@ -11,17 +11,17 @@ class Files extends Model
 
     public function categoriesFile()
     {
-        return $this->belongsToMany(Categories::class)->withTimestamps();
+        return $this->belongsToMany(Categories::class, 'links_categories_files')->withTimestamps();
     }
 
     public function usersFile()
     {
-        return $this->belongsToMany(Users::class)->withTimestamps();
+        return $this->belongsToMany(Users::class, 'links_files_users')->withTimestamps();
     }
 
     public function contentsFile()
     {
-        return $this->belongsToMany(Contents::class, 'files_contents')->withTimestamps();
+        return $this->belongsToMany(Contents::class, 'links_files_contents')->withTimestamps();
     }
 
     public function fileGallery()

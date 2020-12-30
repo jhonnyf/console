@@ -12,11 +12,11 @@ class Users extends Authenticatable
 
     public function categories()
     {
-        return $this->belongsToMany(Categories::class)->withTimestamps();
+        return $this->belongsToMany(Categories::class, 'links_categories_users')->withTimestamps();
     }
 
     public function files()
     {
-        return $this->belongsToMany(Files::class)->withTimestamps()->with('fileGallery');
+        return $this->belongsToMany(Files::class, 'links_files_users')->withTimestamps()->with('fileGallery');
     }
 }
