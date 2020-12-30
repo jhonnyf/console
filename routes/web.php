@@ -99,4 +99,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('active/{id}', 'LanguagesController@active')->name('languages.active');
         Route::get('destroy/{id}', 'LanguagesController@destroy')->name('languages.destroy');
     });
+
+    Route::group(['prefix' => 'coin'], function () {
+        Route::get('', 'CoinsController@index')->name('coins.index');
+        Route::get('form/{id?}', 'CoinsController@form')->name('coins.form');
+        Route::post('form', 'CoinsController@store')->name('coins.store');
+        Route::put('form/{id}', 'CoinsController@update')->name('coins.update');
+        Route::get('active/{id}', 'CoinsController@active')->name('coins.active');
+        Route::get('destroy/{id}', 'CoinsController@destroy')->name('coins.destroy');
+    });
 });

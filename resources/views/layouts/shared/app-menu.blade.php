@@ -63,4 +63,10 @@
             <span>Tipo de galeria</span>            
         </a>        
     </li>
+    <li>
+        <a href="{{ route('coins.index') }}">
+            <i data-feather="file-plus"></i>
+            <span>Moeda</span>            
+        </a>        
+    </li>
 </ul>

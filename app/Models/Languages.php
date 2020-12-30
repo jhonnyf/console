@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Languages extends Model
 {
-    protected $fillable = ['language'];
+    protected $fillable = ['language', 'code', 'defaultw'];
 }

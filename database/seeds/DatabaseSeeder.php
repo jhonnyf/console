@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
             CategoriesSeeder::class,
             UsersSeeder::class,
             FilesGalleriesSeeder::class,
+            CoinsSeeder::class
         ]);
     }
 }
