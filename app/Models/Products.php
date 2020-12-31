@@ -17,4 +17,9 @@ class Products extends Model
         'release_date',
         'expiration_date',
     ];
+
+    public function contents()
+    {
+        return $this->hasMany(ContentsProducts::class);
+    }
 }

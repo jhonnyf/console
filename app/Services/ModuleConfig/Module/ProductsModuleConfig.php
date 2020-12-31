@@ -18,6 +18,20 @@ class ProductsModuleConfig extends AbstractModuleConfig
             'route' => route("{$this->Route}.form", ['id' => $id]),
         ];
 
+        if (is_null($id) === false) {
+
+            $response[] = [
+                'name'  => 'Conteúdo',
+                'route' => route("{$this->Route}.content", ['id' => $id]),
+            ];
+
+            $response[] = [
+                'name'  => 'Arquivos',
+                'route' => route('files.listGalleries', ['module' => 'products', 'link_id' => $id]),
+            ];
+
+        }
+
         return $response;
     }
 }
