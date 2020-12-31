@@ -22,4 +22,9 @@ class Products extends Model
     {
         return $this->hasMany(ContentsProducts::class);
     }
+
+    public function files()
+    {
+        return $this->belongsToMany(Files::class, 'links_products_files')->withTimestamps()->with('fileGallery');
+    }
 }

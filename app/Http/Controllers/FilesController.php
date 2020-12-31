@@ -8,6 +8,7 @@ use App\Models\Contents;
 use App\Models\Files;
 use App\Models\FilesGalleries;
 use App\Models\Languages;
+use App\Models\Products;
 use App\Models\Users;
 use App\Services\FormElement\FormElement;
 use Illuminate\Http\Request;
@@ -42,6 +43,10 @@ class FilesController
                 ->where('active', '<>', 2);
         } elseif ($module == 'categories') {
             $data['entity'] = Categories::find($link_id)
+                ->files()
+                ->where('active', '<>', 2);
+        } elseif ($module == 'products') {
+            $data['entity'] = Products::find($link_id)
                 ->files()
                 ->where('active', '<>', 2);
         }
@@ -96,6 +101,8 @@ class FilesController
             $File->contentsFile()->attach($link_id);
         } elseif ($module == 'categories') {
             $File->categoriesFile()->attach($link_id);
+        }elseif ($module == 'products') {
+            $File->productsFile()->attach($link_id);
         }
 
         return response()->json($response);

@@ -64,9 +64,8 @@ class ProductsController extends Controller
             'route'                  => $this->Route,
             'name'                   => $this->Name,
             'nav'                    => $this->setNav($request, $id),
-            'category_id'            => $request->category_id,
             'navLanguageRoute'       => "{$this->Route}.content",
-            'navLanguageRouteParams' => ['id' => $id, 'category_id' => $request->category_id],
+            'navLanguageRouteParams' => ['id' => $id],
         ];
 
         $LanguageDefault = Languages::where('default', true)->first();
@@ -75,8 +74,8 @@ class ProductsController extends Controller
         $data['language_id']     = $language_id;
         $data['languageDefault'] = $LanguageDefault;
 
-        $CategoryContent = Model::find($id)->contents->where('language_id', $language_id)->first();
-        $data['content'] = $CategoryContent;
+        $Content = Model::find($id)->contents->where('language_id', $language_id)->first();
+        $data['content'] = $Content;
 
         $Form = new FormElement;
         $Form->setAutocomplete(false);
@@ -86,19 +85,19 @@ class ProductsController extends Controller
         $language_id = $Form->newElement('input');
         $language_id->setName('language_id');
         $language_id->setType('hidden');
-        $language_id->setValue($CategoryContent->language_id);
+        $language_id->setValue($Content->language_id);
 
         $Form->addElement($language_id);
 
         $title = $Form->newElement('input');
         $title->setName('title');
-        $title->setValue($CategoryContent->title);
+        $title->setValue($Content->title);
 
         $Form->addElement($title);
 
         $content = $Form->newElement('textarea');
         $content->setName('content');
-        $content->setValue($CategoryContent->content);
+        $content->setValue($Content->content);
 
         $Form->addElement($content);
 

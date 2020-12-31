@@ -9,6 +9,11 @@ class Files extends Model
 
     protected $fillable = ['file_gallery_id', 'file_path', 'original_name', 'extension', 'size', 'mime_type'];
 
+    public function productsFile()
+    {
+        return $this->belongsToMany(Products::class, 'links_products_files')->withTimestamps();
+    }
+    
     public function categoriesFile()
     {
         return $this->belongsToMany(Categories::class, 'links_categories_files')->withTimestamps();
