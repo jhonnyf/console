@@ -55,11 +55,15 @@ class Metadata
         $fields = [];
 
         $text   = ['varchar', 'char'];
-        $number = ['bigint', 'tinyint'];
+        $number = ['bigint', 'tinyint', 'int', 'decimal'];
 
         foreach ($columns as $column) {
 
-            $value   = isset($formValues[$column['name']]) ? $formValues[$column['name']] : '';
+            $value = isset($formValues[$column['name']]) ? $formValues[$column['name']] : '';
+            if (strlen($column['default']) > 0 && empty($value)) {
+                $value = $column['default'];
+            }
+
             $element = 'input';
 
             if ($column['key'] === 'pri') {
@@ -70,13 +74,16 @@ class Metadata
                 $type = 'number';
             } elseif ($column['type'] === 'date') {
                 $type = 'date';
+            } elseif ($column['type'] === 'datetime') {
+                $type  = 'datetime-local';
+                $value = str_replace(" ", "T", $value);
             } else {
                 exit("Tipo não definido - {$column['type']}");
             }
 
             $fields[$column['name']] = [
                 'element'    => $element,
-                'name'       => $column['name'],                
+                'name'       => $column['name'],
                 'type'       => $type,
                 'max_length' => $column['max_length'],
                 'value'      => $value,
@@ -114,6 +121,7 @@ class Metadata
             $metadata[$field->Field]['type']       = $position_int === false ? $field->Type : substr($field->Type, 0, $position_int);
             $metadata[$field->Field]['max_length'] = trim($max_length);
             $metadata[$field->Field]['key']        = strtolower($field->Key);
+            $metadata[$field->Field]['default']    = $field->Default;
         }
 
         return $metadata;

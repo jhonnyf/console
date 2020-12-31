@@ -108,4 +108,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('active/{id}', 'CoinsController@active')->name('coins.active');
         Route::get('destroy/{id}', 'CoinsController@destroy')->name('coins.destroy');
     });
+
+    Route::group(['prefix' => 'product'], function () {
+        Route::get('', 'ProductsController@index')->name('products.index');
+        Route::get('form/{id?}', 'ProductsController@form')->name('products.form');
+        Route::post('form', 'ProductsController@store')->name('products.store');
+        Route::put('form/{id}', 'ProductsController@update')->name('products.update');
+        Route::get('active/{id}', 'ProductsController@active')->name('products.active');
+        Route::get('destroy/{id}', 'ProductsController@destroy')->name('products.destroy');
+    });
 });

@@ -53,15 +53,15 @@
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label" for="{{$item['name']}}">{{$item['name']}}{{ isset($item['required']) ? '*' : '' }}</label>
                             <div class="col-lg-10">
-                                <input type="number" class="form-control" name="{{$item['name']}}" id="{{$item['name']}}" value="{{ old($item['name']) ? old($item['name']) :  $item['value'] }}" maxlength="{{ $item['max_length'] }}">
+                                <input type="number" class="form-control" name="{{$item['name']}}" id="{{$item['name']}}" value="{{ old($item['name']) ? old($item['name']) :  $item['value'] }}" {{ isset($item['readonly']) ? 'readonly' : '' }} maxlength="{{ $item['max_length'] }}">
                             </div>
                         </div>
                         @break
-                    @case('date')
+                    @case('date') @case('datetime-local')
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label" for="{{$item['name']}}">{{$item['name']}}{{ isset($item['required']) ? '*' : '' }}</label>
                             <div class="col-lg-10">
-                                <input type="date" class="form-control" name="{{$item['name']}}" id="{{$item['name']}}" value="{{ old($item['name']) ? old($item['name']) :  $item['value'] }}" maxlength="{{ $item['max_length'] }}">
+                                <input type="{{ $item['type'] }}" class="form-control" name="{{$item['name']}}" id="{{$item['name']}}" value="{{ old($item['name']) ? old($item['name']) :  $item['value'] }}" maxlength="{{ $item['max_length'] }}">
                             </div>
                         </div>
                         @break

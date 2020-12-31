@@ -14,7 +14,7 @@ class CreateProducts extends Migration
 
             $table->id();
             $table->integer('active')->default(1);
-            $table->integer('sku');
+            $table->integer('sku')->unique();
             $table->decimal('weight')->default(0);
             $table->decimal('width')->default(0);
             $table->decimal('height')->default(0);

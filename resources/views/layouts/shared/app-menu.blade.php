@@ -50,6 +50,12 @@
             @endif
         </ul>
     </li>
+    <li>
+        <a href="{{ route('products.index') }}">
+            <i data-feather="package"></i>
+            <span>Produto</span>            
+        </a>        
+    </li>
     <li class="menu-title">Configurações</li>
     <li>
         <a href="{{ route('languages.index') }}">
@@ -65,7 +71,7 @@
     </li>
     <li>
         <a href="{{ route('coins.index') }}">
-            <i data-feather="file-plus"></i>
+            <i data-feather="dollar-sign"></i>
             <span>Moeda</span>            
         </a>        
     </li>
