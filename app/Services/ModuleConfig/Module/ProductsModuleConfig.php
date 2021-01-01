@@ -26,6 +26,11 @@ class ProductsModuleConfig extends AbstractModuleConfig
             ];
 
             $response[] = [
+                'name'  => 'Grupo de produtos',
+                'route' => route("{$this->Route}.combo-code", ['id' => $id]),
+            ];
+
+            $response[] = [
                 'name'  => 'Preço',
                 'route' => route("{$this->Route}.price", ['id' => $id]),
             ];

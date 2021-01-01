@@ -9,6 +9,7 @@ use App\Models\Languages;
 use App\Models\Products as Model;
 use App\Services\FormElement\FormElement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ProductsController extends Controller
 {
@@ -139,10 +140,10 @@ class ProductsController extends Controller
     public function price(int $id, Request $request)
     {
         $data = [
-            'id'                  => $id,
-            'route'               => $this->Route,
-            'name'                => $this->Name,
-            'nav'                 => $this->setNav($request, $id),
+            'id'                 => $id,
+            'route'              => $this->Route,
+            'name'               => $this->Name,
+            'nav'                => $this->setNav($request, $id),
             'navCoinRoute'       => "{$this->Route}.price",
             'navCoinRouteParams' => ['id' => $id],
         ];
@@ -150,7 +151,7 @@ class ProductsController extends Controller
         $CoinDefault = Coins::where('default', true)->first();
 
         $coin_id             = isset($request->coin_id) ? $request->coin_id : $CoinDefault->id;
-        $data['coin_id']    = $coin_id;
+        $data['coin_id']     = $coin_id;
         $data['coinDefault'] = $CoinDefault;
 
         $Price = Model::find($id)->prices->where('coin_id', $coin_id)->first();
@@ -182,7 +183,7 @@ class ProductsController extends Controller
 
         $final_price = $Form->newElement('input');
         $final_price->setLabel('Final Price');
-        $final_price->setType('number');    
+        $final_price->setType('number');
         $final_price->setReadOnly(true);
         $final_price->setValue($Price->final_price);
 
@@ -206,4 +207,51 @@ class ProductsController extends Controller
         return redirect()->route("{$this->Route}.price", ['id' => $id, 'coin_id' => $request->coin_id]);
     }
 
+    /**
+     * COMBO CODE
+     */
+
+    public function comboCode(int $id, Request $request)
+    {
+        $data = [
+            'id'    => $id,
+            'route' => $this->Route,
+            'name'  => $this->Name,
+            'nav'   => $this->setNav($request, $id),
+        ];
+
+        $Product = Model::find($id);
+
+        $data['Product'] = $Product;
+
+        $code = empty($Product->combo_code) ? Str::random(8) : $Product->combo_code;
+
+        $Form = new FormElement;
+        $Form->setAutocomplete(false);
+        $Form->setMethod('post');
+        $Form->setAction(route("{$this->Route}.combo-code-save", ['id' => $id]));
+
+        $combo_code = $Form->newElement('input');
+        $combo_code->setType('text');
+        $combo_code->setName('combo_code');
+        $combo_code->setLabel('Código');
+        $combo_code->setValue($code);
+
+        $Form->addElement($combo_code);
+
+        $data['form'] = $Form->render($data);
+
+        return view('products.combo-code', $data);
+    }
+
+    public function comboCodeSave(int $id, Request $request)
+    {
+        $Produto = Model::find($id);
+
+        $Produto->combo_code = $request->combo_code;
+
+        $Produto->save();
+
+        return redirect()->route("{$this->Route}.combo-code", ['id' => $id]);
+    }
 }

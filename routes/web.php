@@ -122,6 +122,11 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('{id}', 'ProductsController@priceUpdate')->name('products.price-update');
         });
 
+        Route::group(['prefix' => 'combo-code'], function(){
+            Route::get('{id}', 'ProductsController@comboCode')->name('products.combo-code');
+            Route::post('{id}', 'ProductsController@comboCodeSave')->name('products.combo-code-save');
+        });
+        
         Route::group(['prefix' => 'content'], function(){
             Route::get('{id}', 'ProductsController@content')->name('products.content');
             Route::post('{id}', 'ProductsController@contentUpdate')->name('products.content-update');
