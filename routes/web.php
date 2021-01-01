@@ -117,6 +117,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('active/{id}', 'ProductsController@active')->name('products.active');
         Route::get('destroy/{id}', 'ProductsController@destroy')->name('products.destroy');
 
+        Route::group(['prefix' => 'price'], function(){
+            Route::get('{id}', 'ProductsController@price')->name('products.price');
+            Route::post('{id}', 'ProductsController@priceUpdate')->name('products.price-update');
+        });
+
         Route::group(['prefix' => 'content'], function(){
             Route::get('{id}', 'ProductsController@content')->name('products.content');
             Route::post('{id}', 'ProductsController@contentUpdate')->name('products.content-update');

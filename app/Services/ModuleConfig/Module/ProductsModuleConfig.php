@@ -26,6 +26,11 @@ class ProductsModuleConfig extends AbstractModuleConfig
             ];
 
             $response[] = [
+                'name'  => 'Preço',
+                'route' => route("{$this->Route}.price", ['id' => $id]),
+            ];
+
+            $response[] = [
                 'name'  => 'Arquivos',
                 'route' => route('files.listGalleries', ['module' => 'products', 'link_id' => $id]),
             ];

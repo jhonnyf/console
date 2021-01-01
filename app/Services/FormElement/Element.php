@@ -11,7 +11,8 @@ class Element
     private $max_length;
     private $value;
     private $label;
-    private $options = [];
+    private $options  = [];
+    private $readOnly = false;
 
     public function __construct(string $element)
     {
@@ -52,6 +53,11 @@ class Element
         $this->options = $options;
     }
 
+    public function setReadOnly(bool $readOnly): void
+    {
+        $this->readOnly = $readOnly;
+    }
+
     /**
      * METHODS
      */
@@ -65,6 +71,7 @@ class Element
             'label'      => $this->label,
             'value'      => $this->value,
             'options'    => $this->options,
+            'readOnly'   => $this->readOnly,
         ];
 
         return view("system.form-element.elements.{$this->element}", $data)->render();

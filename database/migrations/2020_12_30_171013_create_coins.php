@@ -16,6 +16,7 @@ class CreateCoins extends Migration
             $table->integer('active')->default(1);            
             $table->string('coin', 50);
             $table->string('symbol', 50);
+            $table->boolean('default')->default(0);
             $table->timestamps();
         });
     }

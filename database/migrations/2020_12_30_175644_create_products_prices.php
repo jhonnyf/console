@@ -14,14 +14,14 @@ class CreateProductsPrices extends Migration
 
             $table->id();
             $table->integer('active')->default(1);
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('coin_id');
-            $table->decimal('price')->default(0);
+            $table->unsignedBigInteger('products_id');
+            $table->unsignedBigInteger('coin_id')->nullable();
             $table->decimal('cost_price')->default(0);
+            $table->decimal('price')->default(0);
             $table->decimal('final_price')->default(0);
             $table->timestamps();
 
-            $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();
+            $table->foreign('products_id')->references('id')->on('products')->cascadeOnDelete();
             $table->foreign('coin_id')->references('id')->on('coins')->cascadeOnDelete();
         });
     }

@@ -8,6 +8,6 @@ class CoinsSeeder extends Seeder
    
     public function run()
     {
-        Coins::create(['coin' => 'Real', 'symbol' => 'R$']);
+        Coins::create(['coin' => 'Real', 'symbol' => 'R$', 'default' => true]);
     }
 }
