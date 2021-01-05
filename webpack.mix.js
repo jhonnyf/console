@@ -119,7 +119,8 @@ var app_pages_assets = {
     js: [
         folder.src + "js/pages/dashboard.js",
         folder.src + "js/pages/category.js",
-        folder.src + "js/pages/files.js"
+        folder.src + "js/pages/files.js",
+        folder.src + "js/pages/product.js"
     ]
 };
 

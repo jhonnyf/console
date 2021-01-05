@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('', 'CategoriesController@store')->name('categories.store');
         Route::put('{id}', 'CategoriesController@update')->name('categories.update');
 
-        Route::group(['prefix' => 'content'], function(){
+        Route::group(['prefix' => 'content'], function () {
             Route::get('{id}', 'CategoriesController@content')->name('categories.content');
             Route::post('{id}', 'CategoriesController@contentUpdate')->name('categories.content-update');
         });
@@ -110,6 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'product'], function () {
+
         Route::get('', 'ProductsController@index')->name('products.index');
         Route::get('form/{id?}', 'ProductsController@form')->name('products.form');
         Route::post('form', 'ProductsController@store')->name('products.store');
@@ -117,19 +118,24 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('active/{id}', 'ProductsController@active')->name('products.active');
         Route::get('destroy/{id}', 'ProductsController@destroy')->name('products.destroy');
 
-        Route::group(['prefix' => 'price'], function(){
+        Route::group(['prefix' => 'price'], function () {
             Route::get('{id}', 'ProductsController@price')->name('products.price');
             Route::post('{id}', 'ProductsController@priceUpdate')->name('products.price-update');
         });
 
-        Route::group(['prefix' => 'combo-code'], function(){
+        Route::group(['prefix' => 'combo-code'], function () {
             Route::get('{id}', 'ProductsController@comboCode')->name('products.combo-code');
             Route::post('{id}', 'ProductsController@comboCodeSave')->name('products.combo-code-save');
         });
-        
-        Route::group(['prefix' => 'content'], function(){
+
+        Route::group(['prefix' => 'content'], function () {
             Route::get('{id}', 'ProductsController@content')->name('products.content');
             Route::post('{id}', 'ProductsController@contentUpdate')->name('products.content-update');
+        });
+
+        Route::group(['prefix' => 'search-product'], function () {
+            Route::get('', 'ProductsController@searchProduct')->name('products.search-product');
+            Route::post('', 'ProductsController@search')->name('products.search');
         });
     });
 });

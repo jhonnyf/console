@@ -254,4 +254,55 @@ class ProductsController extends Controller
 
         return redirect()->route("{$this->Route}.combo-code", ['id' => $id]);
     }
+
+    /**
+     * SEARCH PRODUCT
+     */
+
+    public function searchProduct()
+    {
+        $data = [
+            'route'    => $this->Route,
+            'btn_back' => false,
+        ];
+
+        $Form = new FormElement;
+        $Form->setAutocomplete(false);
+        $Form->setMethod('post');
+        $Form->setAction(route("{$this->Route}.search"));
+        $Form->setClass(['form-ajax']);
+
+        $search = $Form->newElement('input');
+        $search->setName('search');
+        $search->setLabel("Busca");
+        $search->setType('text');
+
+        $Form->addElement($search);
+
+        $data['form'] = $Form->render($data);
+
+        $response = [
+            'error'   => false,
+            'message' => 'sucesso',
+            'result'  => view('products.search-product', $data)->render(),
+        ];
+
+        return response()->json($response);
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+
+        $result = Model::where('sku', $search)
+            ->get();
+
+        $response = [
+            'error'   => false,
+            'message' => 'Sucesso',
+            'result'  => $result,
+        ];
+
+        return response()->json($response);
+    }
 }
