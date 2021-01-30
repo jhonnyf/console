@@ -2128,12 +2128,36 @@ var search = function search() {
   var url = element.attr('action');
   axios.post(url, data).then(function (response) {
     response = response.data;
-    console.log(response);
+    element.closest('div').find('.response-ajax').html(response.result.html);
+    feather.replace();
   });
   return false;
 };
 
+var addCombo = function addCombo() {
+  var element = $(this);
+  var comboCode = element.data('combocode');
+  var url = element.data('url');
+  axios.put(url, {
+    'combo_code': comboCode
+  }).then(function (response) {
+    response = response.data;
+    $(element).closest('.card-body').prepend(makeMessageAllert(response));
+    setTimeout(function () {
+      $('.alert').slideToggle('slow', function () {
+        $(this).remove();
+      });
+    }, 3000);
+  });
+};
+
+var makeMessageAllert = function makeMessageAllert(data) {
+  classColor = data.error ? 'alert-danger' : 'alert-success';
+  return '<div class="alert ' + classColor + '">' + data.message + '</div>';
+};
+
 $(document).on('click', '.btn-search-product', searchProduct);
+$(document).on('click', '.btn-add-combo', addCombo);
 
 /***/ }),
 

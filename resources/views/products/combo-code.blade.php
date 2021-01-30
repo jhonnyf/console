@@ -18,8 +18,8 @@
                         
                         {!!$form!!}
 
-                        <p class="text-right mt-3">
-                            <button data-url="{{ route('products.search-product') }}" class="btn btn-dark btn-search-product"><i data-feather="search"></i> adicionar produto </button>
+                        <p class="text-right mt-3">                            
+                            <button data-url="{{ route('products.search-product', ['combo_code' => $Product->combo_code]) }}" class="btn btn-dark btn-search-product"><i data-feather="search"></i> adicionar produto </button>
                         </p>
 
                         <table class="table">

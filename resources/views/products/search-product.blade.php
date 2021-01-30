@@ -7,8 +7,8 @@
         </div>
         <div class="card-body">
             <h4 class="header-title mt-0 mb-4">Buscar Produto</h4>
-
             {!! $form !!}
+            <div class="response-ajax"></div>
         </div>
     </div>
 </div>

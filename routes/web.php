@@ -136,6 +136,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'search-product'], function () {
             Route::get('', 'ProductsController@searchProduct')->name('products.search-product');
             Route::post('', 'ProductsController@search')->name('products.search');
-        });
+            Route::put('add-combo/{id}/{combo_code}', 'ProductsController@addComboSave')->name('products.add-combo-save');
+        });        
     });
 });

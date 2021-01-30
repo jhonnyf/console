@@ -259,7 +259,7 @@ class ProductsController extends Controller
      * SEARCH PRODUCT
      */
 
-    public function searchProduct()
+    public function searchProduct(Request $request)
     {
         $data = [
             'route'    => $this->Route,
@@ -271,6 +271,13 @@ class ProductsController extends Controller
         $Form->setMethod('post');
         $Form->setAction(route("{$this->Route}.search"));
         $Form->setClass(['form-ajax']);
+
+        $comboCode = $Form->newElement('input');
+        $comboCode->setType('hidden');
+        $comboCode->setName('combo_code');
+        $comboCode->setValue($request->combo_code);
+
+        $Form->addElement($comboCode);
 
         $search = $Form->newElement('input');
         $search->setName('search');
@@ -300,9 +307,23 @@ class ProductsController extends Controller
         $response = [
             'error'   => false,
             'message' => 'Sucesso',
-            'result'  => $result,
+            'result'  => [
+                'html' => view('products.ajax.search', ['products' => $result, 'combo_code' => $request->combo_code])->render(),
+            ],
         ];
 
         return response()->json($response);
+    }
+
+    public function addComboSave(int $id, string $comboCode)
+    {
+        $Product = Model::find($id);
+        if ($Product->exists()) {
+            $Product->combo_code = $comboCode;
+
+            $Product->save();
+        }
+
+        return ['error' => false, 'message' => 'Ação realizada com sucesso!', 'result' => []];
     }
 }
