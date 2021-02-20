@@ -26,9 +26,7 @@
     @else
         <body>
     @endif
-
-    @if(isset($withLoader) && $withLoader)
-        <!-- Pre-loader -->
+    @if(isset($withLoader) && $withLoader)        
         <div id="preloader">
             <div id="status">
                 <div class="spinner">
@@ -37,10 +35,8 @@
                     <div class="circle3"></div>
                 </div>
             </div>
-        </div>
-        <!-- End Preloader-->
+        </div>        
     @endif
-
     <div id="wrapper">
 
         @include('layouts.shared.header')
