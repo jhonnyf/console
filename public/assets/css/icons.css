@@ -12,7 +12,7 @@ File: Icons Css File
 @font-face {
   font-family: "unicons";
   src: url(/fonts/unicons.eot?58f07f4c1005e581094ff4b37ca920bf);
-  src: url(/fonts/unicons.eot?58f07f4c1005e581094ff4b37ca920bf) format("embedded-opentype"), url(/fonts/unicons.woff2?a4c968c87e771ce941de2a0579763da0) format("woff2"), url(/fonts/unicons.woff?95c6a8be8f684ddef06c62baf8677069) format("woff"), url(/fonts/unicons.ttf?d455f121de585d703caee24ddd73b566) format("truetype"), url(/fonts/unicons.svg?8798dfabcdd4bca8392f11e5796fc5dc) format("svg");
+  src: url(/fonts/unicons.eot?58f07f4c1005e581094ff4b37ca920bf) format("embedded-opentype"), url(/fonts/unicons.woff2?a4c968c87e771ce941de2a0579763da0) format("woff2"), url(/fonts/unicons.woff?95c6a8be8f684ddef06c62baf8677069) format("woff"), url(/fonts/unicons.ttf?d455f121de585d703caee24ddd73b566) format("truetype"), url(/fonts/unicons.svg?01cec864ea73be52c61868c5cba0084e) format("svg");
   font-weight: normal;
   font-style: normal;
 }

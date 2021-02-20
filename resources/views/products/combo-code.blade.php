@@ -18,22 +18,38 @@
                         
                         {!!$form!!}
 
-                        <p class="text-right mt-3">                            
-                            <button data-url="{{ route('products.search-product', ['combo_code' => $Product->combo_code]) }}" class="btn btn-dark btn-search-product"><i data-feather="search"></i> adicionar produto </button>
-                        </p>
+                        @if (empty($Product->combo_code) === false)                                                
+                            <p class="text-right mt-3">               
+                                <button data-url="{{ route('products.search-product', ['combo_code' => $Product->combo_code]) }}" class="btn btn-dark btn-search-product"><i data-feather="search"></i> adicionar produto </button>
+                            </p>
 
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="text-center">Nenhum registro foi localizado</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if ($productsCombo->count() > 0)
+                                        @foreach ($productsCombo as $product)
+                                            <tr>
+                                                <td class="text-center">{{ $product->id }}</td>
+                                                <td>{{ $product->contents->first()->title }}</td>
+                                                <td>
+                                                    <a href="{{ route('products.combo-code-destroy', ['id' => $product->id, 'product' => $Product->id]) }}"><i data-feather="trash-2" class="icon-sm"></i></a>
+                                                </td>
+                                            </tr>    
+                                        @endforeach    
+                                    @else
+                                        <tr>
+                                            <td class="text-center">Nenhum registro foi localizado</td>
+                                        </tr>
+                                    @endif                                    
+                                </tbody>
+                            </table>
+                        @endif
                     </div>
                 </div>
 

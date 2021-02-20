@@ -241,6 +241,10 @@ class ProductsController extends Controller
 
         $data['form'] = $Form->render($data);
 
+        if (empty($Product->combo_code) === false) {
+            $data['productsCombo'] = Model::where('combo_code', $Product->combo_code)->get();
+        }        
+
         return view('products.combo-code', $data);
     }
 
@@ -253,6 +257,16 @@ class ProductsController extends Controller
         $Produto->save();
 
         return redirect()->route("{$this->Route}.combo-code", ['id' => $id]);
+    }
+
+    public function comboCodeDestroy(int $id, Request $request)
+    {
+        $Product = Model::find($id);
+
+        $Product->combo_code = null;
+        $Product->save();
+
+        return redirect()->route("{$this->Route}.combo-code", ['id' => $request->product]);
     }
 
     /**
@@ -299,9 +313,7 @@ class ProductsController extends Controller
 
     public function search(Request $request)
     {
-        $search = $request->search;
-
-        $result = Model::where('sku', $search)
+        $result = Model::where('sku', $request->search)
             ->get();
 
         $response = [

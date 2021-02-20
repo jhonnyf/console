@@ -126,6 +126,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'combo-code'], function () {
             Route::get('{id}', 'ProductsController@comboCode')->name('products.combo-code');
             Route::post('{id}', 'ProductsController@comboCodeSave')->name('products.combo-code-save');
+            Route::get('destroy/{id}', 'ProductsController@comboCodeDestroy')->name('products.combo-code-destroy');
         });
 
         Route::group(['prefix' => 'content'], function () {
